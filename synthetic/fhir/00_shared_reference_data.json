@@ -1,0 +1,1007 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Organization/org-demo-clinic",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "org-demo-clinic",
+        "active": true,
+        "name": "Demo Cardiac Rehab Clinic (synthetic)",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/org-demo-clinic"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Practitioner/pr-cardio-1",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "pr-cardio-1",
+        "active": true,
+        "name": [
+          {
+            "family": "Rattanakul",
+            "given": [
+              "Narin"
+            ],
+            "prefix": [
+              "Dr."
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "text": "Cardiologist (synthetic)"
+            }
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/pr-cardio-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Practitioner/pr-rehab-1",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "pr-rehab-1",
+        "active": true,
+        "name": [
+          {
+            "family": "Saelim",
+            "given": [
+              "Pimchanok"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "text": "Cardiac rehabilitation physiotherapist (synthetic)"
+            }
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/pr-rehab-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Device/dev-medgemma",
+      "resource": {
+        "resourceType": "Device",
+        "id": "dev-medgemma",
+        "status": "active",
+        "deviceName": [
+          {
+            "name": "MedGemma 27B mission picker (demo config)",
+            "type": "model-name"
+          }
+        ],
+        "type": {
+          "text": "AI model"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Device/dev-medgemma"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Questionnaire/symptom-check",
+      "resource": {
+        "resourceType": "Questionnaire",
+        "id": "symptom-check",
+        "status": "active",
+        "url": "https://cvd-mission-coach.example/fhir/Questionnaire/symptom-check",
+        "version": "1.0",
+        "title": "Before/after mission symptom check",
+        "item": [
+          {
+            "linkId": "chest-pain",
+            "text": "Chest pain, pressure or tightness?",
+            "type": "boolean"
+          },
+          {
+            "linkId": "breathless",
+            "text": "Unusually short of breath?",
+            "type": "boolean"
+          },
+          {
+            "linkId": "dizzy",
+            "text": "Dizzy or faint?",
+            "type": "boolean"
+          },
+          {
+            "linkId": "palpitations",
+            "text": "Racing or irregular heartbeat?",
+            "type": "boolean"
+          },
+          {
+            "linkId": "rpe",
+            "text": "How hard was it (Borg 6-20)?",
+            "type": "integer"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Questionnaire/symptom-check"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-park-1",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-park-1",
+        "status": "active",
+        "name": "Riverside Community Park (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "park",
+                "display": "park"
+              }
+            ],
+            "text": "park"
+          }
+        ],
+        "position": {
+          "latitude": 13.731,
+          "longitude": 100.516
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "06:00:00",
+            "closingTime": "20:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": false
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-park-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-park-2",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-park-2",
+        "status": "active",
+        "name": "Northern Green Park (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "park",
+                "display": "park"
+              }
+            ],
+            "text": "park"
+          }
+        ],
+        "position": {
+          "latitude": 13.805,
+          "longitude": 100.556
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "05:00:00",
+            "closingTime": "21:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": false
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-park-2"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-temple-1",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-temple-1",
+        "status": "active",
+        "name": "Wat Demo Walking Courtyard (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "temple",
+                "display": "temple"
+              }
+            ],
+            "text": "temple"
+          }
+        ],
+        "position": {
+          "latitude": 13.754,
+          "longitude": 100.495
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "06:00:00",
+            "closingTime": "18:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": false
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-temple-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-mall-1",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-mall-1",
+        "status": "active",
+        "name": "Cool Air Mall walking loop (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "indoor-mall",
+                "display": "indoor mall"
+              }
+            ],
+            "text": "indoor mall"
+          }
+        ],
+        "position": {
+          "latitude": 13.764,
+          "longitude": 100.57
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "10:00:00",
+            "closingTime": "22:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": true
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-mall-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-mall-2",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-mall-2",
+        "status": "active",
+        "name": "Eastside Mall walking loop (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "indoor-mall",
+                "display": "indoor mall"
+              }
+            ],
+            "text": "indoor mall"
+          }
+        ],
+        "position": {
+          "latitude": 13.77,
+          "longitude": 100.64
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "10:00:00",
+            "closingTime": "22:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": true
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-mall-2"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-gym-1",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-gym-1",
+        "status": "active",
+        "name": "Demo Hospital Cardiac Rehab Gym (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "rehab-gym",
+                "display": "rehab gym"
+              }
+            ],
+            "text": "rehab gym"
+          }
+        ],
+        "position": {
+          "latitude": 13.759,
+          "longitude": 100.486
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "08:00:00",
+            "closingTime": "16:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": true
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-gym-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-track-1",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-track-1",
+        "status": "active",
+        "name": "Community Sports Track (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "track",
+                "display": "track"
+              }
+            ],
+            "text": "track"
+          }
+        ],
+        "position": {
+          "latitude": 13.817,
+          "longitude": 100.725
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "05:00:00",
+            "closingTime": "20:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": false
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-track-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-temple-2",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-temple-2",
+        "status": "active",
+        "name": "Wat Lat Phrao Demo Grounds (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "temple",
+                "display": "temple"
+              }
+            ],
+            "text": "temple"
+          }
+        ],
+        "position": {
+          "latitude": 13.814,
+          "longitude": 100.59
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "06:00:00",
+            "closingTime": "18:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": false
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-temple-2"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-walk-group-1",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-walk-group-1",
+        "active": true,
+        "name": "Morning walking group, Riverside Park",
+        "comment": "Easy 20-minute group walk, talk-test pace, every weekday 06:30",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-park-1"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "light"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-walk-group-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-walk-group-2",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-walk-group-2",
+        "active": true,
+        "name": "Temple courtyard slow walk",
+        "comment": "Quiet slow walk with older adults after morning prayers",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-temple-1"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "light"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-walk-group-2"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-mall-walk",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-mall-walk",
+        "active": true,
+        "name": "Air-conditioned mall walkers club",
+        "comment": "Indoor walking loop before shops open, good on hot or smoky days",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-mall-1"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "light"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-mall-walk"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-rehab-class",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-rehab-class",
+        "active": true,
+        "name": "Supervised cardiac rehab class",
+        "comment": "Monitored exercise class with ECG telemetry, needs referral",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-gym-1"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "moderate"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-rehab-class"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-tai-chi",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-tai-chi",
+        "active": true,
+        "name": "Tai chi for beginners, Northern Green Park",
+        "comment": "Gentle tai chi, 30 minutes, Saturday and Sunday 07:00",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-park-2"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "light"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-tai-chi"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-evening-walk",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-evening-walk",
+        "active": true,
+        "name": "Evening walking circle, Community Track",
+        "comment": "Easy evening walk after sunset, friendly for fasting days",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-track-1"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "light"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-evening-walk"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-cycle-class",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-cycle-class",
+        "active": true,
+        "name": "Stationary cycling, low resistance",
+        "comment": "Instructor-led low-resistance cycling, 25 minutes",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-mall-2"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "moderate"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-cycle-class"
+      }
+    }
+  ]
+}

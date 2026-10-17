@@ -1,0 +1,50 @@
+[
+  {
+    "id": "cmc-p01",
+    "name": "Somchai Kaewmanee",
+    "risk": "low",
+    "story": "Low risk after MI, CPET done, on a beta-blocker, keen walker."
+  },
+  {
+    "id": "cmc-p02",
+    "name": "Malee Srisuk",
+    "risk": "low",
+    "story": "Aged 71, no CPET (limit from 6-minute walk), low tech comfort, daughter helps."
+  },
+  {
+    "id": "cmc-p03",
+    "name": "Anan Thongdee",
+    "risk": "moderate",
+    "story": "Moderate risk (LVEF 42%): needs supervised sessions before app-only use."
+  },
+  {
+    "id": "cmc-p04",
+    "name": "Prasert Wongsa",
+    "risk": "high",
+    "story": "High risk (LVEF 30%, ICD): blocked from app missions, referred to supervised rehab."
+  },
+  {
+    "id": "cmc-p05",
+    "name": "Wanida Chaiyaporn",
+    "risk": "low",
+    "story": "Six weeks after bypass surgery: walking only, no upper-body resistance yet."
+  },
+  {
+    "id": "cmc-p06",
+    "name": "Kittisak Boonmee",
+    "risk": "unknown",
+    "story": "New sign-up: no clinician-signed limit yet, so no exercise missions."
+  },
+  {
+    "id": "cmc-p07",
+    "name": "Siriporn Jaidee",
+    "risk": "low",
+    "story": "Reported chest tightness on day 5: stop path fired, coaching paused for clinician review."
+  },
+  {
+    "id": "cmc-p08",
+    "name": "Abdul Rahman",
+    "risk": "low",
+    "story": "Several conditions incl. AF, misses missions often, prefers evening; observes fasting days."
+  }
+]
