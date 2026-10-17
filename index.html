@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#214e43">
+  <meta name="description" content="Small daily missions to support your cardiac recovery, within clinician-set limits.">
+  <title>Heartstep · Your daily recovery companion</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <aside class="sidebar">
+    <a href="#today" class="brand"><span class="brand-icon">♡</span> heartstep<span class="brand-dot">.</span></a>
+    <div class="program-label">YOUR RECOVERY COMPANION</div>
+    <nav aria-label="Main navigation" id="nav"></nav>
+    <div class="sidebar-bottom"><div class="care-note"><span class="care-spark">✳</span><strong>A little, every day.</strong><p>Small steps make room<br>for a healthier tomorrow.</p></div><button class="profile-link" data-page="profile"><span class="avatar">SK</span><span><strong>Somchai K.</strong><small>My recovery profile</small></span><span>↗</span></button></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><span class="breadcrumb">My recovery <span>/</span> <strong id="page-name">Today</strong></span><div class="top-actions"><span class="demo-pill"><i></i> Interactive demo</span><button class="icon-button" id="notification-button" aria-label="View reminders">♧<span class="notification-dot"></span></button><span class="avatar small">SK</span></div></header>
+    <main id="main" tabindex="-1"></main>
+    <footer><span>Made for your next small step.</span><span>SIRIRAJ × MIT <span class="footer-divider">/</span> CVD MISSION COACH</span></footer>
+  </div>
+  <dialog id="modal"><div id="modal-content"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
