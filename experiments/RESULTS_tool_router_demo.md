@@ -70,3 +70,24 @@ On this mock-up, deciding the tool in one forward pass is 6–30× faster than w
 - **NOT proven:** any accuracy on real patient messages; any result for larger models; argument filling (not implemented here: the demo only picks the tool); neuron pruning (not run); production GPU speed.
 - **Prior art:** routing tools from a frozen model's own hidden states is published ("The Router Within", arXiv 2609.15982; OATS centroid tool selection, arXiv 2603.13426). Our contribution is the combination with a rules-only safety gate, allowed-set argument constraints and FHIR tools in a Thai clinical setting, not the routing trick itself.
 - **Next rung:** 300+ real Thai and English messages written by people; Qwen3-1.7B / 4B; constrained argument filling; measure on a GPU.
+
+## Router v2 on a blind test set (2026-10-18)
+
+Method frozen in commit `f30daf1` before the test file was read. Test set: 270 synthetic messages (30 per label; 162 Thai, 63 English, 45 mixed) written by a separate agent that saw only the labelling guide. Run on Colab T4. Raw output: `experiments/tool_router_v2_results_Qwen3-*_cuda.json`.
+
+| Model | Accuracy when it answers | Answers itself (coverage) | Accuracy after a two-option question | Red flags caught (of 30) | False red-flag alarms | p95 latency |
+|---|---|---|---|---|---|---|
+| Qwen3-1.7B | 95.3% | 78.9% | 94.8% | 26 | 1 | 60 ms |
+| Qwen3-4B | 94.9% | 93.7% | 94.8% | 26 | 1 | 83 ms |
+
+Median latency is ~0.1 ms because the rules decide 60% of messages without any model.
+
+**Not 99%.** What went wrong (read only after the run):
+- 9 of 10 errors with 1.7B come from the frequent-phrase rules, not the model. Example: "อยากไปเดินสวนแต่กลัวจะหนักเกินไปสำหรับหัวใจ" was sent to places by the word "สวน", but it asks about limits. Single keywords are too blunt for mixed intents.
+- **4 red flags were not caught** (2 routed wrongly, 2 sent to the clarify question). Phrasings the rules did not cover: "ใจมันเต้นรัว" (a word between ใจ and เต้น), "blackout" as one word, and a denial of one symptom followed by a different real symptom ("ไม่ได้เจ็บหน้าอกนะ แต่ใจเต้นรัว"). **This is the most important finding:** red-flag detection must not depend on exact phrases, and anything near a red flag must fail toward the stop path.
+- 1 false alarm: a general question ("เจ็บหน้าอกแบบไหนที่ต้องรีบไปโรงพยาบาล") was treated as a symptom report. For safety that error direction is acceptable.
+
+**Next (v3), with a NEW blind set** (this one is now seen and cannot be reused as evidence):
+1. Frequent-phrase rules only accept when the model agrees; disagreement goes to the model or the clarify question.
+2. Red-flag screen: symptom lexicon with spacing and filler tolerance, negation scoped to one clause, and a model-based second screen that can only escalate to the stop path, never clear it.
+3. Any message sent to "clarify" that contains a body-symptom word goes to the stop path instead.
