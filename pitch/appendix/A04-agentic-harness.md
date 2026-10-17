@@ -109,7 +109,7 @@ sequenceDiagram
 |---|---|---|
 | 1. Limits | Signed `CarePlan` read: up to about 5.9 METs, HR under 120, RPE 11–13, avoid straining and breath-holding | FHIR Server |
 | 2. Guideline vector search | Four approved guideline lines retrieved to explain the plan | IRIS Vector Search |
-| 3. Filter about 100 activities | 99-item Thai/English catalogue (golf, petanque, takraw, ram mai phlong, ruesi dat ton…). Rules keep 66. Football is excluded and the patient is told why | Rules (SQL in production) |
+| 3. Filter 100 activities | 100-item Thai/English catalogue (golf, petanque, takraw, ram mai phlong, ruesi dat ton…). Rules keep 67 (44 intensities from the 2024 Compendium). Tennis (or football) is excluded and the patient is told why | Rules (SQL in production) |
 | 4. KNN | Nearest allowed activities to what the patient enjoys (e.g. walking golf, walking football) | Vector similarity |
 | 5. Community | Groups near the home district at a cool time of day | FHIR `HealthcareService` near-search + heat tool |
 | 6. Similar users | Share of similar users still active at week 4 | Cohort query |
