@@ -105,7 +105,7 @@ Key split: **the rules engine owns safety and the agent owns conversation.** The
 
 ## 8. Open questions (team must answer — most important first)
 
-0. **Does every user need a CPET result to get a plan?** If not, where do the safe limits come from for users without one (e.g. B2C freemium)? This is now the biggest open question.
+0. **Does every user need a CPET result to get a plan?** If not, where do the safe limits come from for users without one (e.g. B2C freemium)? This is now the biggest open question. **Research answer (see [research/README.md](../../../research/README.md)):** guidelines accept stress test, 6-minute walk, % HR reserve, resting HR + 20–30 bpm, Borg RPE 11–14, talk test. The app needs a risk-class gate (low risk: app-only; moderate: a few supervised sessions first; high: not suitable). Clinician still signs off.
 1. ~~Which diagnosis group first?~~ Draft 1 script leads with post-MI. Confirm that the v1 mission library is post-MI only.
 2. **Where do the clinician limits come from in the demo?** Options are manual entry, a mock discharge note, or a clinician web portal.
 3. **What does the hackathon require us to deliver?** A working demo, a clickable prototype, or a pitch deck? What is the deadline?

@@ -2,6 +2,10 @@
 
 _Last updated: 2026-10-17 by Calvin (with Claude). Pitch script Draft 1 folded into design doc §2b._
 
+## Research (added 2026-10-17)
+
+See [research/README.md](research/README.md) (guidelines and Thai market, from NotebookLM) and [research/pitch-claims-check.md](research/pitch-claims-check.md). Machine-generated: verify before quoting.
+
 ## Where we are
 
 - The idea is defined at the problem level and a first design draft is written. **No code yet.**
