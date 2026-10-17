@@ -4,7 +4,9 @@ _Last updated: 2026-10-17 by Calvin (with Claude). Pitch script Draft 1 folded i
 
 ## Where we are
 
-- The idea is defined at the problem level and a first design draft is written. **No code yet.**
+- The idea is defined at the problem level and a first design draft is written. An initial browser UI is now implemented on `feature/initial-ui` (17 October 2026).
+- Run `npm run dev` and open http://127.0.0.1:5173. No dependency installation is needed. See [UI review and assumptions](docs/initial-ui-review.md).
+- The prototype uses fictional local data and scripted conversation. Backend, real AI/MCP, watch connection, notifications, and clinician approval are not implemented.
 - Design draft: [docs/superpowers/specs/2026-10-17-cvd-mission-coach-design.md](docs/superpowers/specs/2026-10-17-cvd-mission-coach-design.md)
 
 ## The idea in one paragraph
@@ -35,5 +37,5 @@ Please read the design draft and answer **Section 8: Open questions** directly i
 
 1. The team answers the open questions.
 2. We finalize the design doc.
-3. We write the implementation plan.
-4. We build the demo.
+3. Review the initial UI and confirm the assumptions in `docs/initial-ui-review.md`.
+4. Plan and implement the approved clinical/data integrations after the team settles the open questions.
