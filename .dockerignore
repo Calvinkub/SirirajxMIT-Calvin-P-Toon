@@ -1,0 +1,9 @@
+*
+!backend/
+!backend/**
+backend/__pycache__/
+!index.html
+!app.js
+!safety.js
+!styles.css
+!runtime.js

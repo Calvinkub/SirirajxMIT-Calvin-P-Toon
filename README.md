@@ -7,7 +7,13 @@ An app for patients who were just diagnosed with cardiovascular disease. An AI a
 - Start here: [HANDOFF.md](HANDOFF.md)
 - Design draft: [docs/superpowers/specs/2026-10-17-cvd-mission-coach-design.md](docs/superpowers/specs/2026-10-17-cvd-mission-coach-design.md)
 
-## Initial UI prototype
+## IRIS database demo
+
+Run `docker compose up -d --build`, then open http://127.0.0.1:8000. This mode stores fictional patient details, clinician limits, simulated watch summaries, mission completions, and symptom pauses in IRIS for Health. It also initializes a FHIR R4 server. See [setup, verification, and limitations](docs/intersystems-setup.md).
+
+Run `npm run test:iris` to verify the running database integration. The browser-only prototype remains available below.
+
+## Browser-only prototype
 
 **Heartstep** is the working UI name. Run with Node.js 22 or later (no dependency installation required):
 
