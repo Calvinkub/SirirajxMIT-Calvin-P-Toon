@@ -311,12 +311,16 @@ const COMMUNITY = {
   "walking football": [["Walking-football group, community park (synthetic)", "3.4 km", "Tue & Thu 17:30"]],
   petanque: [["Petanque club at the district park (synthetic)", "0.8 km", "daily 16:30"]],
   walk: [["Morning walking group, riverside park (synthetic)", "1.2 km", "weekdays 06:30"]],
+  badminton: [["Social badminton club, district sports hall (synthetic)", "1.9 km", "Tue & Fri 18:30"]],
+  bowling: [["Seniors’ bowling league, mall alley (synthetic)", "3.2 km", "Wed 10:00"]],
+  tabletennis: [["Community table-tennis room (synthetic)", "0.9 km", "daily 16:00–20:00"]],
+  pickleball: [["Pickleball beginners’ group, park courts (synthetic)", "4.6 km", "Sat & Sun 07:30"]],
   default: [["Community park exercise class (synthetic)", "1.5 km", "Mon/Wed/Fri 17:00"]] };
-const COHORT = { "Walking football": 64, "Golf, walking with a pull cart": 58, "Golf, walking and carrying clubs": 55, "Petanque": 47,
+const COHORT = { "Badminton, social": 57, "Bowling": 49, "Table tennis, social": 52, "Darts": 26, "Billiards": 33, "Walking football": 64, "Golf, walking with a pull cart": 58, "Golf, walking and carrying clubs": 55, "Petanque": 47,
   "Miniature golf": 31, "Pickleball": 44, "Volleyball, recreational": 39, "Croquet": 22, "Bocce": 35, "Driving range": 50 };
 const LIKES = [
   [/golf|กอล์ฟ/i, "Golf, walking and carrying clubs"], [/football|soccer|ฟุตบอล|บอล/i, "Football, casual game"],
-  [/badminton|แบด/i, "Badminton, social"], [/tennis|เทนนิส/i, "Tennis, doubles"], [/swim|ว่าย/i, "Swimming, leisurely"],
+  [/badminton|แบด/i, "Badminton, social"], [/(?<!table )tennis|(?<!ปิง)เทนนิส/i, "Tennis, singles"], [/bowling|โบว์ลิ่ง|โบลิ่ง/i, "Bowling"], [/swim|ว่าย/i, "Swimming, leisurely"],
   [/run|jog|วิ่ง/i, "Jogging"], [/cycl|bike|ปั่น/i, "Leisure cycling"], [/danc|เต้น|รำ/i, "Line dancing"],
   [/yoga|โยคะ/i, "Hatha yoga"], [/boxing|muay|มวย/i, "Muay Thai bag work"], [/basket|บาส/i, "Basketball game"], [/takraw|ตะกร้อ/i, "Sepak takraw"]];
 const RED = /chest.{0,12}(pain|tight|pressure)|dizz|faint|short(ness)? of breath|palpitat|เจ็บ.{0,8}อก|แน่น.{0,6}อก|หน้ามืด|เวียนหัว|ใจสั่น|หายใจไม่(ออก|ทัน)|หอบ|เป็นลม/i;
@@ -394,7 +398,7 @@ function doChoose({ picks }) {
 
 // ---------- scenes for the other steps ----------
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
-const KEY = /golf|กอล์ฟ|football|soccer|ฟุตบอล|บอล|badminton|แบด|danc|เต้น|hypertension|blood pressure|ความดัน|swim|ว่าย|tennis|เทนนิส|yoga|โยคะ|run|วิ่ง|cycl|ปั่น/i;
+const KEY = /bowling|โบว์ลิ่ง|golf|กอล์ฟ|football|soccer|ฟุตบอล|บอล|badminton|แบด|danc|เต้น|hypertension|blood pressure|ความดัน|swim|ว่าย|tennis|เทนนิส|yoga|โยคะ|run|วิ่ง|cycl|ปั่น/i;
 const words = text => (/[฀-๿]/.test(text) ? text.split(/(\s+)/) : text.split(/(\s+)/)).map(w => /^\s+$/.test(w) ? w : `<span class="w">${esc(w)}</span>`).join("");
 function stage(ph, data) {
   const bub = ["all", "filter", "knn", "choose"].includes(ph);
@@ -417,9 +421,9 @@ const SCENES = {
     cap(T("A small LLM picks the intent and fills typed slots. No free text goes further.", "LLM ขนาดเล็กเลือกเจตนาและเติมช่องข้อมูลแบบมีโครงสร้าง"));
     const ws = [...sc.querySelectorAll(".w")].filter(w => KEY.test(w.textContent));
     ws.forEach((w, i) => later(() => w.classList.add("hl"), 250 + i * 250));
-    const goal = liked.find(a => /golf/i.test(a.en)) || liked[liked.length - 1];
-    const past = liked.filter(a => a !== goal);
-    const slots = [[T("Used to play", "เคยเล่น"), past.map(a => name(a)).join(", ") || "—"], [T("Goal", "เป้าหมาย"), goal ? name(goal) : "—"],
+    const okIds = new Set((field.data.allowed || []).map(a => a.id));
+    const past = liked.filter(a => !okIds.has(a.id)), wants = liked.filter(a => okIds.has(a.id));
+    const slots = [[T("Used to play", "เคยเล่น"), past.map(a => name(a)).join(", ") || "—"], [T("Interested in", "อยากลอง"), wants.map(a => name(a)).join(", ") || T("something lighter", "อะไรที่เบาลง")],
       [T("Condition", "ภาวะ"), /hypertension|blood pressure|ความดัน/i.test(text) ? T("High blood pressure", "ความดันสูง") : T("From your record", "จากประวัติ")]];
     slots.forEach(([k, v], i) => { const d = document.createElement("div"); d.className = "slot rise"; d.style.animationDelay = `${(reduce ? 0 : 900 + i * 220)}ms`;
       d.innerHTML = `<small>${esc(k)}</small><b>${esc(v)}</b>`; sc.querySelector(".slots").append(d); });
@@ -482,7 +486,7 @@ function plan(text) {
   const q = DIMS.map((_, i) => liked.reduce((s, a) => s + a.vec[i], 0) / liked.length);
   const ranked = allowed.map(a => ({ a, s: cos(q, a.vec) })).sort((x, y) => y.s - x.s || x.a.met - y.a.met);
   const top = ranked.slice(0, 5);
-  const commKey = a => /golf|range/i.test(a.en) ? "golf" : /walking football/i.test(a.en) ? "walking football" : /petanque|bocce/i.test(a.en) ? "petanque" : /walk/i.test(a.en) ? "walk" : "default";
+  const commKey = a => /badminton/i.test(a.en) ? "badminton" : /bowling/i.test(a.en) ? "bowling" : /table tennis/i.test(a.en) ? "tabletennis" : /pickleball/i.test(a.en) ? "pickleball" : /golf|range/i.test(a.en) ? "golf" : /walking football/i.test(a.en) ? "walking football" : /petanque|bocce/i.test(a.en) ? "petanque" : /walk/i.test(a.en) ? "walk" : "default";
   const options = top.slice(0, 3).map(({ a }) => ({ a, comm: COMMUNITY[commKey(a)][0], cohort: COHORT[a.en] }));
   field.data = { allowed, ranked, picks: options, liked, text };
   return [
@@ -540,7 +544,9 @@ function finish(steps) {
   $("#replay").hidden = false;
   const last = steps[steps.length - 1];
   if (last.stop) { say(T("Please stop now and rest. If the chest pain or breathlessness doesn’t pass, call 1669. Coaching is paused until your care team reviews.", "หยุดพักทันทีนะครับ ถ้าเจ็บหน้าอกหรือหายใจไม่ทันไม่ดีขึ้น โทร 1669 การโค้ชจะหยุดไว้จนทีมแพทย์ตรวจสอบ"), "ai", "stop"); return; }
-  say(T("Football is too intense with your blood pressure for now, but golf fits well. Here are three options that match what you enjoy. Which one do you like most?", "ตอนนี้ฟุตบอลหนักเกินไปสำหรับความดัน แต่กอล์ฟเหมาะดีครับ นี่คือ 3 ตัวเลือกที่ใกล้กับสิ่งที่ชอบ ชอบอันไหนที่สุด?"));
+  const d = field.data, okIds = new Set(d.allowed.map(a => a.id)), out = d.liked.filter(a => !okIds.has(a.id));
+  say(out.length ? T(`${out.map(a => a.en.replace(/,.*$/, "")).join(" and ")} is too intense with your blood pressure for now. Here are three options close to what you enjoy, all inside your limits. Which one do you like most?`, `ตอนนี้${out.map(a => a.th).join(" และ ")}หนักเกินไปสำหรับความดัน นี่คือ 3 ตัวเลือกที่ใกล้กับสิ่งที่ชอบ และอยู่ในขีดจำกัด ชอบอันไหนที่สุดครับ?`)
+    : T("Here are three options close to what you enjoy, all inside your limits. Which one do you like most?", "นี่คือ 3 ตัวเลือกที่ใกล้กับสิ่งที่ชอบ และอยู่ในขีดจำกัด ชอบอันไหนที่สุดครับ?"));
   chips(last.ask.map(o => [name(o.a), `${o.comm[0].replace(" (synthetic)", "")} · ${o.comm[1]}`]), pick => {
     say(pick, "me");
     say(T("Good choice. Which would you like to try this week?", "เยี่ยมครับ สัปดาห์นี้อยากลองแบบไหน?"));
@@ -572,9 +578,9 @@ function weekPlan(choice, n) {
 
 // ---------- wiring ----------
 const PRESETS = [
-  "I usually played football, but now I have hypertension and must lower the intensity. My lifestyle goal is to play golf. Can you recommend a plan?",
-  "ปกติผมเตะฟุตบอลทุกอาทิตย์ แต่ตอนนี้เป็นความดันสูง หมอบอกให้ลดความหนัก อยากตีกอล์ฟ ช่วยวางแผนให้หน่อยครับ",
-  "I like badminton and dancing. What can I do this week?",
+  "I used to play tennis every weekend, but now I have hypertension and my doctor says I must lower the intensity. Maybe badminton or bowling? Can you recommend a plan?",
+  "เมื่อก่อนผมเล่นเทนนิสทุกเสาร์อาทิตย์ ตอนนี้เป็นความดันสูง หมอบอกให้ลดความหนัก อยากลองแบดมินตันหรือโบว์ลิ่ง ช่วยวางแผนให้หน่อยครับ",
+  "I usually played football, but now I have hypertension. My lifestyle goal is to play golf. Can you recommend a plan?",
   "แน่นหน้าอกตอนเดิน"];
 PRESETS.forEach(p => { const b = document.createElement("button"); b.type = "button"; b.className = "preset"; b.textContent = p; b.addEventListener("click", () => { chat.innerHTML = ""; run(p); }); $("#presets").append(b); });
 $("#composer").addEventListener("submit", e => { e.preventDefault(); const v = $("#msg").value.trim(); if (!v) return; $("#msg").value = ""; chat.innerHTML = ""; run(v); });
