@@ -1,0 +1,25 @@
+<section id="tech" data-transition="fade" style="background:#F5F6F2;color:#17262A;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<h2 style="font-family:'Prompt', Tahoma, sans-serif;font-size:64px;font-weight:600;line-height:1.12;color:#12363B">Built on IRIS for Health, with safety by construction</h2>
+<div style="display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:28px;align-items:stretch">
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;border:2px solid #12363B;border-radius:20px;padding:32px">
+<p style="font-size:24px;color:#1B7F7A;letter-spacing:3px;font-weight:600">VOICE AND WATCH</p>
+<p style="font-size:28px;line-height:1.4;color:#3F5357">Qwen3-ASR for Thai speech in. HealthKit and Health Connect data as FHIR Observations.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#E3F0EE;border:3px solid #1B7F7A;border-radius:20px;padding:32px">
+<p style="font-family:'Prompt', Tahoma, sans-serif;font-size:36px;font-weight:600;color:#12363B">InterSystems IRIS for Health</p>
+<p style="font-size:28px;line-height:1.4;color:#17262A"><b>FHIR Server:</b> limits, missions, symptoms, consent, provenance</p>
+<p style="font-size:28px;line-height:1.4;color:#17262A"><b>SQL Builder:</b> tables for the rules engine</p>
+<p style="font-size:28px;line-height:1.4;color:#17262A"><b>Vector Search:</b> approved guideline and activities</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;border:2px solid #12363B;border-radius:20px;padding:32px">
+<p style="font-size:24px;color:#1B7F7A;letter-spacing:3px;font-weight:600">AGENT HARNESS</p>
+<p style="font-size:28px;line-height:1.4;color:#3F5357">Qwen3 router calls MCP tools. MedGemma picks only from the rules’ allowed set.</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;background:#12363B;border-radius:20px;padding:28px 40px">
+<p style="font-family:'Prompt', Tahoma, sans-serif;font-size:72px;font-weight:600;color:#E9A26B;line-height:1">18×</p>
+<p style="font-size:28px;line-height:1.4;color:#F5F6F2">faster tool choice with one forward pass instead of writing the call: 78% vs 42% correct, 71 ms vs 1,272 ms (Qwen3-1.7B, Colab T4, synthetic test set of 36).</p>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5A6A6E">Built here: FHIR data model, synthetic bundles, rules engine, router experiments, demo. Reused: InterSystems FHIR-AI Hackathon Kit, open Qwen3 and MedGemma weights.</p>
+<aside>1:55–2:20 (about 60 words). Under the hood, everything lives in InterSystems IRIS for Health. Limits, missions and symptoms are FHIR resources. SQL Builder feeds the rules engine. Vector Search grounds the model in the approved guideline. Models only choose from what the rules allow. And we measured it: picking the tool in one forward pass was eighteen times faster, on our synthetic test set.</aside>
+</section>
