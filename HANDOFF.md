@@ -1,6 +1,6 @@
 # Handoff — SirirajxMIT (Calvin, P, Toon)
 
-_Last updated: 2026-10-17 by Calvin (with Claude)_
+_Last updated: 2026-10-17 by Calvin (with Claude). Pitch script Draft 1 folded into design doc §2b._
 
 ## Where we are
 
@@ -19,7 +19,7 @@ Open app → demographics → goal declaration (AI agent + MCP to watch data, we
 
 Please read the design draft and answer **Section 8: Open questions** directly in the file, or in the group chat. The most important ones are:
 
-1. Which diagnosis group do we start with?
+1. Does every user need a CPET result? (Draft 1 script picked post-MI as the lead user.)
 2. What does the hackathon require us to deliver, and by when?
 3. Which smartwatch or phone can we demo on?
 
