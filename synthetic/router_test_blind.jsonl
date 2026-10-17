@@ -1,0 +1,270 @@
+{"id": "te001", "lang": "th", "text": "ต้องใส่หน้ากากไหมถ้าจะออกไปเดิน ฝุ่นเยอะมั้ย", "tool": "get_pm25"}
+{"id": "te002", "lang": "th", "text": "ฝุ่นละอองวันนี้สีอะไร เขียวหรือส้ม", "tool": "get_pm25"}
+{"id": "te003", "lang": "th", "text": "มีงานเดินการกุศลเร็วๆนี้ไหม", "tool": "search_activities"}
+{"id": "te004", "lang": "th", "text": "ขอบคุณมากจ้า", "tool": "none"}
+{"id": "te005", "lang": "th", "text": "มึนหัวโหวงๆ ยืนไม่ค่อยไหว", "tool": "red_flag"}
+{"id": "te006", "lang": "en", "text": "How many steps did I do yesterday?", "tool": "get_recent_activity"}
+{"id": "te007", "lang": "th", "text": "เมื่อเช้าไปเดินที่สวนลุมกับเพื่อน ได้ประมาณ 40 นาที", "tool": "log_checkin"}
+{"id": "te008", "lang": "th", "text": "ยกน้ำหนักได้กี่กิโล", "tool": "get_patient_limits"}
+{"id": "te009", "lang": "th", "text": "มีงานวิ่งเดินระยะสั้นเดือนหน้าไหม", "tool": "search_activities"}
+{"id": "te010", "lang": "th", "text": "กี่โมงถึงจะไม่ร้อนเกินไปสำหรับเดิน", "tool": "get_heat_index"}
+{"id": "te011", "lang": "mix", "text": "วันนี้ walk ครบ 5000 ก้าวแล้วค่ะ", "tool": "log_checkin"}
+{"id": "te012", "lang": "th", "text": "ฝุ่นไม่ห่วงละ ห่วงแต่ร้อน ตอนสิบโมงร้อนไหม", "tool": "get_heat_index"}
+{"id": "te013", "lang": "mix", "text": "อยากหา buddy เดินด้วย", "tool": "search_activities"}
+{"id": "te014", "lang": "th", "text": "กินกล้วยเยอะๆ ดีกับหัวใจไหม", "tool": "none"}
+{"id": "te015", "lang": "th", "text": "เมื่อวานกดบันทึกไปแล้วใช่มั้ย ไม่แน่ใจว่าทำหรือยัง", "tool": "get_recent_activity"}
+{"id": "te016", "lang": "en", "text": "How many missions have I completed so far?", "tool": "get_recent_activity"}
+{"id": "te017", "lang": "th", "text": "แน่นหน้าอกจัง หายใจไม่ค่อยออก", "tool": "red_flag"}
+{"id": "te018", "lang": "th", "text": "ข้างนอกฝุ่นเยอะไหม เพราะตอนนี้หายใจลำบาก แน่นๆอก", "tool": "red_flag"}
+{"id": "te019", "lang": "th", "text": "กินยาเช้าแล้วนะ", "tool": "log_checkin"}
+{"id": "te020", "lang": "th", "text": "เห็นข่าวว่าคลื่นความร้อน วันนี้ด้วยรึเปล่า", "tool": "get_heat_index"}
+{"id": "te021", "lang": "th", "text": "เจ็บหน้าอกแบบไหนที่ต้องรีบไปโรงพยาบาล", "tool": "none"}
+{"id": "te022", "lang": "th", "text": "ค่าฝุ่นพรุ่งนี้เช้าจะลดลงไหม", "tool": "get_pm25"}
+{"id": "te023", "lang": "mix", "text": "มี park ใกล้ๆ ไหมคะ", "tool": "search_places"}
+{"id": "te024", "lang": "en", "text": "Find me a flat route, no hills", "tool": "search_places"}
+{"id": "te025", "lang": "th", "text": "ร้อนก็ร้อน ฝุ่นก็เยอะ วันนี้ฝุ่นเป็นไงบ้าง", "tool": "get_pm25"}
+{"id": "te026", "lang": "mix", "text": "พรุ่งนี้ rain ไหมครับ", "tool": "get_heat_index"}
+{"id": "te027", "lang": "th", "text": "เมื่อวานเดินไปกี่ก้าว", "tool": "get_recent_activity"}
+{"id": "te028", "lang": "th", "text": "อากาศขมุกขมัว เหมือนมีหมอกควัน ออกไปได้ไหม", "tool": "get_pm25"}
+{"id": "te029", "lang": "th", "text": "อยากเข้ากลุ่มชี่กงตอนเช้า", "tool": "search_activities"}
+{"id": "te030", "lang": "th", "text": "ข้างบ้านเผาขยะ ควันเข้าบ้าน ข้างนอกอากาศแย่แค่ไหน", "tool": "get_pm25"}
+{"id": "te031", "lang": "th", "text": "วันนี้ไม่ได้เดินเลย ฝนตกทั้งวัน", "tool": "log_checkin"}
+{"id": "te032", "lang": "th", "text": "อยากออกไปข้างนอกแต่กลัวฝุ่น", "tool": "get_pm25"}
+{"id": "te033", "lang": "mix", "text": "มี class yoga แถวนี้ไหมคะ", "tool": "search_activities"}
+{"id": "te034", "lang": "en", "text": "Is the sun too strong at 10am?", "tool": "get_heat_index"}
+{"id": "te035", "lang": "en", "text": "Will it rain later? Want to go for my walk.", "tool": "get_heat_index"}
+{"id": "te036", "lang": "en", "text": "What's my max heart rate during exercise?", "tool": "get_patient_limits"}
+{"id": "te037", "lang": "en", "text": "did it!! all 3 sets", "tool": "log_checkin"}
+{"id": "te038", "lang": "mix", "text": "skip ภารกิจวันนี้นะ ไปหาหมอ", "tool": "log_checkin"}
+{"id": "te039", "lang": "th", "text": "ก้าวเดินเดือนนี้กับเดือนที่แล้วอันไหนเยอะกว่า", "tool": "get_recent_activity"}
+{"id": "te040", "lang": "th", "text": "มีกลุ่มเดินตอนเช้าที่วัดไหมครับ", "tool": "search_activities"}
+{"id": "te041", "lang": "th", "text": "ชมรมรำไทเก๊กที่สวนใกล้บ้านมีไหม", "tool": "search_activities"}
+{"id": "te042", "lang": "th", "text": "มีคอร์สฟื้นฟูหัวใจที่โรงพยาบาลไหม", "tool": "search_activities"}
+{"id": "te043", "lang": "th", "text": "กินยาครบทุกมื้อเลยอาทิตย์นี้", "tool": "log_checkin"}
+{"id": "te044", "lang": "th", "text": "ออกแรงได้แค่ไหน เหนื่อยแค่ไหนถึงควรหยุด", "tool": "get_patient_limits"}
+{"id": "te045", "lang": "th", "text": "ยาละลายลิ่มเลือดถ้าลืมกินมื้อนึง ต้องกินเบิ้ลมั้ยคะ", "tool": "none"}
+{"id": "te046", "lang": "en", "text": "what's the AQI near me", "tool": "get_pm25"}
+{"id": "te047", "lang": "th", "text": "ไม่เวียนหัวแล้วค่ะ ไม่ใจสั่นด้วย แค่อยากบอก", "tool": "none"}
+{"id": "te048", "lang": "mix", "text": "หา route เดินที่ร่มๆ หน่อย", "tool": "search_places"}
+{"id": "te049", "lang": "en", "text": "Finished the cycling session, felt fine, no chest pain at all", "tool": "log_checkin"}
+{"id": "te050", "lang": "th", "text": "เดินเสร็จละ วันนี้รู้สึกตัวเบาดี", "tool": "log_checkin"}
+{"id": "te051", "lang": "th", "text": "วันนี้ไม่มีเจ็บหน้าอกนะ สบายดี", "tool": "none"}
+{"id": "te052", "lang": "th", "text": "ชมรมผู้สูงอายุแถวบางกอกน้อยมีกิจกรรมอะไรบ้าง", "tool": "search_activities"}
+{"id": "te053", "lang": "th", "text": "ภารกิจยืดเส้นทำได้ครึ่งเดียว มีแขกมาบ้านเลยหยุด", "tool": "log_checkin"}
+{"id": "te054", "lang": "en", "text": "Is there a mall nearby where I can walk indoors?", "tool": "search_places"}
+{"id": "te055", "lang": "th", "text": "หาทางเดินเลียบแม่น้ำ", "tool": "search_places"}
+{"id": "te056", "lang": "th", "text": "เดินรอบหมู่บ้านมาสองรอบ ไม่เวียนหัวไม่แน่นอกอะไร", "tool": "log_checkin"}
+{"id": "te057", "lang": "th", "text": "มีลานกว้างๆ แถววัดอรุณให้เดินเล่นไหม", "tool": "search_places"}
+{"id": "te058", "lang": "en", "text": "Can metoprolol make me feel tired all the time?", "tool": "none"}
+{"id": "te059", "lang": "th", "text": "ยาตัวไหนทำให้ขาบวม", "tool": "none"}
+{"id": "te060", "lang": "th", "text": "คลาสแอโรบิกที่ห้างวันเสาร์มีไหม", "tool": "search_activities"}
+{"id": "te061", "lang": "th", "text": "มีคลาสโยคะสำหรับผู้สูงอายุไหม", "tool": "search_activities"}
+{"id": "te062", "lang": "th", "text": "สวนลุมไกลไป มีสวนใกล้กว่านี้ไหม", "tool": "search_places"}
+{"id": "te063", "lang": "mix", "text": "AQI แถวบ้านเป็นไงบ้างคะ", "tool": "get_pm25"}
+{"id": "te064", "lang": "th", "text": "ใจสั่นมากเลยครับ เต้นเร็วผิดปกติ นั่งเฉยๆก็ยังเป็น", "tool": "red_flag"}
+{"id": "te065", "lang": "th", "text": "ไม่ได้ทำเลยสามวันแล้ว ไปต่างจังหวัด", "tool": "log_checkin"}
+{"id": "te066", "lang": "th", "text": "ขอดูชีพจรตอนเดินเมื่อเช้าหน่อย", "tool": "get_recent_activity"}
+{"id": "te067", "lang": "th", "text": "มีลานวัดที่เดินได้ไหมแถวนนทบุรี", "tool": "search_places"}
+{"id": "te068", "lang": "th", "text": "อุ้มหลานได้ไหม หลานหนักสิบโล", "tool": "get_patient_limits"}
+{"id": "te069", "lang": "th", "text": "หากลุ่มปั่นจักรยานช้าๆ สำหรับคนเป็นโรคหัวใจ", "tool": "search_activities"}
+{"id": "te070", "lang": "en", "text": "how hard should i push myself", "tool": "get_patient_limits"}
+{"id": "te071", "lang": "th", "text": "ฝนจะตกไหมบ่ายนี้ อยากไปเดิน", "tool": "get_heat_index"}
+{"id": "te072", "lang": "th", "text": "อยากเดินคนเดียวเงียบๆ มีที่ไหนแนะนำ", "tool": "search_places"}
+{"id": "te073", "lang": "en", "text": "Took my morning pills", "tool": "log_checkin"}
+{"id": "te074", "lang": "en", "text": "Show me my heart rate from this morning's walk", "tool": "get_recent_activity"}
+{"id": "te075", "lang": "th", "text": "ลมเย็นๆ แบบนี้ อุณหภูมิเท่าไหร่ เดินสบายไหม", "tool": "get_heat_index"}
+{"id": "te076", "lang": "en", "text": "Is there a chair yoga class for seniors this week?", "tool": "search_activities"}
+{"id": "te077", "lang": "th", "text": "ห้างไหนใกล้ๆ เดินแอร์เย็นๆได้", "tool": "search_places"}
+{"id": "te078", "lang": "en", "text": "I'd like to exercise with other heart patients, is there a group?", "tool": "search_activities"}
+{"id": "te079", "lang": "th", "text": "เดือนนี้ฉันออกกำลังรวมกี่นาทีแล้วคะ", "tool": "get_recent_activity"}
+{"id": "te080", "lang": "mix", "text": "heat index วันนี้อันตรายไหม", "tool": "get_heat_index"}
+{"id": "te081", "lang": "mix", "text": "ขอดู steps ย้อนหลัง 7 วันหน่อย", "tool": "get_recent_activity"}
+{"id": "te082", "lang": "th", "text": "หมอให้ยาใหม่มา กินพร้อมยาเดิมได้ไหมคะ", "tool": "none"}
+{"id": "te083", "lang": "th", "text": "ทำครบแล้วจ้า", "tool": "log_checkin"}
+{"id": "te084", "lang": "mix", "text": "level ความหนักที่ทำได้คือแค่ไหน", "tool": "get_patient_limits"}
+{"id": "te085", "lang": "th", "text": "แอปนี้เปลี่ยนตัวหนังสือให้ใหญ่ขึ้นได้ไหม", "tool": "none"}
+{"id": "te086", "lang": "th", "text": "อยากเดินในที่ร่มๆ ไปที่ไหนดี", "tool": "search_places"}
+{"id": "te087", "lang": "th", "text": "ฝันดีนะ ไปนอนละ", "tool": "none"}
+{"id": "te088", "lang": "th", "text": "ฟ้าขมัวๆ เป็นฝุ่นหรือเปล่าคะ", "tool": "get_pm25"}
+{"id": "te089", "lang": "mix", "text": "กินยา morning แล้วจ้า", "tool": "log_checkin"}
+{"id": "te090", "lang": "th", "text": "วันนี้เดินได้แค่สิบนาที แดดร้อนเกิน เลยกลับบ้าน", "tool": "log_checkin"}
+{"id": "te091", "lang": "en", "text": "Pain going down my left arm and into my jaw", "tool": "red_flag"}
+{"id": "te092", "lang": "mix", "text": "air quality พรุ่งนี้เช้าดีขึ้นไหม", "tool": "get_pm25"}
+{"id": "te093", "lang": "en", "text": "Is it too hot to walk right now?", "tool": "get_heat_index"}
+{"id": "te094", "lang": "th", "text": "ว่ายน้ำได้ไหมครับ หมอยังไม่ได้บอก", "tool": "get_patient_limits"}
+{"id": "te095", "lang": "en", "text": "What are the warning signs of a heart attack?", "tool": "none"}
+{"id": "te096", "lang": "th", "text": "ยกดัมเบลเบาๆครบสามเซตตามที่ให้ทำแล้ว", "tool": "log_checkin"}
+{"id": "te097", "lang": "th", "text": "ไปรำไทชิที่วัดมาเช้านี้ สนุกดี", "tool": "log_checkin"}
+{"id": "te098", "lang": "th", "text": "ไม่เจ็บหน้าอกแล้วนะ วันนี้อยากออกไปเดิน ฝุ่นเยอะไหม", "tool": "get_pm25"}
+{"id": "te099", "lang": "en", "text": "Any walking groups near me?", "tool": "search_activities"}
+{"id": "te100", "lang": "th", "text": "ระดับความเหนื่อยที่ปลอดภัยของฉันคือแค่ไหน", "tool": "get_patient_limits"}
+{"id": "te101", "lang": "th", "text": "ทำมากี่วันติดกันแล้วคะ", "tool": "get_recent_activity"}
+{"id": "te102", "lang": "th", "text": "อยากเดินรอบบึง มีบึงแถวนี้ไหม", "tool": "search_places"}
+{"id": "te103", "lang": "en", "text": "Skipped the stretching today, too busy with the grandkids", "tool": "log_checkin"}
+{"id": "te104", "lang": "mix", "text": "mall ไหนเดินได้สบายๆ", "tool": "search_places"}
+{"id": "te105", "lang": "th", "text": "มีสถิติย้อนหลังไหม อยากดู", "tool": "get_recent_activity"}
+{"id": "te106", "lang": "th", "text": "ดูหน่อยว่าช่วงนี้ทำดีขึ้นไหม เทียบกับเดือนก่อน", "tool": "get_recent_activity"}
+{"id": "te107", "lang": "mix", "text": "เมื่อวาน active minutes ได้เท่าไหร่", "tool": "get_recent_activity"}
+{"id": "te108", "lang": "th", "text": "อาการหัวใจวายเป็นยังไงบ้าง อยากรู้ไว้เผื่อ", "tool": "none"}
+{"id": "te109", "lang": "en", "text": "Not worried about dust today, just the heat. Is it ok at noon?", "tool": "get_heat_index"}
+{"id": "te110", "lang": "th", "text": "สวนไหนทางเรียบๆ ไม่มีเนิน", "tool": "search_places"}
+{"id": "te111", "lang": "th", "text": "ฝุนเยอะมัย", "tool": "get_pm25"}
+{"id": "te112", "lang": "th", "text": "ว่ายน้ำไป 20 นาทีที่สระหมู่บ้าน", "tool": "log_checkin"}
+{"id": "te113", "lang": "th", "text": "ยายเวียนหัวบ้านหมุนตั้งแต่ลุกจากเตียงเมื่อกี้ จะล้มเอา", "tool": "red_flag"}
+{"id": "te114", "lang": "th", "text": "มีกิจกรรมออกกำลังที่มีพยาบาลดูแลไหม", "tool": "search_activities"}
+{"id": "te115", "lang": "mix", "text": "streak ตอนนี้กี่วันแล้ว", "tool": "get_recent_activity"}
+{"id": "te116", "lang": "en", "text": "Can I see my total active minutes for October?", "tool": "get_recent_activity"}
+{"id": "te117", "lang": "th", "text": "ตีกอล์ฟได้หรือยัง", "tool": "get_patient_limits"}
+{"id": "te118", "lang": "th", "text": "ปวดร้าวไปแขนซ้ายค่ะ เริ่มเมื่อสิบนาทีก่อน", "tool": "red_flag"}
+{"id": "te119", "lang": "en", "text": "a running track close to home?", "tool": "search_places"}
+{"id": "te120", "lang": "th", "text": "ร้อนอบอ้าวจัง ควรออกไปข้างนอกไหมวันนี้", "tool": "get_heat_index"}
+{"id": "te121", "lang": "th", "text": "สรุปผลเจ็ดวันที่ผ่านมาให้หน่อย", "tool": "get_recent_activity"}
+{"id": "te122", "lang": "en", "text": "Just nearly passed out in the garden", "tool": "red_flag"}
+{"id": "te123", "lang": "en", "text": "My chest feels tight right now", "tool": "red_flag"}
+{"id": "te124", "lang": "en", "text": "Where's the nearest park?", "tool": "search_places"}
+{"id": "te125", "lang": "th", "text": "เส้นทางเดินที่มีต้นไม้ร่มรื่น", "tool": "search_places"}
+{"id": "te126", "lang": "th", "text": "อยู่ๆก็วูบไปแป๊บนึงเมื่อกี้ ตอนนี้นั่งอยู่", "tool": "red_flag"}
+{"id": "te127", "lang": "th", "text": "ไม่ได้เจ็บหน้าอกนะ แต่ใจมันเต้นรัวมากตอนนี้", "tool": "red_flag"}
+{"id": "te128", "lang": "th", "text": "ความดันเท่าไหร่ถึงเรียกว่าสูง", "tool": "none"}
+{"id": "te129", "lang": "mix", "text": "ขอบคุณค่ะ have a nice day นะ", "tool": "none"}
+{"id": "te130", "lang": "mix", "text": "อยากได้ track เดินแถวบ้าน", "tool": "search_places"}
+{"id": "te131", "lang": "mix", "text": "เวียนหัว lightheaded มากค่ะ ตอนนี้", "tool": "red_flag"}
+{"id": "te132", "lang": "mix", "text": "ไป join คลาสโยคะมาเมื่อเช้า ok ดี", "tool": "log_checkin"}
+{"id": "te133", "lang": "mix", "text": "ยก dumbbell ได้กี่โล", "tool": "get_patient_limits"}
+{"id": "te134", "lang": "en", "text": "Is the haze bad this morning?", "tool": "get_pm25"}
+{"id": "te135", "lang": "th", "text": "ที่เดินมาทั้งหมดได้เท่าไหร่แล้ว", "tool": "get_recent_activity"}
+{"id": "te136", "lang": "th", "text": "ออกไปเดินตอนเย็นดีหรือเช้าดี เรื่องฝุ่นอ่ะ", "tool": "get_pm25"}
+{"id": "te137", "lang": "th", "text": "ก้าวเดินวันนี้ถึงไหนแล้ว", "tool": "get_recent_activity"}
+{"id": "te138", "lang": "th", "text": "ร้อนจนไม่อยากออกจากบ้าน ข้างนอกกี่องศาเนี่ย", "tool": "get_heat_index"}
+{"id": "te139", "lang": "th", "text": "ตอนนี้แน่นอกมาก ควรอมยาใต้ลิ้นเลยมั้ย", "tool": "red_flag"}
+{"id": "te140", "lang": "th", "text": "ลูกสาวอยากรู้ว่าแม่เดินได้วันละเท่าไหร่ ช่วยเปิดให้ดูหน่อย", "tool": "get_recent_activity"}
+{"id": "te141", "lang": "th", "text": "ยาเย็นกินเรียบร้อยแล้วค่ะ", "tool": "log_checkin"}
+{"id": "te142", "lang": "th", "text": "แถวนี้มีสวนสาธารณะไหม", "tool": "search_places"}
+{"id": "te143", "lang": "en", "text": "I didn't do the exercise because of the smoke outside", "tool": "log_checkin"}
+{"id": "te144", "lang": "th", "text": "หมอกควันเต็มเลย วันนี้หายใจอากาศข้างนอกได้ไหม", "tool": "get_pm25"}
+{"id": "te145", "lang": "en", "text": "heat index today?", "tool": "get_heat_index"}
+{"id": "te146", "lang": "th", "text": "มีใครเดินแถวนี้ตอนเย็นบ้าง อยากไปด้วย", "tool": "search_activities"}
+{"id": "te147", "lang": "th", "text": "เดินครบ 30 นาทีแล้วค่ะ", "tool": "log_checkin"}
+{"id": "te148", "lang": "en", "text": "There's smoke from the fires up north, is it reaching us?", "tool": "get_pm25"}
+{"id": "te149", "lang": "th", "text": "แดดเปรี้ยงขนาดนี้ไปเดินได้ไหม", "tool": "get_heat_index"}
+{"id": "te150", "lang": "mix", "text": "walking club ตอนเช้ามีมั้ย", "tool": "search_activities"}
+{"id": "te151", "lang": "en", "text": "Walked to the market and back instead of the mission, maybe 20 min?", "tool": "log_checkin"}
+{"id": "te152", "lang": "th", "text": "ชีพจรห้ามเกินเท่าไหร่คะ", "tool": "get_patient_limits"}
+{"id": "te153", "lang": "th", "text": "สัปดาห์ที่แล้วขาดไปกี่วัน", "tool": "get_recent_activity"}
+{"id": "te154", "lang": "th", "text": "วันนี้ข้ามภารกิจไปก่อนนะ ปวดเข่า", "tool": "log_checkin"}
+{"id": "te155", "lang": "en", "text": "When can I start doing more than 20 minutes?", "tool": "get_patient_limits"}
+{"id": "te156", "lang": "en", "text": "Should I wear a mask for the dust if I walk now?", "tool": "get_pm25"}
+{"id": "te157", "lang": "mix", "text": "ต้องใส่ mask N95 ไหมวันนี้ ฝุ่นเยอะรึเปล่า", "tool": "get_pm25"}
+{"id": "te158", "lang": "mix", "text": "heart rate เมื่อวานตอนเดินขึ้นไปเท่าไหร่", "tool": "get_recent_activity"}
+{"id": "te159", "lang": "th", "text": "ควันจากการเผาเยอะไหมแถวนี้", "tool": "get_pm25"}
+{"id": "te160", "lang": "th", "text": "เต้นแอโรบิกแล้วต้องกินยาก่อนหรือหลังดี", "tool": "none"}
+{"id": "te161", "lang": "mix", "text": "walking path ริมน้ำมีไหม", "tool": "search_places"}
+{"id": "te162", "lang": "th", "text": "อยากไปเข้าคลาสแอโรบิก แต่ไม่รู้ว่าเราเล่นได้รึเปล่า", "tool": "get_patient_limits"}
+{"id": "te163", "lang": "th", "text": "เมื่อวานนี้ฉันทำภารกิจครบไหมนะ จำไม่ได้", "tool": "get_recent_activity"}
+{"id": "te164", "lang": "mix", "text": "ลืมกินยา statin เมื่อคืน ต้องทำไงคะ", "tool": "none"}
+{"id": "te165", "lang": "th", "text": "อยากเต้นลีลาศกับเพื่อนๆ มีที่สอนไหม", "tool": "search_activities"}
+{"id": "te166", "lang": "th", "text": "อาทิตย์นี้ทำภารกิจไปกี่อันแล้ว", "tool": "get_recent_activity"}
+{"id": "te167", "lang": "th", "text": "ฟ้าครึ้มๆ ฝนจะตกมั้ย จะออกไปเดิน", "tool": "get_heat_index"}
+{"id": "te168", "lang": "th", "text": "อยากหาเพื่อนออกกำลังกายด้วย", "tool": "search_activities"}
+{"id": "te169", "lang": "th", "text": "คุณภาพอากาศเชียงใหม่ตอนนี้", "tool": "get_pm25"}
+{"id": "te170", "lang": "th", "text": "ขึ้นบันไดบ่อยๆได้มั้ย บ้านมีสองชั้น", "tool": "get_patient_limits"}
+{"id": "te171", "lang": "en", "text": "good morning!", "tool": "none"}
+{"id": "te172", "lang": "th", "text": "หยุดยาเองได้ไหม รู้สึกดีขึ้นแล้ว", "tool": "none"}
+{"id": "te173", "lang": "en", "text": "Somewhere with benches along the way so I can rest", "tool": "search_places"}
+{"id": "te174", "lang": "th", "text": "แดดดีนะ แต่ฝุ่นล่ะ", "tool": "get_pm25"}
+{"id": "te175", "lang": "en", "text": "any tai chi club in the park nearby?", "tool": "search_activities"}
+{"id": "te176", "lang": "th", "text": "ตลาดนัดไม่ใช่นะ อยากได้สวนจริงๆ", "tool": "search_places"}
+{"id": "te177", "lang": "th", "text": "อยู่คนเดียวเหงา อยากไปออกกำลังกับคนอื่นบ้าง มีที่ไหนจัดไหม", "tool": "search_activities"}
+{"id": "te178", "lang": "en", "text": "No chest pain or dizziness today, all good", "tool": "none"}
+{"id": "te179", "lang": "en", "text": "I can't remember if I walked on Tuesday, can you check?", "tool": "get_recent_activity"}
+{"id": "te180", "lang": "th", "text": "ร้อนมั้ย", "tool": "get_heat_index"}
+{"id": "te181", "lang": "en", "text": "Any shaded walking path around here?", "tool": "search_places"}
+{"id": "te182", "lang": "th", "text": "เมื่อกี้เดินอยู่ดีๆก็หน้ามืดจะเป็นลม ต้องนั่งพักข้างทาง", "tool": "red_flag"}
+{"id": "te183", "lang": "th", "text": "เจบอกตรงกลาง ร้าวไปกราม", "tool": "red_flag"}
+{"id": "te184", "lang": "th", "text": "มีสนามกีฬาจังหวัดที่เปิดให้เดินไหม", "tool": "search_places"}
+{"id": "te185", "lang": "th", "text": "อยากรู้ว่าตอนปั่นจักรยานเมื่อวานซืน ชีพจรขึ้นไปถึงเท่าไหร่", "tool": "get_recent_activity"}
+{"id": "te186", "lang": "en", "text": "Done with today's walk, 25 minutes.", "tool": "log_checkin"}
+{"id": "te187", "lang": "th", "text": "สวัสดีค่ะ", "tool": "none"}
+{"id": "te188", "lang": "th", "text": "รำไทเก๊กได้ไหมคะ", "tool": "get_patient_limits"}
+{"id": "te189", "lang": "th", "text": "กินยาแล้วรู้สึกไอแห้งๆ เป็นผลข้างเคียงรึเปล่า", "tool": "none"}
+{"id": "te190", "lang": "th", "text": "เหงื่อออกเย็นๆ แล้วก็อึดอัดที่อกด้วย", "tool": "red_flag"}
+{"id": "te191", "lang": "th", "text": "พรุ่งนี้เช้าอากาศเย็นไหมคะ", "tool": "get_heat_index"}
+{"id": "te192", "lang": "en", "text": "What's the temperature this afternoon?", "tool": "get_heat_index"}
+{"id": "te193", "lang": "en", "text": "Does this app share my data with my doctor?", "tool": "none"}
+{"id": "te194", "lang": "en", "text": "Is it safe to breathe outside today with all this pollution?", "tool": "get_pm25"}
+{"id": "te195", "lang": "mix", "text": "ตอนนี้ jogging ได้ยังคะ", "tool": "get_patient_limits"}
+{"id": "te196", "lang": "th", "text": "ทำสวนขุดดินได้ไหมคะ", "tool": "get_patient_limits"}
+{"id": "te197", "lang": "th", "text": "ตอนเย็นจะเย็นลงบ้างไหม", "tool": "get_heat_index"}
+{"id": "te198", "lang": "mix", "text": "วันนี้กี่ degree คะ", "tool": "get_heat_index"}
+{"id": "te199", "lang": "th", "text": "หอบเหนื่อยผิดปกติ เดินขึ้นบันไดแค่ชั้นเดียวก็หอบแล้ว ตอนนี้ยังไม่หาย", "tool": "red_flag"}
+{"id": "te200", "lang": "en", "text": "I forgot my aspirin last night, should I take two today?", "tool": "none"}
+{"id": "te201", "lang": "mix", "text": "ร้อนมั้ย ถ้าจะไป walk ตอนบ่าย", "tool": "get_heat_index"}
+{"id": "te202", "lang": "en", "text": "What's my progress this week?", "tool": "get_recent_activity"}
+{"id": "te203", "lang": "en", "text": "I want to walk alone, quiet place please", "tool": "search_places"}
+{"id": "te204", "lang": "th", "text": "เมื่อไหร่จะเพิ่มเวลาเดินได้", "tool": "get_patient_limits"}
+{"id": "te205", "lang": "th", "text": "ยกของหนักได้ไหม จะย้ายกระถางต้นไม้", "tool": "get_patient_limits"}
+{"id": "te206", "lang": "th", "text": "ร้อนเกินไปไหมถ้าจะไปเดินตอนบ่ายสอง", "tool": "get_heat_index"}
+{"id": "te207", "lang": "mix", "text": "ยา beta blocker ทำให้ heart rate ต่ำลงจริงไหม", "tool": "none"}
+{"id": "te208", "lang": "th", "text": "หัวใจเต้นได้ถึงเท่าไหร่ตอนออกกำลัง", "tool": "get_patient_limits"}
+{"id": "te209", "lang": "mix", "text": "progress เดือนนี้เป็นไงบ้างคะ", "tool": "get_recent_activity"}
+{"id": "te210", "lang": "th", "text": "ตอนนี้แดดร่มลมตกหรือยัง ยังร้อนอยู่ไหม", "tool": "get_heat_index"}
+{"id": "te211", "lang": "th", "text": "วันนี้อุณหภูมิกี่องศา", "tool": "get_heat_index"}
+{"id": "te212", "lang": "en", "text": "heart racing like crazy, been 15 min, cant calm down", "tool": "red_flag"}
+{"id": "te213", "lang": "th", "text": "หายใจไม่ทันเลยค่ะ ทั้งที่นั่งดูทีวีอยู่เฉยๆ", "tool": "red_flag"}
+{"id": "te214", "lang": "en", "text": "Can I go back to playing badminton?", "tool": "get_patient_limits"}
+{"id": "te215", "lang": "mix", "text": "มี group ปั่นจักรยานสบายๆไหม", "tool": "search_activities"}
+{"id": "te216", "lang": "th", "text": "ลืมทำภารกิจเมื่อวาน ขอโทษน้า", "tool": "log_checkin"}
+{"id": "te217", "lang": "mix", "text": "เมื่อกี้ blackout ไปแป๊บนึงตอนลุกขึ้น", "tool": "red_flag"}
+{"id": "te218", "lang": "th", "text": "แดดแรงไหม จะออกไปเดิน", "tool": "get_heat_index"}
+{"id": "te219", "lang": "th", "text": "หาลู่วิ่งใกล้บ้านหน่อย", "tool": "search_places"}
+{"id": "te220", "lang": "mix", "text": "mission วันนี้ done แล้วนะ", "tool": "log_checkin"}
+{"id": "te221", "lang": "th", "text": "หัวใจเตนตุบๆ ไม่เปนจังหวะ รู้สึกได้เลย", "tool": "red_flag"}
+{"id": "te222", "lang": "en", "text": "Are there any charity walks coming up?", "tool": "search_activities"}
+{"id": "te223", "lang": "mix", "text": "heart rate limit ของผมเท่าไหร่ครับ", "tool": "get_patient_limits"}
+{"id": "te224", "lang": "th", "text": "ปวดหลังร้าวขึ้นมาจากหน้าอก เป็นอยู่ตอนนี้ค่ะ", "tool": "red_flag"}
+{"id": "te225", "lang": "mix", "text": "ไป gym เล่นเครื่องได้ไหม", "tool": "get_patient_limits"}
+{"id": "te226", "lang": "th", "text": "มีควันไฟป่าลอยมาไหมวันนี้", "tool": "get_pm25"}
+{"id": "te227", "lang": "en", "text": "I was going to ask about the park but I'm in a cold sweat and my chest feels heavy", "tool": "red_flag"}
+{"id": "te228", "lang": "th", "text": "ไปเดินที่ไหนดีวันนี้ ไม่อยากเจอคนเยอะ", "tool": "search_places"}
+{"id": "te229", "lang": "th", "text": "หลานสอนใช้แอปแล้ว ยังงงๆอยู่ เริ่มยังไงดี", "tool": "none"}
+{"id": "te230", "lang": "mix", "text": "ค่า PM2.5 ตอนนี้เท่าไหร่", "tool": "get_pm25"}
+{"id": "te231", "lang": "mix", "text": "heart rate ขึ้น 140 ทั้งที่นั่งเฉยๆ ใจสั่นด้วย", "tool": "red_flag"}
+{"id": "te232", "lang": "en", "text": "Is cycling ok for me now?", "tool": "get_patient_limits"}
+{"id": "te233", "lang": "th", "text": "แถวรามคำแหงมีสวนอะไรบ้าง", "tool": "search_places"}
+{"id": "te234", "lang": "th", "text": "แถวนี้มีชมรมเดินไหมคะ", "tool": "search_activities"}
+{"id": "te235", "lang": "th", "text": "เจ็บหน้าอกมากค่ะ ตอนนี้", "tool": "red_flag"}
+{"id": "te236", "lang": "th", "text": "ตอนนี้เดินเร็วๆได้ไหม หรือต้องเดินช้าๆก่อน", "tool": "get_patient_limits"}
+{"id": "te237", "lang": "mix", "text": "วันนี้ PM สูงมั้ย", "tool": "get_pm25"}
+{"id": "te238", "lang": "en", "text": "Looking for a supervised exercise session", "tool": "search_activities"}
+{"id": "te239", "lang": "en", "text": "Hot and smoky out, but I'm mostly worried about the smoke. How bad is it?", "tool": "get_pm25"}
+{"id": "te240", "lang": "en", "text": "Sorry to bother you, it's probably nothing, but there's been a pressure in my chest since I woke up a few minutes ago", "tool": "red_flag"}
+{"id": "te241", "lang": "th", "text": "ดัชนีความร้อนวันนี้อันตรายไหม", "tool": "get_heat_index"}
+{"id": "te242", "lang": "th", "text": "ลูกบอกให้หาเพื่อนเดิน มีกลุ่มไหนแนะนำ", "tool": "search_activities"}
+{"id": "te243", "lang": "th", "text": "ร้อนมากเลยวันนี้ ตอนนี้รู้สึกจะเป็นลม ใจเต้นแรง", "tool": "red_flag"}
+{"id": "te244", "lang": "th", "text": "วิ่งเหยาะๆได้ยัง ผ่าตัดมาสามเดือนแล้ว", "tool": "get_patient_limits"}
+{"id": "te245", "lang": "en", "text": "How heavy can I lift?", "tool": "get_patient_limits"}
+{"id": "te246", "lang": "th", "text": "แอโรบิกในน้ำมีคลาสไหม", "tool": "search_activities"}
+{"id": "te247", "lang": "en", "text": "thanks, that helped a lot", "tool": "none"}
+{"id": "te248", "lang": "mix", "text": "อุณหภูมิตอนเช้า cool พอไปเดินไหม", "tool": "get_heat_index"}
+{"id": "te249", "lang": "th", "text": "ตอนนี้ข้างนอกร้อนแค่ไหนจ๊ะ", "tool": "get_heat_index"}
+{"id": "te250", "lang": "th", "text": "ฝุ่นหนาเหมือนเมื่อวานรึเปล่า", "tool": "get_pm25"}
+{"id": "te251", "lang": "th", "text": "มีที่เดินที่มีม้านั่งให้พักเป็นระยะไหม", "tool": "search_places"}
+{"id": "te252", "lang": "mix", "text": "มี event เดินการกุศลไหม", "tool": "search_activities"}
+{"id": "te253", "lang": "en", "text": "When does it cool down today?", "tool": "get_heat_index"}
+{"id": "te254", "lang": "th", "text": "ฝุ่นวันนี้เป็นไง", "tool": "get_pm25"}
+{"id": "te255", "lang": "en", "text": "I'm suddenly dizzy and the room is spinning", "tool": "red_flag"}
+{"id": "te256", "lang": "mix", "text": "แอปนี้ notification ปิดได้มั้ย มันเด้งบ่อย", "tool": "none"}
+{"id": "te257", "lang": "th", "text": "เมื่อเย็นปั่นจักรยานอยู่กับที่ 15 นาที สบายดี ไม่เจ็บอกเลย", "tool": "log_checkin"}
+{"id": "te258", "lang": "th", "text": "ปั่นจักรยานได้หรือยัง", "tool": "get_patient_limits"}
+{"id": "te259", "lang": "mix", "text": "ทำ mission เดินเสร็จแล้ว แต่ตอนนี้ chest tight มาก", "tool": "red_flag"}
+{"id": "te260", "lang": "th", "text": "หัวใจเต้นสูงสุดเมื่อวานเท่าไหร่", "tool": "get_recent_activity"}
+{"id": "te261", "lang": "th", "text": "อยากไปเดินสวนแต่กลัวจะหนักเกินไปสำหรับหัวใจ เดินได้นานสุดกี่นาที", "tool": "get_patient_limits"}
+{"id": "te262", "lang": "en", "text": "Am I allowed to swim yet?", "tool": "get_patient_limits"}
+{"id": "te263", "lang": "mix", "text": "รู้สึก palpitation อีกแล้ว เต้นไม่สม่ำเสมอ", "tool": "red_flag"}
+{"id": "te264", "lang": "en", "text": "did i hit my goal last week", "tool": "get_recent_activity"}
+{"id": "te265", "lang": "mix", "text": "hello ค่ะ ใช้ครั้งแรก", "tool": "none"}
+{"id": "te266", "lang": "th", "text": "แนะนำสถานที่เดินออกกำลังกายใกล้บ้านหน่อยค่ะ", "tool": "search_places"}
+{"id": "te267", "lang": "en", "text": "My wife wants us to join a dance class together, anything around?", "tool": "search_activities"}
+{"id": "te268", "lang": "th", "text": "ลืมกินยาความดันเมื่อเช้า ตอนนี้กินเลยได้ไหม", "tool": "none"}
+{"id": "te269", "lang": "en", "text": "How's the air quality today?", "tool": "get_pm25"}
+{"id": "te270", "lang": "th", "text": "ผมทำได้กี่เปอร์เซ็นต์ของเป้าแล้ว", "tool": "get_recent_activity"}
