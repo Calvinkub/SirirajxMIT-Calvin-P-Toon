@@ -9,7 +9,7 @@ MIT GrandHack 2026 · InterSystems challenge: "Best Use of GenAI or FHIR using I
 
 | File | Judge question it answers | One-line answer |
 |---|---|---|
-| [A01](A01-why-not-chatgpt.md) | Why not just ask ChatGPT or Claude? | A chatbot answers when asked. We act first, inside a clinician-signed FHIR limit record, with rules deciding safety before any model, in Thai, with the care team in the loop |
+| [A01](A01-why-not-chatgpt.md) | Why not just ask ChatGPT or Claude? | A chat coach that recommends like Netflix: activities and groups you will enjoy, only inside the signed care plan. |
 | [A02](A02-system-architecture.md) | Where does InterSystems sit? How is it built? | IRIS for Health is the single source of truth: FHIR Server for every fact, SQL Builder for the rules engine, Vector Search for grounding, and typed MCP tools as the only way in |
 | [A03](A03-fhir-data-model.md) | Is the data model thoughtful and interoperable? | Every fact is a standard FHIR R4 resource, from watch readings to the signed limit `CarePlan` to each mission `Task` and its AI `Provenance`. 9 idempotent PUT bundles, 383 resources, validated |
 | [A04](A04-agentic-harness.md) | What runs inside the agent harness? | Open models with one job each (Qwen3-ASR, Qwen3 router, MedGemma 27B / 1.5 4B, Thai TTS), wrapped by rules before and after. The model only picks an id from the allowed set. Workflows W1–W5 and the full demo flow |

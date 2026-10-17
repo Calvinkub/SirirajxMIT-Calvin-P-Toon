@@ -8,33 +8,31 @@ STYLE: Render ONE presentation slide, 16:9, exactly 1920×1080 px, flat vector l
 ACTIVE TAB: "Why us". PAGE TAG: "A01".
 
 BREADCRUMB (top-left): "WHY US | VS A GENERAL CHATBOT"
-TITLE (top-left, two lines max): "A chatbot answers when asked. Our agent acts first, inside the doctor's signed limits."
+TITLE (top-left, two lines max): "A general chatbot gives advice. Heartstep recommends what you will enjoy, inside your doctor's care plan."
 
 LAYOUT: two side-by-side panels in the upper two thirds (y=190 to y=640), then a row of three number tiles (y=670 to y=880), then the footer.
 
-LEFT PANEL (x=80 to x=700, light grey fill #F3F5F6, header "General chatbot" in 26 px deep teal, small grey speech-bubble icon in lineal colour style next to the header). Inside, a vertical chain of three rounded boxes joined by grey arrows pointing down:
-  box 1: "Patient asks"
-  box 2: "Model decides facts, safety and tone"
-  box 3: "Answer"
+LEFT PANEL (x=80 to x=640, light grey fill #F3F5F6, header "General chatbot" in 26 px deep teal, small grey speech-bubble icon in lineal colour style next to the header). Inside, a vertical chain of three rounded boxes joined by grey arrows pointing down:
+  box 1: "You ask a question"
+  box 2: "Model writes advice from memory"
+  box 3: "Same tips for everyone"
 
-RIGHT PANEL (x=760 to x=1840, white fill with a 3 px teal #1B7F7A border, header "Heartstep" in 26 px deep teal, small heart-with-shield icon in lineal colour style). Inside, a horizontal chain of five rounded boxes joined by teal arrows pointing right:
-  box 1: "Scheduler or message"
-  box 2: "Red-flag screen" with a small teal badge under it reading "RULES ONLY"
-  box 3: "Allowed set from signed CarePlan" with a small teal badge "FHIR"
-  box 4: "Model picks ONE id" with a small grey badge "MODEL"
-  box 5: "Task + Provenance in IRIS" with a small teal badge "FHIR"
-  From box 2 a short orange #C2571A arrow goes down to an orange-outlined pill reading "Stop · call 1669".
+RIGHT PANEL (x=700 to x=1840, white fill with a 3 px teal #1B7F7A border, header "Heartstep: like Netflix for a healthy heart" in 26 px deep teal, small heart icon with a play-button triangle in lineal colour style). Inside, three horizontal "Netflix-style" rows of small rounded activity cards (each card a pastel rectangle with a tiny lineal icon and a one-word label), each row with a row title on its left:
+  row 1 title: "Because you loved tennis" — cards: "Badminton", "Table tennis", "Bowling"
+  row 2 title: "Popular with people like you" — cards: "Walking group", "Tai chi", "Petanque"
+  row 3 title: "Groups near you this week" — cards: "Badminton club 1.9 km", "Bowling league 3.2 km"
+  Under the three rows, a thin teal bar with a small shield icon reading "Only activities inside your signed care plan · warning symptoms stop by rules".
 
-ROW OF THREE TILES (equal width, light grey fill, rounded). Above the row, a small orange outlined badge reading "SYNTHETIC TEST · n = 36 per run".
-  tile 1: big number "4 of 4" in orange #C2571A; label "red flags missed when the model writes the tool call"
-  tile 2: big number "0 of 4" in deep teal; label "missed with the rules in front"
-  tile 3: big word "PM2.5" in deep teal; label "small model said 'currently high' without calling the tool"
+ROW OF THREE TILES (equal width, light grey fill, rounded):
+  tile 1: big text "100 → 67" in deep teal; label "activities in the catalogue that fit the care plan"
+  tile 2: big text "3 signals" in deep teal; label "your taste · people like you · near you"
+  tile 3: big text "0 of 4" in orange #C2571A; label "red flags missed with rules in front (synthetic test)"
 
-TAKEAWAY STRIP (y=895 to y=950, pale teal fill #CDEBE8, deep teal text): "Not a smarter model. A bounded one."
+TAKEAWAY STRIP (y=895 to y=950, pale teal fill #CDEBE8, deep teal text): "Recommendations you enjoy, a community to join, inside a safe plan."
 
-FOOTER SOURCE LINE (bottom-left, y=972): "Source: experiments/RESULTS_tool_router_demo.md (Qwen3 0.6B/1.7B/4B, synthetic); OpenAI 'Launching Health in ChatGPT' (US, Jul 2026)"
+FOOTER SOURCE LINE (bottom-left, y=972): "Source: demo/agent-flow-demo.html (synthetic patient and places); experiments/RESULTS_tool_router_demo.md (synthetic)"
 
-DO NOT: draw any OpenAI, Anthropic, ChatGPT or Claude logo; add any other numbers or percentages; add extra text or captions; use photos.
+DO NOT: draw any OpenAI, Anthropic, ChatGPT, Claude or Netflix logo; use Netflix red or its typeface; add any other numbers or percentages; add extra text or captions; use photos.
 ```
 
 ## Page spec
@@ -42,47 +40,48 @@ DO NOT: draw any OpenAI, Anthropic, ChatGPT or Claude logo; add any other number
 | Field | Value |
 |---|---|
 | Judge question | "Why not just ask ChatGPT or Claude?" |
-| Page type | Variant perception (mirrors template slide 12: "market view" chain on the left vs "our view" on the right, KPI tiles under it) |
-| Layout | Two panels (chatbot chain vs our chain) + three KPI tiles + takeaway strip |
-| On-slide words | ≈ 85 |
+| Page type | Variant perception (template slide 12: "market view" on the left vs "our view" on the right, KPI tiles under it) |
+| Layout | Two panels (general chatbot chain vs Netflix-style recommendation rows) + three KPI tiles + takeaway strip |
+| On-slide words | ≈ 100 |
 
 ## On-slide text (exact)
 
 - Breadcrumb: WHY US | VS A GENERAL CHATBOT
-- Title: A chatbot answers when asked. Our agent acts first, inside the doctor's signed limits.
-- Left panel "General chatbot": Patient asks → Model decides facts, safety and tone → Answer
-- Right panel "Heartstep": Scheduler or message → Red-flag screen [RULES ONLY] → Allowed set from signed CarePlan [FHIR] → Model picks ONE id [MODEL] → Task + Provenance in IRIS [FHIR]; branch: Stop · call 1669
-- Badge: SYNTHETIC TEST · n = 36 per run
-- Tile 1: 4 of 4 · red flags missed when the model writes the tool call
-- Tile 2: 0 of 4 · missed with the rules in front
-- Tile 3: PM2.5 · small model said "currently high" without calling the tool
-- Takeaway: Not a smarter model. A bounded one.
-- Source line as in the prompt.
+- Title: A general chatbot gives advice. Heartstep recommends what you will enjoy, inside your doctor's care plan.
+- Left panel "General chatbot": You ask a question → Model writes advice from memory → Same tips for everyone
+- Right panel "Heartstep: like Netflix for a healthy heart":
+  - Because you loved tennis: Badminton · Table tennis · Bowling
+  - Popular with people like you: Walking group · Tai chi · Petanque
+  - Groups near you this week: Badminton club 1.9 km · Bowling league 3.2 km
+  - Bar: Only activities inside your signed care plan · warning symptoms stop by rules
+- Tile 1: 100 → 67 · activities in the catalogue that fit the care plan
+- Tile 2: 3 signals · your taste · people like you · near you
+- Tile 3: 0 of 4 · red flags missed with rules in front (synthetic test)
+- Takeaway: Recommendations you enjoy, a community to join, inside a safe plan.
 
 ## Visual spec
 
-- Left chain is grey and vertical (passive); right chain is teal and horizontal (a pipeline). The contrast is the message.
-- The only orange items: tile 1 number and the "Stop · call 1669" pill.
-- Tiles report v1 config A vs config C. "4 of 4" holds for every model size tested (0.6B Mac and T4, 1.7B T4, 4B T4). The PM2.5 example is Qwen3-0.6B.
+- Left: grey, vertical, generic. Right: teal frame with three horizontal rows of cards, like a streaming app's home screen, but in the deck's palette (no Netflix branding or red).
+- Orange only on tile 3.
+- The recommendation rows map to the demo's signals: KNN on the patient's liked activities ("Because you loved…"), the similar-user cohort ("Popular with people like you"), and FHIR `HealthcareService` near home ("Groups near you").
 
 ## Speaker notes (Q&A)
 
-General models are strong reasoners, and both OpenAI and Anthropic now connect health records for US users, so we do not claim a smarter model. Our claim is that the model is bounded: limits come from a clinician-signed FHIR `CarePlan`, rules decide safety before any model runs, the app pushes one or two missions at a time the patient chose, it works in Thai, and the care team sees flags and an audit trail. In our synthetic router test, a plain small model writing the tool call missed all 4 red-flag messages at every size and once invented a PM2.5 answer; with the rules gate in front, 0 of 4 were missed. That shows the failure mode, not real-world accuracy.
+We are a chat coach too, but a general chatbot answers from memory and gives everyone the same tips. Heartstep works like a recommender: it starts from a catalogue of 100 activities, keeps only the 67 that fit the doctor's signed care plan, then ranks them by what you enjoyed, what people like you kept doing, and what groups meet near you. The patient chooses, and the plan is saved as FHIR. Safety stays outside the model: in our synthetic test, rules in front caught all 4 red-flag messages that a plain small model missed.
 
 ## Data needed for this page
 
 | Number or claim | Value | Source | Status |
 |---|---|---|---|
-| Red flags missed, config A | 4 of 4 (all models) | `experiments/tool_router_demo_results_*.json` (`red_flag_missed` = 4) | Checked |
-| Red flags missed, config C | 0 of 4 | same files | Checked |
-| Test size | n = 36 per run | same files (`n`: 36) | Checked |
-| PM2.5 invented answer | Qwen3-0.6B, "currently high" | `experiments/RESULTS_tool_router_demo.md`, A01 | From write-up |
-| ChatGPT Health US-only | OpenAI, July 2026 | `docs/pitch/faq-appendix/slides/chatbot.html` | **To verify** before quoting (A01 "limits of this answer") |
-| Missing | — | — | None blocking |
+| Catalogue and filter | 100 → 67 | `demo/agent-flow-demo.html` (catalogue + filter MET ≤ 5.9, no contact/straining/bursts) | Checked (synthetic limits) |
+| Top picks for the tennis example | Bowling, table tennis, badminton | headless run of the demo (preset 1) | Checked |
+| Group distances | 1.9 km, 3.2 km | `demo/agent-flow-demo.html` COMMUNITY (synthetic) | Synthetic |
+| Red flags, rules in front | 0 of 4 | `experiments/tool_router_demo_results_*.json` | Checked (synthetic) |
+| "Popular with people like you" items | Walking group, tai chi, petanque | illustrative; cohort numbers are synthetic | Label as example |
+| Missing | real cohort data for collaborative filtering | — | Needed for a pilot |
 
 ## Sources in repo
 
-- `pitch/appendix/A01-why-not-chatgpt.md`
-- `docs/pitch/faq-appendix/slides/chatbot.html`
-- `experiments/RESULTS_tool_router_demo.md`, `experiments/tool_router_demo_results_Qwen3-*_cuda.json`, `experiments/tool_router_demo_results_Qwen3-0.6B_mps.json`
-- `pitch/judge-questions.md` Q6
+- `demo/agent-flow-demo.html`
+- `pitch/appendix/A01-why-not-chatgpt.md`, `pitch/appendix/A04-agentic-harness.md`
+- `experiments/RESULTS_tool_router_demo.md`

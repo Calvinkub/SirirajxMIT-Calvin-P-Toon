@@ -13,7 +13,7 @@ MIT GrandHack 2026 · InterSystems challenge "Best Use of GenAI or FHIR using In
 
 | Page | Judge question it answers | Page type (template slide) | Data on the page |
 |---|---|---|---|
-| [P01](P01-why-not-chatgpt.md) | Why not just ask ChatGPT or Claude? | Variant perception (12) | Red flags missed 4 of 4 (model writes call) vs 0 of 4 (rules first); PM2.5 invented answer; n = 36 synthetic |
+| [P01](P01-why-not-chatgpt.md) | Why not just ask ChatGPT or Claude? | Variant perception (12) | Netflix-style rows (because you loved tennis · people like you · near you); 100 → 67 safe catalogue; 0 of 4 red flags missed with rules (synthetic) |
 | [P02](P02-architecture-iris-for-health.md) | Where does InterSystems sit? Is IRIS just a vector store? | Stack + value chain (8, 16) | FHIR Server, SQL Builder, Vector Search, Interop; built vs planned badges |
 | [P03](P03-fhir-resource-map.md) | Why FHIR? Show the data model | Column map (2) | 19 resource types, 383 resources, 9 PUT bundles; LOINC 8867-4, 41950-7, 18842-5; SNOMED CT, ATC; Consent insurer deny |
 | [P04](P04-synthetic-fhir-bundles.md) | What data did you build, what does it test? | KPI snapshot (3) | 8 patients; per-bundle counts 20/52/50/51/29/52/28/52/49; 143 Observations; 8 test paths |

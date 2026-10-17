@@ -27,7 +27,7 @@ Places and groups are FHIR `Location` and `HealthcareService` resources with coo
 ## Agentic AI
 
 ### 6. Why not just use ChatGPT or Claude?
-General models are strong reasoners. The difference is that our model is bounded. Limits come from a signed record, rules decide safety before any model runs, the app acts first instead of waiting for a question, it works in Thai, and the care team is in the loop. Health in ChatGPT also launched for US users only (OpenAI, July 2026).
+We are a chat coach too, but a recommender, not a general advice bot: like Netflix, it ranks a catalogue of activities and real groups by your taste, people like you and what is near you, and only from what your doctor’s care plan allows. General models are strong reasoners; ours is also bounded. Limits come from a signed record, rules decide safety before any model runs, the app acts first instead of waiting for a question, it works in Thai, and the care team is in the loop. Health in ChatGPT also launched for US users only (OpenAI, July 2026).
 → [A01 Why not ChatGPT](appendix/A01-why-not-chatgpt.md)
 
 ### 7. What runs inside your agent harness, and why those models?

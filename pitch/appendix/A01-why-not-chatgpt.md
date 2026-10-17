@@ -1,6 +1,6 @@
 # A01 · Why not just ask ChatGPT or Claude?
 
-**One-line answer:** A chatbot answers when the patient asks. CVD Mission Coach acts first, and only inside a clinician-signed FHIR limit record. Rules decide what is safe before any model runs, it works in Thai, and the care team stays in the loop.
+**One-line answer:** A general chatbot gives everyone the same advice from memory. Heartstep is a chat coach that works like Netflix for a healthy heart: it recommends activities and community groups you will enjoy (your taste, people like you, near you), only from what your doctor’s signed care plan allows, with red flags handled by rules.
 
 ## The honest framing
 
