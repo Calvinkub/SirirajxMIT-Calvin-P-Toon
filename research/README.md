@@ -12,6 +12,8 @@ Everything here is **machine-generated first-pass research**. Check each number 
 | [market/sources.md](market/sources.md) | Market source links |
 | [pitch-claims-check.md](pitch-claims-check.md) | Which pitch-script numbers are supported, and which are not |
 
+> **DO NOT IMPLEMENT numbers from `guidelines/` yet.** The 2026-10-17 panel run verified that `app-parameters-qa.md` and `notebooklm-deep-report.md` contradict each other (e.g. upper-body resistance after bypass surgery: 3 months vs 4–6 weeks; beta-blocker target-HR adjustment: K = 0.8 vs a 10 bpm vs 20–40 bpm deduction; risk-class EF and MET bands). A real rehab physician must reconcile them first. See `evaluation/reviews/2026-10-17-document/SYNTHESIS.md`.
+
 ## What this changes in the design
 
 1. **Open question 0 (no CPET) has an answer.** Guidelines accept other ways to set intensity: symptom-limited ECG stress test, 6-minute walk test, % heart-rate reserve, resting HR + 20–30 bpm, Borg RPE 11–14, talk test. On beta-blockers, use RPE and talk test first. The app should accept these as inputs, flagged by "who set the limit".
