@@ -41,14 +41,16 @@ MEDICATION = re.compile(r"(stop|skip|double|extra).{0,20}(medic|pill|tablet|biso
 
 def load(model_id):
     tok = AutoTokenizer.from_pretrained(model_id)
-    dev = "mps" if torch.backends.mps.is_available() else "cpu"
-    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16 if dev == "mps" else torch.float32).to(dev).eval()
+    dev = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+    model = AutoModelForCausalLM.from_pretrained(model_id, dtype=torch.float32 if dev == "cpu" else torch.float16).to(dev).eval()
     return tok, model, dev
 
 
 def sync(dev):
     if dev == "mps":
         torch.mps.synchronize()
+    elif dev == "cuda":
+        torch.cuda.synchronize()
 
 
 def baseline(tok, model, dev, text):
@@ -160,10 +162,10 @@ def main():
                run("B one-pass: score option letters, no rules", one_pass, rows, tok, model, dev),
                run("C cascade: red-flag + medication rules, then one-pass", cascade, rows, tok, model, dev),
                run("D cascade: rules, then nearest-centroid on hidden states (calibration split)", make_centroid_router(calib, tok, model, dev), rows, tok, model, dev)]
-    meta = {"model": a.model, "device": dev, "dtype": "float16" if dev == "mps" else "float32", "data": str(DATA.relative_to(ROOT)),
+    meta = {"model": a.model, "device": dev, "dtype": "float32" if dev == "cpu" else "float16", "gpu": torch.cuda.get_device_name(0) if dev == "cuda" else None, "data": str(DATA.relative_to(ROOT)),
             "data_origin": "synthetic", "split": "test = even ids (36 rows); calibration = odd ids (36 rows), used only by config D", "torch": torch.__version__, "date": time.strftime("%Y-%m-%d")}
     out = {"meta": meta, "results": results}
-    (ROOT / "experiments" / "tool_router_demo_results.json").write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
+    (ROOT / "experiments" / f"tool_router_demo_results_{a.model.split('/')[-1]}_{dev}.json").write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
     print(json.dumps(out, indent=2, ensure_ascii=False))
 
 

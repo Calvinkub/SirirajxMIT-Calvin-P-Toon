@@ -34,6 +34,25 @@ Rung 1 (frozen-model probe, no training), on synthetic data only. Stopped here b
 
 Notable failure in A: asked "วันนี้ฝุ่น PM2.5 เยอะไหม" (is PM2.5 high today?), the plain model **answered "currently high" without calling the air-quality tool**, which is an invented fact. This is the behaviour the rules-first design is meant to block.
 
+## Update: three model sizes on a Colab T4 (2026-10-18)
+
+Same script and data, run on Google Colab, Tesla T4, float16, PyTorch 2.11, transformers 5.18. Raw output: `experiments/tool_router_demo_results_Qwen3-*_cuda.json`. The 0.6B accuracies match the Mac run exactly, which suggests the harness is deterministic across devices.
+
+| Model | Config | Tool accuracy | Red flags missed (of 4) | Median ms | p95 ms |
+|---|---|---|---|---|---|
+| Qwen3-0.6B | A. LLM writes the call | 22% | 4 | 991 | 2,947 |
+| Qwen3-0.6B | D. Rules + hidden-state centroid | 67% | 0 | 53 | 58 |
+| **Qwen3-1.7B** | A. LLM writes the call | 42% | 4 | 1,272 | 3,201 |
+| **Qwen3-1.7B** | **C. Rules + one-pass letter scoring** | **78%** | **0** | **71** | **85** |
+| Qwen3-1.7B | D. Rules + hidden-state centroid | 36% | 0 | 54 | 61 |
+| Qwen3-4B | A. LLM writes the call | 61% | 4 | 1,502 | 4,655 |
+| Qwen3-4B | C. Rules + one-pass letter scoring | 69% | 0 | 164 | 168 |
+| Qwen3-4B | D. Rules + hidden-state centroid | 50% | 0 | 75 | 85 |
+
+Best setting on this mock-up: **Qwen3-1.7B with rules + one-pass scoring: 78% at 71 ms median, against 42% at 1,272 ms for the same model writing the tool call (about 18× faster, +36 points).** The hidden-state centroid router (D) only won at 0.6B and got worse with bigger models: mean-pooling the last layer is a weak feature, so D is not the method to pitch. The one-pass letter scoring (C) is the consistent winner.
+
+Cost of this run: about 0.14 Colab compute units.
+
 ## Too-good-to-be-true check
 
 - D's ~31× median speed-up partly comes from a much shorter input (the message alone, with no tool menu or system prompt). That is a real property of the design, but it is not a like-for-like kernel comparison.

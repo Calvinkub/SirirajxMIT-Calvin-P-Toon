@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "model": "Qwen/Qwen3-4B",
+    "device": "cuda",
+    "dtype": "float16",
+    "gpu": "Tesla T4",
+    "data": "synthetic/tool_router_utterances.jsonl",
+    "data_origin": "synthetic",
+    "split": "test = even ids (36 rows); calibration = odd ids (36 rows), used only by config D",
+    "torch": "2.11.0+cu130",
+    "date": "2026-10-17"
+  },
+  "results": [
+    {
+      "config": "A baseline: LLM writes the tool call",
+      "n": 36,
+      "tool_acc": 0.611,
+      "tool_acc_excl_red_flag": 0.688,
+      "red_flag_missed": 4,
+      "median_ms": 1502.2,
+      "p95_ms": 4655.2,
+      "mean_forward_passes_or_tokens": 32.1
+    },
+    {
+      "config": "B one-pass: score option letters, no rules",
+      "n": 36,
+      "tool_acc": 0.583,
+      "tool_acc_excl_red_flag": 0.656,
+      "red_flag_missed": 4,
+      "median_ms": 163.6,
+      "p95_ms": 168.4,
+      "mean_forward_passes_or_tokens": 1
+    },
+    {
+      "config": "C cascade: red-flag + medication rules, then one-pass",
+      "n": 36,
+      "tool_acc": 0.694,
+      "tool_acc_excl_red_flag": 0.656,
+      "red_flag_missed": 0,
+      "median_ms": 163.8,
+      "p95_ms": 168.4,
+      "mean_forward_passes_or_tokens": 0.9
+    },
+    {
+      "config": "D cascade: rules, then nearest-centroid on hidden states (calibration split)",
+      "n": 36,
+      "tool_acc": 0.5,
+      "tool_acc_excl_red_flag": 0.438,
+      "red_flag_missed": 0,
+      "median_ms": 74.9,
+      "p95_ms": 84.7,
+      "mean_forward_passes_or_tokens": 0.9
+    }
+  ]
+}
