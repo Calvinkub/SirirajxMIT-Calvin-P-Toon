@@ -1,0 +1,22 @@
+<section id="cost" data-transition="fade" style="background:#F5F6F2;color:#17262A;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;color:#C2571A;letter-spacing:3px;text-transform:uppercase;font-weight:600">FAQ 05 · What does the AI cost per patient?</p>
+<h2 style="font-family:'Prompt', Tahoma, sans-serif;font-size:56px;font-weight:600;line-height:1.15;color:#12363B">AI inference is a small line in the unit cost</h2>
+</div>
+<div style="display:grid;grid-template-columns:1.55fr 1fr;gap:56px">
+<table style="font-size:24px;color:#17262A;border:1px solid #D5DBD8">
+<tr style="background:#12363B"><th style="width:40%;color:#F5F6F2">Option</th><th style="width:38%;color:#F5F6F2">Basis</th><th style="width:22%;color:#F5F6F2;text-align:right">Per patient-month</th></tr>
+<tr><td>Same load on Claude Sonnet 5.5 API</td><td>US$2 in / US$10 out per M tokens</td><td style="text-align:right">≈ US$0.78</td></tr>
+<tr style="background:#ECEFEA"><td>Same load on Claude Opus 5.5 API</td><td>US$4 in / US$20 out per M tokens</td><td style="text-align:right">≈ US$1.57</td></tr>
+<tr><td>Our open models, 1 rented H100, 1,000 patients</td><td>≈ US$2.89 per GPU-hour, 24/7</td><td style="text-align:right">≈ US$2.11</td></tr>
+<tr style="background:#ECEFEA"><td>Same GPU, 10,000 patients</td><td>If one GPU holds the load (to measure)</td><td style="text-align:right">≈ US$0.21</td></tr>
+</table>
+<div style="display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:4px"><p style="font-family:'Prompt', Tahoma, sans-serif;font-size:72px;font-weight:600;color:#1B7F7A;line-height:1.1">≈ US$14</p><p style="font-size:24px;line-height:1.35;color:#4B5B5F">Premium price a month: 499 THB at an assumed 35 THB per US$</p></div>
+<div style="display:flex;flex-direction:column;gap:4px"><p style="font-family:'Prompt', Tahoma, sans-serif;font-size:72px;font-weight:600;color:#C2571A;line-height:1.1">≈ 2,700</p><p style="font-size:24px;line-height:1.35;color:#4B5B5F">Patients at which one rented GPU costs the same as the Sonnet 5.5 API</p></div>
+<p style="font-size:24px;line-height:1.35;color:#17262A"><b>Why self-host anyway:</b> data stays in Thailand (PDPA), Thai speech models are open-weight, cost stops growing per token. <b>Biggest line is people:</b> clinician sign-off time and the IRIS licence, both to price.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5A6A6E">Assumes ≈ 7,800 input + 1,050 output tokens per patient-day (1 mission, 2 check-ins, weekly summary), not yet measured. Prices: Anthropic API list; RunPod H100 via getdeploying.com, Sept 2026.</p>
+<aside>How the numbers are built. Token load per active patient per day is an estimate: one daily mission call, two short voice check-ins, and a weekly clinician summary, about 234 thousand input and 32 thousand output tokens a month. On a frontier API that is under two US dollars a month. Self-hosting has a fixed GPU bill of about 2,110 US dollars a month for one H100 running all the time, so it only wins at scale, around 2,700 patients against Sonnet 5.5. We self-host for data residency and Thai speech, not because it is cheaper at pilot size. Capacity per GPU is not measured yet; that is what the next slide is about.</aside>
+</section>

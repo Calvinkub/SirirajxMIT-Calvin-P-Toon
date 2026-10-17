@@ -1,0 +1,39 @@
+<section id="speed" data-transition="fade" style="background:#12363B;color:#F5F6F2;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;color:#E9A26B;letter-spacing:3px;text-transform:uppercase;font-weight:600">FAQ 06 · Can it run faster and cheaper? · R&amp;D</p>
+<h2 style="font-family:'Prompt', Tahoma, sans-serif;font-size:56px;font-weight:600;line-height:1.15;color:#F5F6F2">Our safety rules can also speed up decoding</h2>
+</div>
+<div style="display:flex;gap:16px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1C4A50;border:2px solid #3F7A80;border-radius:16px;padding:24px">
+<p style="font-size:24px;color:#E9A26B;font-weight:600">1 · Draft</p>
+<p style="font-size:24px;line-height:1.35;color:#DDE9E7">A small Gemma 3 model proposes the next tokens. Same family as MedGemma; tokenizer match to verify.</p>
+</div>
+<x-connector style="width:40px;align-self:center;color:#BFD8D5;border-width:3px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#3A2A1E;border:2px solid #E9A26B;border-radius:16px;padding:24px">
+<p style="font-size:24px;color:#E9A26B;font-weight:600">2 · Prune</p>
+<p style="font-size:24px;line-height:1.35;color:#F3E2D4">katgpt-rs ConstraintPruner drops tokens that break the JSON schema or the allowed mission set.</p>
+</div>
+<x-connector style="width:40px;align-self:center;color:#BFD8D5;border-width:3px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1C4A50;border:2px solid #3F7A80;border-radius:16px;padding:24px">
+<p style="font-size:24px;color:#E9A26B;font-weight:600">3 · Tree</p>
+<p style="font-size:24px;line-height:1.35;color:#DDE9E7">DDTree builds a tree of valid continuations only.</p>
+</div>
+<x-connector style="width:40px;align-self:center;color:#BFD8D5;border-width:3px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1C4A50;border:2px solid #3F7A80;border-radius:16px;padding:24px">
+<p style="font-size:24px;color:#E9A26B;font-weight:600">4 · Verify</p>
+<p style="font-size:24px;line-height:1.35;color:#DDE9E7">MedGemma checks the tree in one pass. The output is valid by construction.</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:56px">
+<div style="display:flex;flex-direction:column;gap:10px;border-top:3px solid #E9A26B;padding:16px 0 0 0">
+<p style="font-family:'Prompt', Tahoma, sans-serif;font-size:28px;font-weight:600">Why it fits this product</p>
+<p style="font-size:24px;line-height:1.4;color:#BFD8D5">Outputs are short, structured JSON. The rule that keeps patients safe is the same rule that removes wasted tokens, so speed and safety come from one mechanism.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;border-top:3px solid #BFD8D5;padding:16px 0 0 0">
+<p style="font-family:'Prompt', Tahoma, sans-serif;font-size:28px;font-weight:600">Benchmark before any claim</p>
+<p style="font-size:24px;line-height:1.4;color:#BFD8D5">Three arms: vLLM with guided JSON, plus standard speculative decoding, plus constraint-pruned trees. Measure tokens per second, p95 latency, valid-output rate and US$ per 1,000 patient-days.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#9FC1BD">katgpt-rs is our Rust library of decoding primitives. Its published speed-ups come from micro-models, not MedGemma. No MedGemma number yet.</p>
+<aside>This is the technical wow, framed honestly. katgpt-rs implements the pipeline “LLM drafts logits, ConstraintPruner filters invalid tokens, DDTree builds a valid-only tree, target model verifies”, and a spec pruner compiles a specification into a token constraint. For us the constraint is the allowed mission set plus the JSON schema, so the target model can only ever emit a valid, allowed mission. The library itself does not load real models, so the MedGemma speed and cost numbers come from the benchmark on this slide, which we have not run yet.</aside>
+</section>

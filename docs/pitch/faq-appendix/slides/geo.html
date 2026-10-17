@@ -1,0 +1,44 @@
+<section id="geo" data-transition="fade" style="background:#F5F6F2;color:#17262A;font-family:'Sarabun', Tahoma, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;color:#C2571A;letter-spacing:3px;text-transform:uppercase;font-weight:600">FAQ 04 · How do you use InterSystems and local data?</p>
+<h2 style="font-family:'Prompt', Tahoma, sans-serif;font-size:56px;font-weight:600;line-height:1.15;color:#12363B">Real places near home, filtered by rules, ranked by Vector Search</h2>
+</div>
+<div style="display:flex;gap:16px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;border:2px solid #12363B;border-radius:16px;padding:24px">
+<p style="font-size:24px;color:#1B7F7A;font-weight:600">1 · Service area</p>
+<p style="font-size:24px;line-height:1.35;color:#4B5B5F">Home district, not exact address. A 15-minute walking area from OpenStreetMap routing.</p>
+</div>
+<x-connector style="width:40px;align-self:center;color:#4B5B5F;border-width:3px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#E3F0EE;border:2px solid #1B7F7A;border-radius:16px;padding:24px">
+<p style="font-size:24px;color:#1B7F7A;font-weight:600">2 · Candidates in FHIR</p>
+<p style="font-size:24px;line-height:1.35;color:#4B5B5F">Location and HealthcareService: parks, temples, cool malls, rehab classes, walking groups.</p>
+</div>
+<x-connector style="width:40px;align-self:center;color:#4B5B5F;border-width:3px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FBEEE5;border:2px solid #C2571A;border-radius:16px;padding:24px">
+<p style="font-size:24px;color:#8A3A10;font-weight:600">3 · Safety filter</p>
+<p style="font-size:24px;line-height:1.35;color:#4B5B5F">Rules only: intensity within the limit, open at mission time, heat and PM2.5 favour indoors.</p>
+</div>
+<x-connector style="width:40px;align-self:center;color:#4B5B5F;border-width:3px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#E3F0EE;border:2px solid #1B7F7A;border-radius:16px;padding:24px">
+<p style="font-size:24px;color:#1B7F7A;font-weight:600">4 · Rank</p>
+<p style="font-size:24px;line-height:1.35;color:#4B5B5F">IRIS Vector Search matches the patient’s words, like “quiet, near a temple, with friends”.</p>
+</div>
+<x-connector style="width:40px;align-self:center;color:#4B5B5F;border-width:3px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;border:2px solid #12363B;border-radius:16px;padding:24px">
+<p style="font-size:24px;color:#1B7F7A;font-weight:600">5 · Three choices</p>
+<p style="font-size:24px;line-height:1.35;color:#4B5B5F">Sent with the mission. The model never invents a place or a group.</p>
+</div>
+</div>
+<div style="display:flex;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;border-top:3px solid #1B7F7A;padding:16px 0 0 0">
+<p style="font-family:'Prompt', Tahoma, sans-serif;font-size:28px;font-weight:600;color:#12363B">InterSystems used</p>
+<p style="font-size:24px;line-height:1.35;color:#4B5B5F">FHIR Server for places and services · Vector Search for ranking · FHIR SQL Builder for the filters</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;border-top:3px solid #C2571A;padding:16px 0 0 0">
+<p style="font-family:'Prompt', Tahoma, sans-serif;font-size:28px;font-weight:600;color:#12363B">Honest gap</p>
+<p style="font-size:24px;line-height:1.35;color:#4B5B5F">No public API lists Thai community exercise groups, so v1 uses a curated, intensity-tagged list</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5A6A6E">Data: OpenStreetMap, Thai Meteorological Department or Open-Meteo (heat), Air4Thai (PM2.5). FHIR Location near-search support on IRIS to confirm.</p>
+<aside>This is where InterSystems carries real weight. Places and services are FHIR Location and HealthcareService resources with coordinates. The rules engine filters them through FHIR SQL Builder tables. IRIS Vector Search ranks what is left against the patient’s own words. The small router model only calls these tools; it cannot make up an activity. We use the home district, not an exact address, to limit location data under PDPA.</aside>
+</section>
