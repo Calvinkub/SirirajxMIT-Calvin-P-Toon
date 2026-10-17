@@ -144,6 +144,32 @@ footer{font-size:13px;color:var(--muted)}
 .day2 b{font-family:var(--display);font-weight:500;color:var(--ink);font-size:13px}
 .day2 span{border-radius:8px;padding:5px;color:var(--ink)}
 .m-main{background:var(--warm-soft)} .m-walk{background:var(--accent-soft)} .m-rest{background:var(--bg)}
+/* #gif: white, minimal, stage only — for recording slide GIFs */
+body.gif{--bg:#FFFFFF;--panel:#FFFFFF;--ink:#14272B;--body:#45575B;--muted:#7A898C;--line:#E3E8E7;--accent:#1B7F7A;--accent-soft:#E6F2F0;--warm:#C2571A;--warm-soft:#FBEDE3;--stop:#B42335;--stop-soft:#FBE7EA;--code-bg:#F6F8F8;color-scheme:light;background:#FFFFFF}
+body.gif header,body.gif .phone,body.gif .legend,body.gif .trace-head,body.gif ol.steps,body.gif footer,body.gif #replay,body.gif .flegend{display:none!important}
+body.gif .wrap{max-width:1180px;padding-block:28px}
+body.gif .grid{grid-template-columns:minmax(0,1fr)}
+body.gif .trace{border:none;padding:0 32px;background:#FFFFFF;gap:8px}
+body.gif .field{border:none;background:#FFFFFF;padding:0}
+body.gif .field svg{max-width:500px}
+body.gif .b circle{stroke:#FFFFFF}
+body.gif #scene{min-height:500px}
+.gifstep{display:none}
+body.gif .gifstep{display:flex;align-items:baseline;gap:14px;font-family:var(--display);color:var(--ink);font-size:30px;font-weight:600;border-bottom:1px solid var(--line);padding-bottom:12px}
+body.gif .stage-head{justify-content:center;text-align:left}
+body.gif .count b{font-size:56px}
+body.gif .count span{font-size:17px}
+body.gif .fcap{font-size:22px;max-width:620px;flex:0 1 620px}
+body.gif .field svg{max-width:470px}
+body.gif #scene{min-height:470px}
+body.gif .said{font-size:26px}
+body.gif .slot b{font-size:22px} body.gif .slot small{font-size:14px}
+body.gif .kv{font-size:19px} body.gif .snip{font-size:17px} body.gif .card h4{font-size:14px}
+body.gif .verdict{font-size:24px}
+body.gif .map text{font-size:12px} body.gif .map .pin text{font-size:13px} body.gif .sun{font-size:19px}
+body.gif .crow{font-size:20px} body.gif .crow em{font-size:22px}
+body.gif .day2{font-size:15px;min-height:150px} body.gif .day2 b{font-size:18px}
+body.gif .gifstep span{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--accent);letter-spacing:.08em}
 @media (prefers-reduced-motion: reduce){.b,.b circle,.b text{transition:none}.b.pick{animation:none}.rise,.pop,.map .pin{animation:none;opacity:1}.scanbar{display:none}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
@@ -176,6 +202,7 @@ footer{font-size:13px;color:var(--muted)}
         <span class="tag t-rules">rules</span><span class="tag t-llm">small LLM</span><span class="tag t-fhir">FHIR</span>
         <span class="tag t-vec">vector search</span><span class="tag t-knn">KNN</span><span class="tag t-you">patient</span>
       </div>
+      <div class="gifstep" id="gifstep"></div>
       <div class="field" aria-label="What the agent is working on">
         <div class="stage-head"><div class="count"><b id="cnt">100</b><span id="cntlab">activities in the guideline catalogue</span></div><div class="fcap" id="fcap">Every activity the catalogue knows, coloured by type.</div></div>
         <div id="layer-b">
@@ -378,10 +405,17 @@ function doFilter({ allowed, liked }) {
 }
 function doKnn({ ranked, liked }) {
   {
-    const byId = new Map(field.nodes.map(n => [n.a.id, n])); const pos = sun(ranked.length, R - 10);
-    ranked.forEach(({ a, s }, i) => { const n = byId.get(a.id); n.x = pos[i][0]; n.y = pos[i][1];
-      const top = i < 5, r = top ? 30 - i * 2.5 : 5 + 9 * s * s;
-      place(n, n.x * (top ? 0.55 : 1.05), n.y * (top ? 0.55 : 1.05), r, top ? 1 : 0.35 + 0.4 * s, top ? (lang === "th" ? a.th : a.en.replace(/,.*$/, "")).slice(0, 16) : short(a), top ? 5.6 : undefined); });
+    const byId = new Map(field.nodes.map(n => [n.a.id, n]));
+    const rest = ranked.length - 5;
+    ranked.forEach(({ a, s }, i) => { const n = byId.get(a.id);
+      if (i < 5) { // winner in the centre, the next four around it
+        const ang = (-90 + (i - 1) * 90) * Math.PI / 180, rad = i === 0 ? 0 : 108;
+        n.x = rad * Math.cos(ang); n.y = rad * Math.sin(ang);
+        place(n, n.x, n.y, i === 0 ? 50 : 40 - (i - 1) * 2, 1, (lang === "th" ? a.th : a.en.replace(/,.*$/, "")).slice(0, 14), i === 0 ? 12 : 10);
+      } else { // everything else pushed to the outer ring, sized by similarity
+        const j = i - 5, r = 150 + 22 * Math.sqrt((j + 0.5) / rest), th = j * GA;
+        n.x = r * Math.cos(th); n.y = r * Math.sin(th);
+        place(n, n.x, n.y, 3 + 6 * s * s, 0.3 + 0.4 * s, short(a)); } });
     count(5, T("closest to what you enjoy", "ใกล้กับสิ่งที่คุณชอบที่สุด"));
     cap(T(`Interest match (KNN): bigger and closer = more like ${liked.map(a => a.en.replace(/,.*$/, "")).join(" + ")}.`, `จับคู่ความชอบ (KNN): วงใหญ่และอยู่กลาง = ใกล้กับ ${liked.map(a => a.th).join(" + ")}`));
   }
@@ -535,13 +569,17 @@ function run(text) {
   const steps = plan(text); render(steps);
   stage("all", field.data || {});
   const shown = steps.filter(s => s.el); let t = 300;
-  shown.forEach((s, i) => { later(() => { s.el.classList.add("run"); if (s.phase && field.data) stage(s.phase, field.data); }, t); t += s.phase === "filter" || s.phase === "knn" ? 2600 : 2300;
+  shown.forEach((s, i) => { later(() => { $("#gifstep").innerHTML = `<span>STEP ${i + 1}/${shown.length}</span>${esc(s.title)}`; s.el.classList.add("run"); if (s.phase && field.data) stage(s.phase, field.data); }, t); t += s.phase === "filter" || s.phase === "knn" ? 2600 : 2300;
     later(() => { s.el.classList.remove("run"); s.el.classList.add(s.stop ? "stopped" : "done"); }, t); });
   later(() => finish(steps), t + 200);
 }
 
 function finish(steps) {
   $("#replay").hidden = false;
+  if (document.body.classList.contains("gif")) { // auto-play the patient's choices for the recording
+    later(() => { const c = chat.querySelector(".chip"); if (c) { $("#gifstep").innerHTML = `<span>PATIENT</span>${esc(T("Picks an option and how often", "เลือกกิจกรรมและความถี่"))}`; c.click(); } }, 1800);
+    later(() => { const c = chat.querySelector(".chip"); if (c) { c.click(); $("#gifstep").innerHTML = `<span>SAVED</span>${esc(T("A week of FHIR Tasks inside the limits", "แผนหนึ่งสัปดาห์เป็น FHIR Task ในขีดจำกัด"))}`; } }, 3000);
+  }
   const last = steps[steps.length - 1];
   if (last.stop) { say(T("Please stop now and rest. If the chest pain or breathlessness doesn’t pass, call 1669. Coaching is paused until your care team reviews.", "หยุดพักทันทีนะครับ ถ้าเจ็บหน้าอกหรือหายใจไม่ทันไม่ดีขึ้น โทร 1669 การโค้ชจะหยุดไว้จนทีมแพทย์ตรวจสอบ"), "ai", "stop"); return; }
   const d = field.data, okIds = new Set(d.allowed.map(a => a.id)), out = d.liked.filter(a => !okIds.has(a.id));
@@ -589,6 +627,7 @@ function setView(v) { view = v; $("#v-pitch").setAttribute("aria-pressed", v ===
   const first = chat.querySelector(".msg.me"); if (first) { const t = first.textContent; chat.innerHTML = ""; run(t); } }
 $("#v-pitch").addEventListener("click", () => setView("pitch"));
 $("#v-full").addEventListener("click", () => setView("full"));
+if (location.hash === "#gif") document.body.classList.add("gif");
 say("Hi Somchai. Tell me a lifestyle goal and I’ll build a plan inside your doctor’s limits.\nสวัสดีครับ บอกเป้าหมายที่อยากทำได้เลย");
 run(PRESETS[0]);
 </script>
