@@ -223,7 +223,8 @@ Recreational trampoline|แทรมโพลีน|3.5|i|
 Billiards|บิลเลียด|2.5|ias|
 Target shooting at a range|ยิงปืนสนาม|2.5|oa|
 Horse riding at a walk|ขี่ม้าเดิน|3.8|o|
-Leisure canoeing|พายเรือแคนู|3.5|ow|`;
+Leisure canoeing|พายเรือแคนู|3.5|ow|
+Seated chair exercise|ออกกำลังกายบนเก้าอี้|2.0|is|`;
 const DIMS = "oitbacswrmk".split("");
 const ACTS = RAW.trim().split("\n").map((l, i) => { const [en, th, met, tags, flags] = l.split("|");
   return { id: i, en, th, met: +met, tags, flags: flags || "", vec: DIMS.map(d => tags.includes(d) ? 1 : 0) }; });

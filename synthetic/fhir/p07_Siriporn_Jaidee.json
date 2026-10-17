@@ -419,7 +419,7 @@
           {
             "attachment": {
               "contentType": "text/plain; charset=utf-8",
-              "data": "U1lOVEhFVElDIERJU0NIQVJHRSBTVU1NQVJZIChkZW1vIG9ubHksIG5vdCBhIHJlYWwgcGF0aWVudCkKUGF0aWVudDogU2lyaXBvcm4gSmFpZGVlCkRpYWdub3NlczogTXlvY2FyZGlhbCBpbmZhcmN0aW9uLCBIeXBlcnRlbnNpdmUgZGlzb3JkZXIKTFZFRiA0OCUuIFJpc2sgY2xhc3M6IGxvdy4KTWVkaWNhdGlvbnM6IEJpc29wcm9sb2wgMi41IG1nIG9uY2UgZGFpbHk7IEFzcGlyaW4gODEgbWcgb25jZSBkYWlseTsgVGljYWdyZWxvciA5MCBtZyB0d2ljZSBkYWlseTsgQXRvcnZhc3RhdGluIDQwIG1nIGF0IG5pZ2h0OyBOaXRyb2dseWNlcmluIDAuNCBtZyBzdWJsaW5ndWFsIGFzIG5lZWRlZAoKUGxhbjogY2FyZGlhYyByZWhhYmlsaXRhdGlvbiByZWZlcnJhbDsgZm9sbG93LXVwIGluIGNhcmRpb2xvZ3kgY2xpbmljIGluIDQgd2Vla3Mu"
+              "data": "U1lOVEhFVElDIERJU0NIQVJHRSBTVU1NQVJZIChkZW1vIG9ubHksIG5vdCBhIHJlYWwgcGF0aWVudCkKUGF0aWVudDogU2lyaXBvcm4gSmFpZGVlCkRpYWdub3NlczogTXlvY2FyZGlhbCBpbmZhcmN0aW9uLCBIeXBlcnRlbnNpdmUgZGlzb3JkZXIKTFZFRiA1MyUuIFJpc2sgY2xhc3M6IGxvdy4KTWVkaWNhdGlvbnM6IEJpc29wcm9sb2wgMi41IG1nIG9uY2UgZGFpbHk7IEFzcGlyaW4gODEgbWcgb25jZSBkYWlseTsgVGljYWdyZWxvciA5MCBtZyB0d2ljZSBkYWlseTsgQXRvcnZhc3RhdGluIDQwIG1nIGF0IG5pZ2h0OyBOaXRyb2dseWNlcmluIDAuNCBtZyBzdWJsaW5ndWFsIGFzIG5lZWRlZAoKUGxhbjogY2FyZGlhYyByZWhhYmlsaXRhdGlvbiByZWZlcnJhbDsgZm9sbG93LXVwIGluIGNhcmRpb2xvZ3kgY2xpbmljIGluIDQgd2Vla3Mu"
             }
           }
         ],
@@ -504,7 +504,7 @@
         },
         "effectiveDateTime": "2026-09-17T10:00:00+07:00",
         "valueQuantity": {
-          "value": 48,
+          "value": 53,
           "unit": "%",
           "system": "http://unitsofmeasure.org",
           "code": "%"

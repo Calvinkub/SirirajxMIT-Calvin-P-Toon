@@ -82,7 +82,7 @@ PROFILES = [
          rest_hr=66, steps=3300, adherence=0.0, story="New sign-up: no clinician-signed limit yet, so no exercise missions."),
     dict(id="p07", given="Siriporn", family="Jaidee", gender="female", birth="1966-12-14", district="Lat Phrao",
          lat=13.8160, lon=100.5930, conds=["mi", "htn"], meds=["bisoprolol", "aspirin", "ticagrelor", "atorvastatin", "nitroglycerin"],
-         lvef=48, risk="low", limit=dict(source="cpet", hr=105, rpe=(11, 12), acts=["walking"]),
+         lvef=53, risk="low", limit=dict(source="cpet", hr=105, rpe=(11, 12), acts=["walking"]),
          rest_hr=69, steps=3600, adherence=0.7, red_flag_day=4,
          story="Reported chest tightness on day 5: stop path fired, coaching paused for clinician review."),
     dict(id="p08", given="Abdul", family="Rahman", gender="male", birth="1960-04-03", district="Min Buri",
