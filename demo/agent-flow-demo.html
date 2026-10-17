@@ -94,13 +94,57 @@ footer{font-size:13px;color:var(--muted)}
 .b.pick circle{stroke:var(--warm);stroke-width:3}
 .b.pick{animation:pickpulse 1.4s ease-in-out infinite}
 @keyframes pickpulse{50%{opacity:.75}}
-.count{position:absolute;left:16px;top:12px;display:flex;flex-direction:column;line-height:1.1}
+.stage-head{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.count{display:flex;flex-direction:column;line-height:1.1;min-width:120px}
 .count b{font-family:var(--display);font-size:34px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
 .count span{font-size:13px;color:var(--muted)}
-.fcap{font-size:14px;color:var(--ink);text-align:center;min-height:2.6em}
+.fcap{font-size:14px;color:var(--ink);flex:1;min-width:0;min-height:2.6em}
 .flegend{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;font-size:12px;color:var(--muted)}
 .flegend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
-@media (prefers-reduced-motion: reduce){.b,.b circle,.b text{transition:none}.b.pick{animation:none}}
+/* scenes */
+#scene{min-height:360px;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.rise{opacity:0;animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards}
+.pop{opacity:0;animation:pop .5s cubic-bezier(.3,1.4,.5,1) forwards}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+.said{position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:16px;color:var(--ink);line-height:1.7}
+.said .w{transition:background .3s,color .3s;border-radius:4px;padding:0 1px}
+.said .w.hl{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.said .w.red{background:var(--stop-soft);color:var(--stop);font-weight:600}
+.scanbar{position:absolute;top:0;bottom:0;width:60px;left:-60px;background:linear-gradient(90deg,transparent,var(--accent-soft),transparent);animation:scan 1.3s ease-in-out forwards}
+@keyframes scan{to{left:100%}}
+.verdict{align-self:center;font-family:var(--display);font-size:18px;padding:8px 16px;border-radius:999px}
+.verdict.ok{background:var(--accent-soft);color:var(--accent)} .verdict.bad{background:var(--stop-soft);color:var(--stop)}
+.slots{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.slot{border:1.5px solid var(--accent);border-radius:12px;padding:8px 12px;background:var(--panel);min-width:120px}
+.slot small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.slot b{font-family:var(--display);font-weight:500;color:var(--ink);font-size:16px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:12px}
+@media (max-width:560px){.cols{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card h4{margin:0 0 4px;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted)}
+.kv{display:flex;justify-content:space-between;gap:8px;font-size:14px;border-top:1px dashed var(--line);padding-top:5px}
+.kv b{color:var(--ink)}
+.snip{font-size:13px;border-left:3px solid var(--c-mind);padding:4px 8px;background:var(--bg);border-radius:0 8px 8px 0}
+.map{width:100%;max-width:420px;justify-self:center;align-self:center;overflow:visible}
+.map .rg{fill:none;stroke:var(--line);stroke-dasharray:3 4}
+.map text{font-family:var(--text);fill:var(--muted);font-size:9px}
+.map .pin text{fill:var(--ink);font-size:9.5px}
+.map .pin{opacity:0;animation:drop .6s cubic-bezier(.3,1.4,.5,1) forwards}
+@keyframes drop{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:none}}
+.sun{font-size:13px;color:var(--warm);text-align:center}
+.cohort{display:flex;flex-direction:column;gap:10px}
+.crow{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,2fr) 44px;gap:10px;align-items:center;font-size:14px;color:var(--ink)}
+.dots{display:grid;grid-template-columns:repeat(20,1fr);gap:3px}
+.dots i{aspect-ratio:1;border-radius:50%;background:var(--line);transition:background .3s}
+.dots i.on{background:var(--accent)}
+.crow em{font-style:normal;font-variant-numeric:tabular-nums;text-align:right;font-family:var(--display)}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day2{border:1px solid var(--line);border-radius:10px;padding:8px 6px;min-height:110px;display:flex;flex-direction:column;gap:6px;font-size:12px;background:var(--panel)}
+.day2 b{font-family:var(--display);font-weight:500;color:var(--ink);font-size:13px}
+.day2 span{border-radius:8px;padding:5px;color:var(--ink)}
+.m-main{background:var(--warm-soft)} .m-walk{background:var(--accent-soft)} .m-rest{background:var(--bg)}
+@media (prefers-reduced-motion: reduce){.b,.b circle,.b text{transition:none}.b.pick{animation:none}.rise,.pop,.map .pin{animation:none;opacity:1}.scanbar{display:none}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
 
@@ -124,19 +168,21 @@ footer{font-size:13px;color:var(--muted)}
       <div class="trace-head">
         <h2>What the AI is doing</h2>
         <div class="toggle" role="group" aria-label="Detail level">
-          <button type="button" id="v-pitch" aria-pressed="true">Pitch flow</button>
-          <button type="button" id="v-full" aria-pressed="false">Full trace</button>
+          <button type="button" id="v-pitch" aria-pressed="true">Simple</button>
+          <button type="button" id="v-full" aria-pressed="false">With tool calls</button>
         </div>
       </div>
       <div class="legend">
         <span class="tag t-rules">rules</span><span class="tag t-llm">small LLM</span><span class="tag t-fhir">FHIR</span>
         <span class="tag t-vec">vector search</span><span class="tag t-knn">KNN</span><span class="tag t-you">patient</span>
       </div>
-      <div class="field" aria-label="Activity catalogue narrowing down">
-        <div class="count"><b id="cnt">100</b><span id="cntlab">activities in the guideline catalogue</span></div>
-        <svg id="bubbles" viewBox="-190 -190 380 380" role="img" aria-label="Activity bubbles"><circle class="ring" r="182"></circle></svg>
-        <div class="fcap" id="fcap">Every activity the catalogue knows, coloured by type.</div>
-        <div class="flegend"><span><i style="background:var(--c-walk)"></i>walking</span><span><i style="background:var(--c-ball)"></i>ball &amp; aim</span><span><i style="background:var(--c-water)"></i>water</span><span><i style="background:var(--c-mind)"></i>mind-body</span><span><i style="background:var(--c-dance)"></i>dance</span><span><i style="background:var(--c-other)"></i>other</span></div>
+      <div class="field" aria-label="What the agent is working on">
+        <div class="stage-head"><div class="count"><b id="cnt">100</b><span id="cntlab">activities in the guideline catalogue</span></div><div class="fcap" id="fcap">Every activity the catalogue knows, coloured by type.</div></div>
+        <div id="layer-b">
+          <svg id="bubbles" viewBox="-190 -190 380 380" role="img" aria-label="Activity bubbles"><circle class="ring" r="182"></circle></svg>
+          <div class="flegend"><span><i style="background:var(--c-walk)"></i>walking</span><span><i style="background:var(--c-ball)"></i>ball &amp; aim</span><span><i style="background:var(--c-water)"></i>water</span><span><i style="background:var(--c-mind)"></i>mind-body</span><span><i style="background:var(--c-dance)"></i>dance</span><span><i style="background:var(--c-other)"></i>other</span></div>
+        </div>
+        <div id="layer-s" hidden><div id="scene"></div></div>
       </div>
       <ol class="steps" id="steps"></ol>
       <button class="btn" type="button" id="replay" hidden>Replay</button>
@@ -312,35 +358,123 @@ function cap(t) { $("#fcap").textContent = t; }
 function setPhase(ph, data) {
   const { allowed, ranked, picks, liked } = data;
   if (ph === "all") { buildField(); count(ACTS.length, T("activities in the guideline catalogue", "กิจกรรมในคลังตามแนวทาง")); cap(T("Every activity the catalogue knows, coloured by type.", "กิจกรรมทั้งหมดในคลัง แยกสีตามประเภท")); return; }
-  if (ph === "filter") {
+  if (ph === "filter") { later(() => doFilter(data), reduce ? 0 : 700); count(ACTS.length, T("activities in the guideline catalogue", "กิจกรรมในคลังตามแนวทาง")); cap(T("All 100 activities. Now checking each against your limits…", "กิจกรรมทั้ง 100 อย่าง กำลังตรวจกับขีดจำกัดของคุณ…")); return; }
+  if (ph === "knn") return doKnn(data);
+  if (ph === "choose") return doChoose(data);
+}
+function doFilter({ allowed, liked }) {
+  {
     const keep = new Set(allowed.map(a => a.id));
     field.nodes.forEach(n => { if (!keep.has(n.a.id)) { n.g.classList.add("out"); later(() => place(n, n.x * 1.25, n.y * 1.25, 4, 0), 650); } });
     const pos = sun(allowed.length, R - 14);
     later(() => field.nodes.filter(n => keep.has(n.a.id)).forEach((n, i) => { n.x = pos[i][0]; n.y = pos[i][1]; place(n, n.x, n.y, 13, 1); }), 900);
     count(allowed.length, T("fit your limits (no contact, no breath-holding, ≤ 5.9 METs)", "อยู่ในขีดจำกัด (ไม่ปะทะ ไม่กลั้นหายใจ ≤ 5.9 METs)"));
     cap(T(`Red ones break the limits and drop out — ${liked.filter(a => !keep.has(a.id)).map(a => a.en).join(", ") || "none of your favourites"} included.`, `วงแดงเกินขีดจำกัดจึงถูกตัดออก รวมถึง ${liked.filter(a => !keep.has(a.id)).map(a => a.th).join(", ") || "-"}`));
-    return; }
-  if (ph === "knn") {
+  }
+}
+function doKnn({ ranked, liked }) {
+  {
     const byId = new Map(field.nodes.map(n => [n.a.id, n])); const pos = sun(ranked.length, R - 10);
     ranked.forEach(({ a, s }, i) => { const n = byId.get(a.id); n.x = pos[i][0]; n.y = pos[i][1];
       const top = i < 5, r = top ? 30 - i * 2.5 : 5 + 9 * s * s;
       place(n, n.x * (top ? 0.55 : 1.05), n.y * (top ? 0.55 : 1.05), r, top ? 1 : 0.35 + 0.4 * s, top ? (lang === "th" ? a.th : a.en.replace(/,.*$/, "")).slice(0, 16) : short(a), top ? 5.6 : undefined); });
     count(5, T("closest to what you enjoy", "ใกล้กับสิ่งที่คุณชอบที่สุด"));
-    cap(T(`Interest match (KNN): bigger and closer = more like ${liked.map(a => a.en.replace(/,.*$/, "")).join(" + ")}.`, `จับคู่ความชอบ (KNN): วงใหญ่และอยู่กลาง = ใกล้กับ ${liked.map(a => a.th).join(" + ")}`)); return; }
-  if (ph === "choose") {
+    cap(T(`Interest match (KNN): bigger and closer = more like ${liked.map(a => a.en.replace(/,.*$/, "")).join(" + ")}.`, `จับคู่ความชอบ (KNN): วงใหญ่และอยู่กลาง = ใกล้กับ ${liked.map(a => a.th).join(" + ")}`));
+  }
+}
+function doChoose({ picks }) {
+  {
     const ids = new Set(picks.map(o => o.a.id));
     field.nodes.forEach(n => { if (ids.has(n.a.id)) n.g.classList.add("pick"); else if (n.g.style.opacity !== "0") n.g.style.opacity = 0.18; });
     count(3, T("options sent to you to choose", "ตัวเลือกที่ส่งให้คุณเลือก"));
-    cap(T("Three options, each with a group nearby. You pick.", "3 ตัวเลือก พร้อมกลุ่มใกล้บ้าน คุณเป็นคนเลือก")); }
+    cap(T("Three options, each with a group nearby. You pick.", "3 ตัวเลือก พร้อมกลุ่มใกล้บ้าน คุณเป็นคนเลือก"));
+  }
 }
+
+
+// ---------- scenes for the other steps ----------
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const KEY = /golf|กอล์ฟ|football|soccer|ฟุตบอล|บอล|badminton|แบด|danc|เต้น|hypertension|blood pressure|ความดัน|swim|ว่าย|tennis|เทนนิส|yoga|โยคะ|run|วิ่ง|cycl|ปั่น/i;
+const words = text => (/[฀-๿]/.test(text) ? text.split(/(\s+)/) : text.split(/(\s+)/)).map(w => /^\s+$/.test(w) ? w : `<span class="w">${esc(w)}</span>`).join("");
+function stage(ph, data) {
+  const bub = ["all", "filter", "knn", "choose"].includes(ph);
+  $("#layer-b").hidden = !bub; $("#layer-s").hidden = bub;
+  if (bub) return setPhase(ph, data);
+  const sc = $("#scene"); sc.innerHTML = ""; SCENES[ph](sc, data);
+}
+const SCENES = {
+  scan(sc, { text, red }) {
+    sc.innerHTML = `<div class="said">${words(text)}<div class="scanbar"></div></div>`;
+    count(red ? 1 : 0, T("warning symptoms found", "อาการเตือนที่พบ"));
+    cap(T("Rules read every word first. No AI model sees the message until it is cleared.", "กฎอ่านทุกคำก่อน ข้อความจะไปถึง AI ได้ก็ต่อเมื่อปลอดภัย"));
+    later(() => { if (red) sc.querySelectorAll(".w").forEach(w => { if (RED.test(w.textContent)) w.classList.add("red"); });
+      const v = document.createElement("div"); v.className = `verdict pop ${red ? "bad" : "ok"}`;
+      v.textContent = red ? T("Stop path · no AI · call 1669", "หยุดทันที · ไม่ผ่าน AI · โทร 1669") : T("Clear · 0.1 ms · rules only", "ปลอดภัย · 0.1 ms · ใช้กฎ"); sc.append(v); }, 1300);
+  },
+  extract(sc, { text, liked }) {
+    sc.innerHTML = `<div class="said">${words(text)}</div><div class="slots"></div>`;
+    count(3, T("facts pulled from your message", "ข้อมูลที่ดึงจากข้อความ"));
+    cap(T("A small LLM picks the intent and fills typed slots. No free text goes further.", "LLM ขนาดเล็กเลือกเจตนาและเติมช่องข้อมูลแบบมีโครงสร้าง"));
+    const ws = [...sc.querySelectorAll(".w")].filter(w => KEY.test(w.textContent));
+    ws.forEach((w, i) => later(() => w.classList.add("hl"), 250 + i * 250));
+    const goal = liked.find(a => /golf/i.test(a.en)) || liked[liked.length - 1];
+    const past = liked.filter(a => a !== goal);
+    const slots = [[T("Used to play", "เคยเล่น"), past.map(a => name(a)).join(", ") || "—"], [T("Goal", "เป้าหมาย"), goal ? name(goal) : "—"],
+      [T("Condition", "ภาวะ"), /hypertension|blood pressure|ความดัน/i.test(text) ? T("High blood pressure", "ความดันสูง") : T("From your record", "จากประวัติ")]];
+    slots.forEach(([k, v], i) => { const d = document.createElement("div"); d.className = "slot rise"; d.style.animationDelay = `${(reduce ? 0 : 900 + i * 220)}ms`;
+      d.innerHTML = `<small>${esc(k)}</small><b>${esc(v)}</b>`; sc.querySelector(".slots").append(d); });
+  },
+  limits(sc) {
+    sc.innerHTML = `<div class="cols"><div class="card"><h4>FHIR · CarePlan (signed)</h4></div><div class="card"><h4>IRIS Vector Search · approved guideline</h4></div></div>`;
+    const [a, b] = sc.querySelectorAll(".card");
+    [[T("Signed by", "ลงนามโดย"), LIMIT.signedBy], [T("Heart rate under", "ชีพจรไม่เกิน"), `${LIMIT.hr} bpm`], [T("Intensity up to", "ความหนักไม่เกิน"), `${LIMIT.maxMet} METs`],
+     [T("Effort", "ความเหนื่อย"), "RPE 11–13"], [T("Avoid", "หลีกเลี่ยง"), T("breath-holding", "กลั้นหายใจ")]].forEach(([k, v], i) => {
+      const d = document.createElement("div"); d.className = "kv rise"; d.style.animationDelay = `${reduce ? 0 : 150 + i * 160}ms`; d.innerHTML = `<span>${esc(k)}</span><b>${esc(v)}</b>`; a.append(d); });
+    GUIDE.forEach((g, i) => { const d = document.createElement("div"); d.className = "snip rise"; d.style.animationDelay = `${reduce ? 0 : 900 + i * 260}ms`; d.textContent = g; b.append(d); });
+    count(GUIDE.length, T("guideline passages retrieved (ESC 2020)", "ข้อความแนวทางที่ค้นได้ (ESC 2020)"));
+    cap(T("Limits come from your doctor’s signed record. The guideline comes from a clinician-approved library, never from the model’s memory.", "ขีดจำกัดมาจากบันทึกที่แพทย์ลงนาม แนวทางมาจากคลังที่แพทย์อนุมัติ ไม่ใช่ความจำของโมเดล"));
+  },
+  map(sc, { picks }) {
+    const pins = picks.map((o, i) => ({ o, d: parseFloat(o.comm[1]) || 2, ang: -90 + i * 120 + 25 }));
+    const R = 150, maxKm = 10, rr = km => Math.min(R, 18 + (km / maxKm) * (R - 18));
+    sc.innerHTML = `<svg class="map" viewBox="-200 -175 400 350" role="img" aria-label="Nearby groups">
+      ${[2, 5, 10].map(k => `<circle class="rg" r="${rr(k)}"></circle><text x="4" y="${-rr(k) - 3}">${k} km</text>`).join("")}
+      <circle r="9" fill="var(--ink)"></circle><text x="12" y="4" style="fill:var(--ink);font-size:10px">${esc(T("Home district", "บ้าน"))}</text>
+      ${pins.map(({ o, d, ang }, i) => { const x = rr(d) * Math.cos(ang * Math.PI / 180), y = rr(d) * Math.sin(ang * Math.PI / 180);
+        return `<g class="pin" style="animation-delay:${reduce ? 0 : 300 + i * 380}ms"><line x1="0" y1="0" x2="${x}" y2="${y}" stroke="var(--line)"></line>
+          <circle cx="${x}" cy="${y}" r="7" fill="var(--warm)"></circle><text x="${x + (x < 0 ? -10 : 10)}" y="${y + 3}" text-anchor="${x < 0 ? "end" : "start"}">${esc(name(o.a).slice(0, 22))} · ${esc(o.comm[1])}</text></g>`; }).join("")}
+    </svg><div class="sun rise" style="animation-delay:${reduce ? 0 : 1500}ms">${esc(T("Afternoon is hot → sessions planned for morning or evening", "ช่วงบ่ายร้อน → วางแผนช่วงเช้าหรือเย็น"))}</div>`;
+    count(picks.length, T("groups found near home", "กลุ่มที่พบใกล้บ้าน"));
+    cap(T("FHIR Location and HealthcareService near the home district, plus today’s heat.", "ค้นจาก FHIR Location และ HealthcareService ใกล้บ้าน พร้อมดูความร้อนวันนี้"));
+  },
+  cohort(sc, { picks }) {
+    sc.innerHTML = `<div class="cohort"></div>`;
+    const box = sc.querySelector(".cohort");
+    picks.forEach((o, r) => { const pct = o.cohort ?? 30, row = document.createElement("div"); row.className = "crow rise"; row.style.animationDelay = `${reduce ? 0 : r * 200}ms`;
+      row.innerHTML = `<span>${esc(name(o.a))}</span><div class="dots">${"<i></i>".repeat(20)}</div><em>0%</em>`; box.append(row);
+      const dots = row.querySelectorAll("i"), em = row.querySelector("em"), on = Math.round(pct / 5);
+      for (let k = 0; k < on; k++) later(() => { dots[k].classList.add("on"); em.textContent = `${Math.round((k + 1) * 5 * pct / (on * 5))}%`; }, 400 + r * 250 + k * 60); });
+    count(52, T("similar users (synthetic cohort)", "ผู้ใช้ที่คล้ายกัน (กลุ่มสมมุติ)"));
+    cap(T("Each dot is 5% of similar users still doing it after 4 weeks.", "จุดละ 5% ของผู้ใช้ที่คล้ายกันที่ยังทำต่อหลัง 4 สัปดาห์"));
+  },
+  plan(sc, { rows, choice }) {
+    sc.innerHTML = `<div class="week"></div>`;
+    const wk = sc.querySelector(".week");
+    rows.forEach(([d, t], i) => { const kind = t.startsWith(choice) ? "m-main" : /rest|พัก/i.test(t) ? "m-rest" : "m-walk";
+      const c = document.createElement("div"); c.className = "day2 rise"; c.style.animationDelay = `${reduce ? 0 : i * 180}ms`;
+      c.innerHTML = `<b>${esc(d)}</b><span class="${kind}">${esc(t)}</span>`; wk.append(c); });
+    count(7, T("days written as FHIR Tasks", "วันที่บันทึกเป็น FHIR Task"));
+    cap(T("Every session stays inside the signed limits. Each Task carries a Provenance record.", "ทุกครั้งอยู่ในขีดจำกัดที่ลงนาม และมีบันทึก Provenance"));
+  }
+};
 
 // ---------- the agent ----------
 function plan(text) {
   lang = /[฀-๿]/.test(text) ? "th" : "en";
-  if (RED.test(text) && !/ไม่(ได้)?(เจ็บ|มี)|no chest pain/i.test(text)) return [
-    { pitch: true, tag: "rules", title: T("Safety screen: warning symptom found", "คัดกรองความปลอดภัย: พบอาการเตือน"), stop: true,
+  if (RED.test(text) && !/ไม่(ได้)?(เจ็บ|มี)|no chest pain/i.test(text)) { field.data = { text, red: true }; return [
+    { pitch: true, phase: "scan", tag: "rules", title: T("Safety screen: warning symptom found", "คัดกรองความปลอดภัย: พบอาการเตือน"), stop: true,
       body: T("Rules only, before any AI model. Coaching stops.", "ใช้กฎตายตัวก่อนถึง AI ทุกครั้ง หยุดการโค้ชทันที"),
-      call: `red_flag_screen(text) → MATCH\nFlag + Communication → clinician (FHIR)` }];
+      call: `red_flag_screen(text) → MATCH\nFlag + Communication → clinician (FHIR)` }]; }
   const liked = LIKES.filter(([rx]) => rx.test(text)).map(([, n]) => ACTS.find(a => a.en === n));
   if (!liked.length) liked.push(ACTS.find(a => a.en === "Brisk walking"));
   const allowed = ACTS.filter(a => a.met <= LIMIT.maxMet && !/[hxv]/.test(a.flags));
@@ -350,12 +484,12 @@ function plan(text) {
   const top = ranked.slice(0, 5);
   const commKey = a => /golf|range/i.test(a.en) ? "golf" : /walking football/i.test(a.en) ? "walking football" : /petanque|bocce/i.test(a.en) ? "petanque" : /walk/i.test(a.en) ? "walk" : "default";
   const options = top.slice(0, 3).map(({ a }) => ({ a, comm: COMMUNITY[commKey(a)][0], cohort: COHORT[a.en] }));
-  field.data = { allowed, ranked, picks: options, liked };
+  field.data = { allowed, ranked, picks: options, liked, text };
   return [
-    { tag: "rules", title: T("Safety screen", "คัดกรองความปลอดภัย"), body: T("No warning symptom. Continue.", "ไม่พบอาการเตือน ทำต่อได้"), call: "red_flag_screen(text) → clear  (≈0.1 ms, no model)" },
-    { tag: "llm", title: T("Understand the goal", "เข้าใจเป้าหมาย"), body: T(`Likes: ${liked.map(a => a.en).join(", ")}. Wants a plan that fits high blood pressure.`, `ชอบ: ${liked.map(a => a.th).join(", ")} อยากได้แผนที่เหมาะกับความดันสูง`),
+    { pitch: true, phase: "scan", tag: "rules", title: T("Safety screen", "คัดกรองความปลอดภัย"), body: T("No warning symptom. Continue.", "ไม่พบอาการเตือน ทำต่อได้"), call: "red_flag_screen(text) → clear  (≈0.1 ms, no model)" },
+    { pitch: true, phase: "extract", tag: "llm", title: T("Understand the goal", "เข้าใจเป้าหมาย"), body: T(`Likes: ${liked.map(a => a.en).join(", ")}. Wants a plan that fits high blood pressure.`, `ชอบ: ${liked.map(a => a.th).join(", ")} อยากได้แผนที่เหมาะกับความดันสูง`),
       call: `router(text) → intent = build_activity_plan\nslots = { likes: [${liked.map(a => `"${a.en}"`).join(", ")}], condition: "hypertension" }` },
-    { pitch: true, tag: "fhir", title: T("Read my limits and guideline", "อ่านขีดจำกัดของฉันและแนวทาง"),
+    { pitch: true, phase: "limits", tag: "fhir", title: T("Read my limits and guideline", "อ่านขีดจำกัดของฉันและแนวทาง"),
       body: T(`Signed by ${LIMIT.signedBy}: up to ~${LIMIT.maxMet} METs, heart rate under ${LIMIT.hr}, effort ${LIMIT.rpe}, avoid ${LIMIT.avoid}.`, `แพทย์ลงนาม: ไม่เกิน ~${LIMIT.maxMet} METs ชีพจรไม่เกิน ${LIMIT.hr} ความเหนื่อยระดับ 11–13 เลี่ยงการเบ่งกลั้นหายใจ`),
       call: `GET /fhir/r4/CarePlan?patient=cmc-p09&status=active\nvector_search("hypertension exercise", collection="approved_guidelines", k=4) → ESC 2020 §4.2.3`, extra: () => list(GUIDE) },
     { pitch: true, tag: "rules", title: T(`Filter ${ACTS.length} activities by the guideline`, `คัดกิจกรรม ${ACTS.length} อย่างตามแนวทาง`),
@@ -364,9 +498,9 @@ function plan(text) {
     { pitch: true, tag: "knn", title: T("Match to what you enjoy", "จับคู่กับสิ่งที่คุณชอบ"),
       body: T("Nearest neighbours to your favourite sports, among allowed activities only.", "หากิจกรรมที่ใกล้เคียงกีฬาที่ชอบ จากรายการที่อนุญาตเท่านั้น"),
       call: `knn(query = mean(${liked.map(a => `"${a.en}"`).join(", ")}), k = 5, metric = cosine)`, phase: "knn", extra: () => view === "full" ? bars(top.map(({ a, s }) => [`${name(a)} · ≈${a.met} METs`, s, s.toFixed(2)])) : null },
-    { tag: "fhir", title: T("Search nearby community", "ค้นหาชุมชนใกล้บ้าน"), body: T("Groups and places near the home district, open at a cool time of day.", "กลุ่มและสถานที่ใกล้บ้าน เปิดในช่วงเวลาที่อากาศไม่ร้อน"),
+    { pitch: true, phase: "map", tag: "fhir", title: T("Search nearby community", "ค้นหาชุมชนใกล้บ้าน"), body: T("Groups and places near the home district, open at a cool time of day.", "กลุ่มและสถานที่ใกล้บ้าน เปิดในช่วงเวลาที่อากาศไม่ร้อน"),
       call: `GET /fhir/r4/HealthcareService?location.near=13.67|100.60|5|km\nget_heat_index(district) → afternoon hot, prefer morning/evening`, extra: () => list(options.map(o => `${name(o.a)} → ${o.comm[0]} · ${o.comm[1]} · ${o.comm[2]}`)) },
-    { tag: "knn", title: T("What similar users kept doing", "ผู้ใช้ที่คล้ายกันทำอะไรต่อเนื่อง"), body: T("Share still active after 4 weeks, users with a similar profile (synthetic cohort, n = 52).", "สัดส่วนที่ยังทำต่อหลัง 4 สัปดาห์ (กลุ่มตัวอย่างสมมุติ n = 52)"),
+    { pitch: true, phase: "cohort", tag: "knn", title: T("What similar users kept doing", "ผู้ใช้ที่คล้ายกันทำอะไรต่อเนื่อง"), body: T("Share still active after 4 weeks, users with a similar profile (synthetic cohort, n = 52).", "สัดส่วนที่ยังทำต่อหลัง 4 สัปดาห์ (กลุ่มตัวอย่างสมมุติ n = 52)"),
       call: `cohort_stats(similar_to = patient, outcome = "active_week_4")`, extra: () => bars(options.map(o => [name(o.a), (o.cohort ?? 30) / 100, `${o.cohort ?? 30}%`])) },
     { pitch: true, tag: "you", title: T("Ask you, then save the plan", "ถามคุณ แล้วบันทึกแผน"), body: T("You choose; the plan is written as FHIR Tasks inside your limits.", "คุณเลือกเอง แผนถูกบันทึกเป็น FHIR Task ภายใต้ขีดจำกัด"),
       call: `ask(options = 3) → create Tasks + Provenance (assembled from allowed set)`, ask: options, phase: "choose" }];
@@ -395,9 +529,9 @@ function render(steps) {
 function run(text) {
   clearRun(); say(text, "me");
   const steps = plan(text); render(steps);
-  setPhase("all", field.data || {});
+  stage("all", field.data || {});
   const shown = steps.filter(s => s.el); let t = 300;
-  shown.forEach((s, i) => { later(() => { s.el.classList.add("run"); if (s.phase && field.data) setPhase(s.phase, field.data); }, t); t += s.phase ? 2200 : 900;
+  shown.forEach((s, i) => { later(() => { s.el.classList.add("run"); if (s.phase && field.data) stage(s.phase, field.data); }, t); t += s.phase === "filter" || s.phase === "knn" ? 2600 : 2300;
     later(() => { s.el.classList.remove("run"); s.el.classList.add(s.stop ? "stopped" : "done"); }, t); });
   later(() => finish(steps), t + 200);
 }
@@ -432,6 +566,7 @@ function weekPlan(choice, n) {
   const head = document.createElement("div"); head.textContent = T(`This week · heart rate under ${LIMIT.hr} · no breath-holding`, `สัปดาห์นี้ · ชีพจรไม่เกิน ${LIMIT.hr} · ไม่กลั้นหายใจ`); box.append(head);
   rows.forEach(([d, t]) => { const r = document.createElement("div"); const b = document.createElement("b"); b.textContent = d; const s = document.createElement("span"); s.textContent = t; r.append(b, s); box.append(r); });
   chat.append(box);
+  stage("plan", { rows, choice });
   say(T("Saved. You’ll get one reminder per session, with a symptom check before and after. Want to change anything?", "บันทึกแล้ว จะมีแจ้งเตือนทุกครั้ง พร้อมเช็กอาการก่อนและหลัง อยากปรับอะไรไหมครับ?"));
 }
 
