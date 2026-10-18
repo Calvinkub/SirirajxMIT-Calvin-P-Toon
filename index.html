@@ -3,27 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#214e43">
+  <meta name="theme-color" content="#27254f">
   <meta name="description" content="Small daily missions to support your cardiac recovery, within clinician-set limits.">
   <title>Heartstep · Your daily recovery companion</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <section id="access-root" hidden aria-label="Sign in and profile setup"></section>
   <aside class="sidebar">
     <a href="#today" class="brand"><span class="brand-icon">♡</span> heartstep<span class="brand-dot">.</span></a>
     <div class="program-label">YOUR RECOVERY COMPANION</div>
     <nav aria-label="Main navigation" id="nav"></nav>
-    <div class="sidebar-bottom"><div class="care-note"><span class="care-spark">✳</span><strong>A little, every day.</strong><p>Small steps make room<br>for a healthier tomorrow.</p></div><button class="profile-link" data-page="profile"><span class="avatar">SK</span><span><strong>Somchai K.</strong><small>My recovery profile</small></span><span>↗</span></button></div>
+    <div class="sidebar-bottom"><div class="care-note"><span class="care-spark">✳</span><strong>A little, every day.</strong><p>Small steps make room<br>for a healthier tomorrow.</p></div><button class="profile-link" data-page="profile"><span class="avatar" id="sidebar-avatar">SK</span><span><strong id="patient-name">Somchai K.</strong><small>My recovery profile</small></span><span>↗</span></button></div>
   </aside>
   <div class="workspace">
-    <header class="topbar"><span class="breadcrumb">My recovery <span>/</span> <strong id="page-name">Today</strong></span><div class="top-actions"><span class="demo-pill"><i></i> Interactive demo</span><button class="icon-button" id="notification-button" aria-label="View reminders">♧<span class="notification-dot"></span></button><span class="avatar small">SK</span></div></header>
+    <header class="topbar"><span class="breadcrumb">My recovery <span>/</span> <strong id="page-name">Today</strong></span><div class="top-actions"><span class="demo-pill"><i></i> Interactive demo</span><button class="icon-button" id="notification-button" aria-label="View reminders"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 17h14l-2-3V9a5 5 0 0 0-10 0v5Zm5 3h4M12 2v2"/></svg><span class="notification-dot"></span></button><button class="text-link" id="logout-button" data-action="logout" hidden>Sign out</button><span class="avatar small" id="top-avatar">SK</span></div></header>
     <main id="main" tabindex="-1"></main>
     <footer><span>Made for your next small step.</span><span>SIRIRAJ × MIT <span class="footer-divider">/</span> CVD MISSION COACH</span></footer>
   </div>
   <dialog id="modal"><div id="modal-content"></div></dialog>
   <div id="toast" role="status" aria-live="polite"></div>
   <script src="runtime.js"></script>
+  <script src="access.js"></script>
   <script type="module" src="app.js"></script>
 </body>
 </html>
