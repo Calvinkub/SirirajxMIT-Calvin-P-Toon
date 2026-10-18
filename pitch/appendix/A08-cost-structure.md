@@ -1,80 +1,103 @@
-# A08 · What does the AI cost per patient?
+# A08 · What does it cost, and is it cheaper than ChatGPT or Claude?
 
-**One-line answer:** On our estimated token budget (not yet measured), AI inference costs about US$0.78 per patient per month on Claude Sonnet 5.5, or about US$2.11 per patient per month on one self-hosted H100 at 1,000 patients. Either is small next to a 499 THB (about US$14) monthly price. The biggest costs are people: clinician sign-off time and the IRIS licence, both still to price.
+> **Story, part 3 of 3.** [A06](A06-tool-router-experiments.md) measured a router that is accurate, deterministic and fast: rules decide 60% of messages, and the rest need one 71 ms forward pass that generates no tokens. [A07](A07-safety-and-evaluation.md) showed the safety path is the cheapest path. This page turns those measurements into baht.
 
-## The numbers
+**One-line answer:** For the patient, Heartstep Premium (about ฿499 a month, a price we will test) costs less than ChatGPT Plus (฿699) or Claude Pro (about ฿674), and includes what they do not: a doctor-signed limit, real groups nearby, and a rules-only stop path. For us, the measured router costs about **฿0.19 per 1,000 patient messages** on a rented T4 GPU, against about ฿8 on GPT-5 mini and about ฿56 on Claude Sonnet 5.5 for the same messages. The whole AI bill is a few percent of the price.
 
-| Option | Basis | Per patient per month |
-|---|---|---|
-| Same load on Claude Sonnet 5.5 API | US$2 in / US$10 out per M tokens | **≈ US$0.78** |
-| Same load on Claude Opus 5.5 API | US$4 in / US$20 out per M tokens | **≈ US$1.57** |
-| Our open models, 1 rented H100, 1,000 patients | ≈ US$2.89 per GPU-hour, 24/7 | **≈ US$2.11** |
-| Same GPU, 10,000 patients | Only if one GPU holds the load (**to measure**) | **≈ US$0.21** |
-| Premium price | 499 THB at an assumed 35 THB per US$ | ≈ US$14 |
-| Break-even | Patients at which one rented GPU costs the same as the Sonnet 5.5 API | ≈ 2,700 |
+> All prices are list prices checked on 2026-10-18 and converted at **≈ 33.7 THB per US$** (October 2026). Router speeds are measured on **synthetic** messages. The per-patient token budget is an **estimate** we have not measured yet. Read the "Limits" section before quoting.
 
-## How the numbers are built
+## 1. What the patient pays each month
 
-**Token budget (assumption, unmeasured):** about **7,800 input + 1,050 output tokens per active patient per day**. That covers one daily mission call, two short voice check-ins and a share of a weekly clinician summary.
+| Option | Price per month | What it includes for a heart patient | Source |
+|---|---|---|---|
+| ChatGPT Plus | **฿699** (incl. VAT) | Strong general assistant; answers when asked; no doctor-signed limit, no local groups, model decides safety | glbgpt.com, "official 2026 price in baht" (to verify at OpenAI checkout) |
+| Claude Pro | **US$20 ≈ ฿674** (before any VAT) | Same category; health-record connectors are US-focused | Claude Pro pricing, US$20/month |
+| Free tiers of either | ฿0 | Message limits; same gaps as above | — |
+| **Heartstep Premium** | **≈ ฿499** (hypothesis) | Recommendations inside a signed care plan, groups near home, daily missions, rules-only red-flag stop, clinician link | Our price to test |
 
-| Step | Calculation | Result |
-|---|---|---|
-| Monthly tokens | 7,800 × 30 = 234,000 in. 1,050 × 30 = 31,500 out | 0.234 M in, 0.0315 M out |
-| Sonnet 5.5 | 0.234 × $2 + 0.0315 × $10 = 0.468 + 0.315 | **$0.78** |
-| Opus 5.5 | 0.234 × $4 + 0.0315 × $20 = 0.936 + 0.630 | **$1.57** |
-| H100 per month | $2.89 × ~730 h | **≈ $2,110** |
-| Per patient at 1,000 | $2,110 / 1,000 | **$2.11** |
-| Per patient at 10,000 | $2,110 / 10,000 (if capacity holds) | **$0.21** |
-| Break-even vs Sonnet | $2,110 / $0.78 | **≈ 2,700 patients** |
-| AI share of the price (Sonnet case) | $0.78 / $14 | ≈ 6% |
+**Reading:** ฿499 is about 29% less than ChatGPT Plus and about 26% less than Claude Pro. The bigger difference is not the price; it is what the patient gets for it (see [A01](A01-why-not-chatgpt.md)). Free tiers exist, so the honest pitch is "cheaper than the paid assistants, and the only one built around your doctor's limits", not "cheaper than free".
+
+## 2. What one routing decision costs us (measured speed, list prices)
+
+A "routing decision" is turning one patient message into the right tool or answer path. These figures use measured latencies from [A06](A06-tool-router-experiments.md) (Qwen3-1.7B on a Tesla T4) and measured prompt and output sizes: a 617-token cached prefix plus about 40 message tokens (657 input tokens), and 34 generated tokens when a model writes the tool call.
+
+| How the decision is made | GPU time or tokens per 1,000 messages | Cost per 1,000 messages | In baht |
+|---|---|---|---|
+| **Heartstep cascade** (rules decide 59.6%; one-pass for the rest) | 404 × 71 ms = **29 GPU-s** | US$0.0055 | **฿0.19** |
+| One-pass scoring on every message (no rules) | 1,000 × 71 ms = 71 GPU-s | US$0.0136 | ฿0.46 |
+| Same open model writes the tool call | 1,000 × 1,272 ms = 1,272 GPU-s | US$0.244 | ฿8.2 |
+| GPT-5 mini API (US$0.25 in / US$2 out per M) | 657k in + 34k out tokens | US$0.232 | ฿7.8 |
+| Claude Haiku 4.5 API (US$1 / US$5) | same tokens | US$0.83 | ฿27.9 |
+| Claude Sonnet 5.5 API (US$2 / US$10) | same tokens | US$1.65 | ฿55.7 |
+| Claude Opus 5.5 API (US$4 / US$20) | same tokens | US$3.31 | ฿111.5 |
+
+T4 price: **US$0.69 per GPU-hour**, the median on-demand price across 9 providers (getdeploying.com, 2026-10-18).
 
 ```mermaid
 xychart-beta
-  title "AI cost per patient-month (US$), estimate"
-  x-axis ["Sonnet 5.5 API", "Opus 5.5 API", "H100 @1k pts", "H100 @10k pts*"]
-  y-axis "US$" 0 --> 2.5
-  bar [0.78, 1.57, 2.11, 0.21]
+  title "Cost per 1,000 patient messages (THB, log-like view)"
+  x-axis ["Heartstep cascade", "One-pass only", "GPT-5 mini API", "Open model writes call", "Haiku 4.5 API", "Sonnet 5.5 API", "Opus 5.5 API"]
+  y-axis "THB" 0 --> 115
+  bar [0.19, 0.46, 7.8, 8.2, 27.9, 55.7, 111.5]
 ```
-\*Only if one GPU can serve 10,000 patients. Not measured.
 
-## Why self-host anyway
+**Why the cascade is so cheap:** it skips the model for 6 messages in 10 (rules), and for the other 4 it reads one set of scores instead of generating 34 tokens. The same idea helps on any backend: even if we called an API, routing first would cut the number of paid calls by about 60%.
 
-At pilot size, self-hosting is **more expensive** than the API. We plan to self-host because of:
+## 3. What one patient costs us per month (estimate)
 
-1. **Data residency (PDPA).** Patient data and model calls stay in Thailand (see [A12](A12-regulatory-pdpa.md)).
-2. **Thai speech.** The Thai ASR and TTS candidates we use are open-weight (Qwen3-ASR; Typhoon2-Audio or JaiTTS to test).
-3. **Cost that stops growing per token** once volume passes about 2,700 patients against Sonnet 5.5.
+The router is only one part of the AI. The daily mission choice (MedGemma), Thai phrasing and voice add more. Our planning budget is about **7,800 input + 1,050 output tokens per patient per day** (one daily mission, two short check-ins, a weekly summary), so about **234,000 input and 31,500 output tokens a month**. This is an estimate; it is not measured yet.
 
-A hybrid is possible during the pilot: non-identifying, de-identified calls on an API and patient-identifying calls on our own model. This needs the consent design in A12 first.
+| Where the models run | AI cost per patient-month | In baht | Share of ฿499 |
+|---|---|---|---|
+| GPT-5 mini API | US$0.12 | ฿4.1 | 0.8% |
+| Claude Sonnet 5.5 API | US$0.78 | ฿26.4 | 5.3% |
+| Claude Opus 5.5 API | US$1.57 | ฿52.8 | 10.6% |
+| Self-hosted open models, 1 rented H100 (US$3.19/h, about US$2,329 a month), 1,000 patients | US$2.33 | ฿78.5 | 15.7% |
+| Same H100, 3,000 patients | US$0.78 | ฿26.2 | 5.2% |
+| Same H100, 10,000 patients (if one GPU holds the load; to measure) | US$0.23 | ฿7.8 | 1.6% |
 
-## What lowers the load
+```mermaid
+xychart-beta
+  title "AI cost per patient-month vs number of patients (THB)"
+  x-axis ["1,000", "3,000", "10,000"]
+  y-axis "THB per patient-month" 0 --> 80
+  line [78.5, 26.2, 7.8]
+  line [26.4, 26.4, 26.4]
+```
 
-- **About 60% of router decisions use no model at all.** In router v2, 161 of 270 messages were decided by rules (synthetic data; [A06](A06-tool-router-experiments.md)).
-- The router scores a closed list in **one forward pass** with a cached 617-token prompt prefix, instead of generating about 30 tokens per tool call.
-- MedGemma returns a short JSON id, not prose. Constraint-pruned decoding could cut this further ([A09](A09-speed-rnd-katgpt.md), benchmark not run).
+(First line: self-hosted H100. Second line: Claude Sonnet 5.5 API, flat.) They cross at about **3,000 patients** (US$2,329 ÷ US$0.78).
 
-## What is NOT in these numbers (to price)
+**Why self-host at all, if a small API model is cheap?** Not for price at pilot scale; GPT-5 mini would cost about ฿4 per patient. We self-host because patient data stays in Thailand under PDPA, Thai speech models are open-weight, the whole pipeline is deterministic and auditable, and cost stops growing per token as we scale. At pilot size we can run on an API or a small rented GPU; the cascade keeps either option cheap.
+
+## 4. The full unit-cost picture (what is and is not in the numbers)
 
 | Cost line | Status |
 |---|---|
-| Clinician time to sign limits, review flags and weekly summaries | To price with Siriraj. Likely the largest line |
-| InterSystems IRIS for Health licence and hosting | To price (the kit uses the Community edition for development) |
-| ASR and TTS compute, embeddings, storage, push notifications | Not modelled |
-| Second GPU for redundancy | Not modelled |
-| Customer acquisition, insurer sales cycle | Unknown. No Thai data ([A11](A11-market-and-business.md)) |
+| AI inference (router, mission choice, phrasing) | Estimated above |
+| Thai speech in and out | Not priced; Qwen3-ASR runs on the same GPU; Thai TTS engine not chosen |
+| InterSystems IRIS for Health licence | Not priced (Community edition for the hackathon) |
+| Clinician time to sign and review limits | **Not priced; likely the largest line** |
+| Customer acquisition, support, redundancy GPU | Not priced |
 
-## Caveats
+So the defensible claim is narrow: **AI is a small line in the unit cost, and the safety design makes it smaller, not bigger.** The large unknowns are people (clinicians) and the IRIS licence.
 
-- The token budget is an estimate, **not measured**. Real numbers come from logging a pilot.
-- Prices are list prices: Anthropic API list for Sonnet 5.5 and Opus 5.5; H100 at ≈ US$2.89/h from getdeploying.com (RunPod, Sept 2026). They change often.
-- GPU capacity per patient is **unmeasured**. The 10,000-patient row is a ceiling, not a forecast.
-- 499 THB is a price hypothesis with no Thai willingness-to-pay data. The exchange rate (35 THB/US$) is an assumption.
+## Limits (read before quoting)
 
-## Sources / evidence in repo
+- Router latencies are single-stream on a T4 with synthetic messages; batching would lower GPU cost further, and real messages may be longer.
+- The GPU figures assume the GPU is busy; an idle rented GPU still costs money, an API does not.
+- API costs per message exclude conversation history; a real chatbot resends history each turn and costs more.
+- The 7,800 + 1,050 tokens per patient-day budget is unmeasured.
+- ChatGPT Plus ฿699 comes from a secondary page; GPT-5 mini prices come from a secondary page (OpenAI's pricing page returned HTTP 403 to our fetch). Verify both before stage.
+- The exchange rate moves; at 35 THB/US$ every baht figure above rises about 4%.
 
-- `docs/pitch/faq-appendix/slides/cost.html`: table, token assumption, break-even, speaker notes
-- `docs/pitch/faq-appendix/README.md`: "estimates from list prices and an unmeasured token budget"
-- `docs/pitch/faq-appendix/slides/sources.html`: Anthropic API pricing, getdeploying.com GPU prices
-- `experiments/tool_router_v2_results_Qwen3-*_cuda.json`: tier counts (rules vs model), cached prefix tokens
-- `docs/superpowers/specs/2026-10-17-cvd-mission-coach-design.md` §2b: 499 starting price (THB assumed)
-- `research/pitch-claims-check.md`: "Premium from 499: unvalidated"
+## Sources
+
+Repo: `experiments/RESULTS_tool_router_demo.md` and `experiments/*_cuda.json` (latencies, tokens, tier counts, prefix length) · `docs/pitch/faq-appendix/slides/cost.html` (token budget) · `pitch/appendix-v2-deck/P16-cost-structure.md` (H100 US$3.19/h check).
+
+External (2026-10-18; the getdeploying.com T4 page was opened, the others were found by web search and must be opened before quoting):
+- ChatGPT Plus in Thailand, ฿699/month: https://www.glbgpt.com/hub/chatgpt-plus-cost-in-thailand/ (secondary; to verify)
+- Claude Pro US$20/month: https://www.eesel.ai/blog/claude-pro-pricing
+- Claude API list prices (Opus 5.5 US$4/US$20, Sonnet 5.5 US$2/US$10, Haiku 4.5 US$1/US$5): Anthropic API pricing
+- GPT-5 mini US$0.25 / US$2.00 per M tokens: https://morphllm.com/openai-api-pricing (secondary; to verify)
+- NVIDIA T4 median US$0.69/GPU-hour, H100 listings: https://getdeploying.com/gpus/nvidia-t4
+- USD/THB ≈ 33.7 (October 2026): https://www.poundsterlinglive.com/history/USD-THB-2026

@@ -62,6 +62,12 @@ A general chatbot keeps patient context in a prompt. We keep it in **standard FH
 - The chatbot comparison rests on two news sources about US launches. Re-check them before quoting on stage *(to verify)*.
 - Our "hosted in Thailand" and Thai speech pipeline are **planned**. Only the Heartstep UI prototype, synthetic FHIR data and the router experiments exist today.
 
+## It is also cheaper, for the patient and for us
+
+- **Patient:** ChatGPT Plus is ฿699 a month in Thailand and Claude Pro is US$20 (≈ ฿674). Heartstep Premium is planned at about ฿499 (a price to test) and includes the signed care plan, local groups and the stop path that general assistants do not have. Free tiers exist, so we say "cheaper than the paid assistants", not "cheaper than free".
+- **Us:** because rules decide 60% of messages and the rest need one 71 ms forward pass with no generated tokens ([A06](A06-tool-router-experiments.md)), routing 1,000 patient messages costs about ฿0.19 on a rented T4, against about ฿8 on GPT-5 mini and about ฿56 on Claude Sonnet 5.5 for the same messages ([A08](A08-cost-structure.md)). Safety does not add cost: the red-flag path is rules-only and is the cheapest path in the system ([A07](A07-safety-and-evaluation.md)).
+- Measured on synthetic messages; prices from list prices on 2026-10-18 at ≈ 33.7 THB/US$; see A08 limits.
+
 ## Sources / evidence in repo
 
 - `docs/pitch/faq-appendix/slides/chatbot.html`: comparison table and sources (OpenAI, "Launching Health in ChatGPT", US, July 2026; Clinical Trials Arena on Claude for Healthcare, JPM 2026)

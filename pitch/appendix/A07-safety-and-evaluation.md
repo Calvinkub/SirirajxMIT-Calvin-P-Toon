@@ -1,5 +1,7 @@
 # A07 · How do you stop the AI from harming a heart patient?
 
+> **Story, part 2 of 3.** [A06](A06-tool-router-experiments.md) showed the router is fast and deterministic. Here is why that matters for safety: because the safety layer is plain code, it costs almost nothing to run (no tokens, about 0.1 ms), it runs on every message before any model, and it can be tested exhaustively. Then [A08](A08-cost-structure.md) shows the cost.
+
 **One-line answer:** The AI never sets a limit and never handles a red flag. Limits come only from a clinician-signed FHIR record. Red flags, eligibility, the allowed mission set, the output filter and the safe default are all fixed code with no LLM. We test these with property tests, an 18-scenario suite and staged gates. Our own simulated review panel failed the first design, and we fixed what it found.
 
 ## The hard rules (design spec §5)
@@ -105,6 +107,20 @@ Result on 2026-10-17: **FAIL**, combined score 1.39 of 4 ("not ready" band). All
 | R13 (S1) Vendor market numbers presented as proven | Corrections block at the top of the market report |
 
 Open still: the named clinical owner (G5), the clinician-signed phrase list, the clinician-signed default values, and a panel re-run.
+
+## Why safe is also cheap
+
+A general chatbot handles a symptom message the same way as any other message: one full model turn, a few thousand tokens of context, and a free-text answer that may or may not tell the patient to stop. In Heartstep the safety path is the **cheapest** path in the system:
+
+| Message type | General chatbot | Heartstep |
+|---|---|---|
+| Red-flag symptom ("แน่นหน้าอก") | Full model turn; answer depends on the model | Rules only: about 0.1 ms, 0 tokens, pre-recorded stop message, FHIR `Flag` + `Communication` |
+| Medication question | Full model turn; may give dose advice | Rules only: fixed "ask your doctor or pharmacist", clinician queue |
+| Ordinary request ("where can I play badminton?") | Full model turn | 60% decided by rules; the rest by one 71 ms forward pass |
+
+So safety does not compete with cost: putting rules first removes the riskiest messages from the model **and** removes the most model calls. The open risk is the opposite one: rules that miss a phrasing (4 of 30 on the blind set, [A06](A06-tool-router-experiments.md)). The v3 fixes (spacing-tolerant lexicon, clause-scoped negation, a second screen that can only escalate) keep that path rules-only and cheap.
+
+**Next → [A08 · What it costs, in baht](A08-cost-structure.md)**
 
 ## Sources / evidence in repo
 

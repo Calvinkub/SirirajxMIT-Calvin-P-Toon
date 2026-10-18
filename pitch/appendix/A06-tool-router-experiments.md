@@ -1,5 +1,7 @@
 # A06 · Did you measure anything? (tool-router experiments)
 
+> **Story, part 1 of 3.** A06 shows the router is accurate, deterministic, fast and cheap per decision. [A07](A07-safety-and-evaluation.md) shows why that makes it *safe and testable*. [A08](A08-cost-structure.md) turns the same measurements into *baht per patient*, and compares that with a patient paying for ChatGPT or Claude.
+
 **One-line answer:** Yes, on synthetic messages only. Putting rules first and then letting a small Qwen3 model score the options in one forward pass was about 18× faster than letting the same model write the tool call (71 ms vs 1,272 ms median) and more accurate (78% vs 42%). On a blind 270-message set, the v2 router was 95% accurate on the messages it answered. **But it caught only 26 of 30 red flags**, and that miss is the most important finding. v3 fixes it with a new blind set.
 
 > **Every number here comes from synthetic messages written for this project.** They show how the mechanism behaves. They are not evidence of accuracy on real patient messages, and they are not a clinical result.
@@ -100,6 +102,25 @@ Pre-registered bar for the full cascade (from the plan): tool accuracy within 1 
 | Exact-phrase red-flag rules miss real-world phrasing patterns | That 26 of 30 or any later number is clinically sufficient |
 
 **Prior art:** routing tools from a frozen model's own hidden states is published ("The Router Within", arXiv 2609.15982; OATS centroid tool selection, arXiv 2603.13426). Our contribution is the combination: a rules-only safety gate, allowed-set constraints and FHIR tools in a Thai clinical setting. It is not the routing trick itself. A proper novelty check is still to do.
+
+## What this buys: accurate, deterministic, fast, cheap
+
+The experiments are not only about accuracy. The same design choice (rules first, then **score** a closed list instead of **writing** a tool call) changes four properties at once. All numbers below are measured on synthetic messages (Qwen3-1.7B, Colab Tesla T4, v1 config A vs config C, and v2 tier counts).
+
+| Property | LLM writes the tool call (config A) | Heartstep cascade (rules → one-pass scoring) | Where it comes from |
+|---|---|---|---|
+| Accurate | 42% tool accuracy; 4 of 4 red flags missed | 78% (v1); 95.3% when it answers on the blind v2 set; 26 of 30 red flags caught | v1 table; v2 table |
+| Deterministic | Free text; can invent facts (the PM2.5 example) | Greedy scores over a fixed list; same input → same output on Mac and T4 (0.6B accuracies identical) | v1 notes |
+| Fast | 1,272 ms median per decision | 71 ms median when the model runs; about 0.1 ms when rules decide | v1 table; v2 tier counts |
+| Tokens generated per decision | 34.2 (mean, measured) | **0** (one forward pass reads the scores; nothing is generated) | v1 table |
+| Messages that need any model | 100% | **40%** (rules decided 161 of 270 blind messages, 59.6%) | v2 tier counts |
+| Prompt per decision | tool menu + message | 617-token prefix computed **once** and cached; only the message is new (≈ 40 tokens) | v2 meta |
+
+Put together: per 1,000 patient messages, the cascade runs the model about 404 times, generates zero tokens, and uses about 29 GPU-seconds on a T4 (404 × 71 ms). Writing the tool call for all 1,000 would use about 1,272 GPU-seconds and generate about 34,000 tokens. That ratio, roughly **40× less GPU time per 1,000 messages**, is what [A08](A08-cost-structure.md) prices in baht.
+
+Determinism is also what makes the system testable: a red-flag rule either matches or it does not, and the same message always takes the same path. That is the starting point of [A07](A07-safety-and-evaluation.md).
+
+**Next → [A07 · Safe by construction, and how we test it](A07-safety-and-evaluation.md)**
 
 ## Sources / evidence in repo
 
