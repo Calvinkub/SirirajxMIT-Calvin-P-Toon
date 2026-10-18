@@ -17,16 +17,16 @@ test('all five screens render and mission completion persists',()=>{
   assert.equal(app.nodes['#agent-observer'].hidden,true);
   assert.match(app.html(),/class="sample-badge synced"><i aria-hidden="true"><\/i>Synced/);
   assert.doesNotMatch(app.html(),/>Sample data<\/span>/);
-  assert.match(app.html(),/Your two little missions/);
+  assert.match(app.html(),/Today’s session/);
   app.click('walk');assert.match(app.modal(),/I’ve finished my walk/);
   app.click('finish-walk');assert.deepEqual(app.state().done,['walk']);
   app.click('medication');assert.deepEqual(app.state().done,['walk','medication']);
   app.click('undo',{kind:'walk'});assert.deepEqual(app.state().done,['medication']);
-  for(const [page,text] of [['plan','Your week, one step'],['coach','You’ve got someone'],['community','A little easier'],['profile','Your recovery profile']]){app.page(page);assert.ok(app.html().includes(text),page);}
+  for(const [page,text] of [['plan','Workout Task Checklist'],['coach','You’ve got someone'],['community','A little easier'],['profile','Clinical summary']]){app.page(page);assert.ok(app.html().includes(text),page);}
 });
 test('onboarding without clinician limits locks exercise and escapes patient input',()=>{
   const app=boot();app.submit('onboarding-form',{name:'<img src=x>',age:'60',diagnosis:'Recovering after MI',goal:'Build a gentle daily routine'});
-  app.page('today');assert.match(app.html(),/Waiting for clinician-approved limits/);assert.match(app.html(),/data-action="walk"[^>]*disabled/);
+  app.page('today');assert.match(app.html(),/Start Session/);assert.match(app.html(),/data-action="walk"[^>]*disabled/);
   assert.match(app.html(),/&lt;img src=x&gt;/);assert.doesNotMatch(app.html(),/<img src=x>/);
   app.click('walk');assert.equal(app.nodes['#modal'].open,false);assert.equal(app.state().profile.clinicianApproved,false);
 });
@@ -61,11 +61,11 @@ test('IRIS mode loads database profile and waits for a successful completion wri
     return {ok:true,json:async()=>snapshot};
   }});
   await settled();
-  assert.match(app.html(),/Below 110 bpm/);
+  assert.match(app.html(),/Limit 110/);
   app.click('walk');app.click('finish-walk');
   assert.doesNotMatch(app.html(),/✓ Completed/);
   finish();await settled();
-  assert.match(app.html(),/✓ Completed/);
+  assert.match(app.html(),/10\/20/);
   assert.equal(calls[1].path,'/api/me/completions/walk');
   assert.equal(JSON.parse(calls[1].options.body).completed,true);
 });

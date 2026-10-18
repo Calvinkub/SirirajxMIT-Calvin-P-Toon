@@ -42,7 +42,7 @@ test('existing username opens its home, sign out returns to username screen',asy
     assert.match(app.q('#access-root').textContent,/Let’s start with your username/);
     app.set('username','somchai');await app.submit('login-form');
     assert.equal(app.q('#access-root').hidden,true);
-    assert.match(app.q('main').textContent,/Good afternoon, Somchai/);
+    assert.match(app.q('main').textContent,/Good morning, Somchai/);
     assert.equal(app.q('#patient-name').textContent,'Somchai');
     await app.click('#logout-button');
     assert.equal(app.q('#access-root').hidden,false);
@@ -71,7 +71,11 @@ test('new username completes records and measurements, skips CPET, and reaches i
     assert.equal(saved.medications[0].name,'Fictional medicine');
     assert.equal(saved.measurements[0].value,68);assert.ok(saved.measurements[0].measuredAt.endsWith('Z'));
     assert.equal(app.q('#access-root').hidden,true);
-    assert.match(app.q('main').textContent,/Welcome, <Test Patient>/);
+    assert.match(app.q('main').textContent,/Profile/);
+    assert.match(app.q('main').textContent,/Link your Info/);
+    assert.match(app.q('main').textContent,/Clinical summary/);
+    assert.match(app.q('main').textContent,/My Goal/);
+    assert.match(app.q('main').textContent,/<Test Patient>/);
     assert.doesNotMatch(app.q('main').textContent,/2,480|Good afternoon, Somchai/);
     await app.click('[data-page="profile"]');app.window.dispatchEvent(new app.window.HashChangeEvent('hashchange'));
     assert.match(app.q('main').textContent,/Fictional medicine/);
