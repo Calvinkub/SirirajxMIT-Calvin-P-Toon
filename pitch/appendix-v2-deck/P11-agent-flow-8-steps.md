@@ -15,7 +15,7 @@ In the demo, Somchai's message "I used to play tennis … now I have hypertensio
 
 ### 1. What the demo is
 
-`demo/agent-flow-demo.html` is a single HTML file that plays the agent trace in the browser, with a bubble field showing the 100 activities shrinking to 67 and then to the nearest matches. It runs in two views ("pitch" and "full", the latter showing the call for each step). It is **scripted JavaScript**: no model is called, no IRIS server is contacted, and patient `cmc-p01` is synthetic and not one of the eight FHIR bundles in `synthetic/fhir`. Four presets exist: tennis (English), tennis (Thai), football + golf (English), and a red-flag message in Thai ("แน่นหน้าอกตอนเดิน", chest tightness when walking).
+`demo/agent-flow-demo.html` is a single HTML file that plays the agent trace in the browser, with a bubble field showing the 100 activities shrinking to 67 and then to the nearest matches. It runs in two views ("pitch" and "full", the latter showing the call for each step). It is **scripted JavaScript**: no model is called, no IRIS server is contacted, and patient `cmc-p01` is one of the eight synthetic FHIR bundles in `synthetic/fhir` (not yet loaded into IRIS). Four presets exist: tennis (English), tennis (Thai), football + golf (English), and a red-flag message in Thai ("แน่นหน้าอกตอนเดิน", chest tightness when walking).
 
 ### 2. The eight steps, as coded in `plan()`
 

@@ -79,7 +79,7 @@ If `mission_id` is not in `allowed_set`, or the JSON is invalid, or the call tim
 
 ## The demo flow (scripted, synthetic)
 
-`demo/agent-flow-demo.html` plays the full agent trace in the browser. The patient is "Somchai, 58, high blood pressure". He says he likes golf and football.
+`demo/agent-flow-demo.html` plays the full agent trace in the browser (live at https://heartstep-demo-chi.vercel.app). The patient is synthetic record `cmc-p01`: Somchai, 58, Bang Na, high blood pressure and a heart attack this year, signed limit HR < 110 and ≤ 5.9 METs. He used to play tennis and asks about badminton or bowling (preset 1; a football → golf preset also exists).
 
 ```mermaid
 sequenceDiagram
@@ -90,7 +90,7 @@ sequenceDiagram
   participant F as FHIR (IRIS)
   participant V as Vector Search
   participant K as KNN
-  P->>R: "I like golf and football, plan something for my blood pressure"
+  P->>R: "I used to play tennis, now I have hypertension. Maybe badminton or bowling?"
   R->>R: red_flag_screen(text) → clear (≈0.1 ms, no model)
   R->>L: intent?
   L-->>R: build_activity_plan {likes, condition}
@@ -98,9 +98,9 @@ sequenceDiagram
   R->>V: vector_search("hypertension exercise", collection="approved_guidelines", k=4)
   R->>R: filter 100 activities: MET ≤ 5.9, no contact, no breath-holding, no bursts → 67 allowed
   R->>K: knn(mean of liked activities, k=5, cosine), allowed only
-  R->>F: GET HealthcareService?location.near=lat|lon|5|km + heat index
+  R->>F: GET Location?near=13.668|100.604|5|km → HealthcareService (svc-bn-*) + heat index
   R->>K: cohort_stats(similar users, active at week 4)
-  R->>P: 3 options. "Football is too intense for now, golf fits"
+  R->>P: 3 options: bowling, table tennis, badminton. "Tennis is too intense for now"
   P->>R: picks one + 2 or 3 times this week
   R->>F: create Tasks + Provenance (assembled from allowed set)
 ```
@@ -110,13 +110,13 @@ sequenceDiagram
 | 1. Limits | Signed `CarePlan` read: up to about 5.9 METs, HR under 110, RPE 11–13, avoid straining and breath-holding | FHIR Server |
 | 2. Guideline vector search | Four approved guideline lines retrieved to explain the plan | IRIS Vector Search |
 | 3. Filter 100 activities | 100-item Thai/English catalogue (golf, petanque, takraw, ram mai phlong, ruesi dat ton…). Rules keep 67 (44 intensities from the 2024 Compendium). Tennis (or football) is excluded and the patient is told why | Rules (SQL in production) |
-| 4. KNN | Nearest allowed activities to what the patient enjoys (e.g. walking golf, walking football) | Vector similarity |
-| 5. Community | Groups near the home district at a cool time of day | FHIR `HealthcareService` near-search + heat tool |
+| 4. KNN | Nearest allowed activities to what the patient enjoys: for tennis, bowling, table tennis, social badminton (cosine 0.945 each, a tie broken by lower METs) | Vector similarity |
+| 5. Community | Groups near Bang Na at a cool time of day: table-tennis room 0.9 km, badminton club 1.9 km, bowling league 3.2 km | FHIR `HealthcareService` near-search + heat tool |
 | 6. Similar users | Share of similar users still active at week 4 | Cohort query |
 | 7. Patient choice | The patient picks one of 3, and how often | The patient decides, not the AI |
 | 8. Save | Tasks + Provenance inside the limits | FHIR Server |
 
-**Honesty notes for the demo:** it is scripted JavaScript, not live models. The KNN runs on hand-made 11-dimension activity tag vectors, not learned embeddings. MET values are approximate, "in the style of the Compendium of Physical Activities", and must be checked by a clinician. Guideline lines are paraphrased examples, not quotations. Community groups and the "similar users" cohort (n = 52, with percentages) are **invented**. The demo patient id `cmc-p01` is not one of the 8 synthetic FHIR bundles.
+**Honesty notes for the demo:** it is scripted JavaScript, not live models, and it does not call IRIS. The KNN runs on hand-made 11-dimension activity tag vectors, not learned embeddings; only the taste signal changes the ranking. 44 of the 100 MET values come from the 2024 Adult Compendium of Physical Activities (codes in the demo); the other 56 are team estimates; all need clinician review. Guideline lines paraphrase ESC 2020 §4.2.3 (hypertension). Nearby groups are synthetic FHIR `HealthcareService` + `Location` records (`svc-bn-*`, `loc-bn-*`) in `synthetic/fhir/00_shared_reference_data.json`; the "similar users" cohort (n = 52, with percentages) is **invented**. The demo patient `cmc-p01` is one of the 8 synthetic bundles.
 
 ## Sources / evidence in repo
 
