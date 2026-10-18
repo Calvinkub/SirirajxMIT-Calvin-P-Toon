@@ -661,6 +661,486 @@
       }
     },
     {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-bn-hall",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-bn-hall",
+        "status": "active",
+        "name": "District sports hall, Bang Na (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "sports-hall",
+                "display": "sports hall"
+              }
+            ],
+            "text": "sports hall"
+          }
+        ],
+        "position": {
+          "latitude": 13.6811,
+          "longitude": 100.6153
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "08:00:00",
+            "closingTime": "21:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": true
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-bn-hall"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-bn-alley",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-bn-alley",
+        "status": "active",
+        "name": "Mall bowling alley, Bang Na (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "bowling-alley",
+                "display": "bowling alley"
+              }
+            ],
+            "text": "bowling alley"
+          }
+        ],
+        "position": {
+          "latitude": 13.6582,
+          "longitude": 100.6318
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "10:00:00",
+            "closingTime": "22:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": true
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-bn-alley"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-bn-ttroom",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-bn-ttroom",
+        "status": "active",
+        "name": "Community table-tennis room (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "community-centre",
+                "display": "community centre"
+              }
+            ],
+            "text": "community centre"
+          }
+        ],
+        "position": {
+          "latitude": 13.6604,
+          "longitude": 100.6012
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "16:00:00",
+            "closingTime": "20:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": true
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-bn-ttroom"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-bn-courts",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-bn-courts",
+        "status": "active",
+        "name": "Park pickleball courts (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "park",
+                "display": "park"
+              }
+            ],
+            "text": "park"
+          }
+        ],
+        "position": {
+          "latitude": 13.6887,
+          "longitude": 100.5671
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "06:00:00",
+            "closingTime": "20:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": false
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-bn-courts"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-bn-range",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-bn-range",
+        "status": "active",
+        "name": "Seniors' driving range (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "driving-range",
+                "display": "driving range"
+              }
+            ],
+            "text": "driving range"
+          }
+        ],
+        "position": {
+          "latitude": 13.6503,
+          "longitude": 100.6106
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "06:00:00",
+            "closingTime": "22:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": false
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-bn-range"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-bn-park",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-bn-park",
+        "status": "active",
+        "name": "District park, Bang Na (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "park",
+                "display": "park"
+              }
+            ],
+            "text": "park"
+          }
+        ],
+        "position": {
+          "latitude": 13.6742,
+          "longitude": 100.6003
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "05:00:00",
+            "closingTime": "21:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": false
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-bn-park"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-bn-river",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-bn-river",
+        "status": "active",
+        "name": "Riverside walkway, Bang Na (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "park",
+                "display": "park"
+              }
+            ],
+            "text": "park"
+          }
+        ],
+        "position": {
+          "latitude": 13.6643,
+          "longitude": 100.5936
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "05:00:00",
+            "closingTime": "21:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": false
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-bn-river"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Location/loc-bn-field",
+      "resource": {
+        "resourceType": "Location",
+        "id": "loc-bn-field",
+        "status": "active",
+        "name": "Community football field (synthetic)",
+        "mode": "instance",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "sports-field",
+                "display": "sports field"
+              }
+            ],
+            "text": "sports field"
+          }
+        ],
+        "position": {
+          "latitude": 13.6967,
+          "longitude": 100.6148
+        },
+        "hoursOfOperation": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri",
+              "sat",
+              "sun"
+            ],
+            "openingTime": "06:00:00",
+            "closingTime": "20:00:00"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/indoor",
+            "valueBoolean": false
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/loc-bn-field"
+      }
+    },
+    {
       "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-walk-group-1",
       "resource": {
         "resourceType": "HealthcareService",
@@ -765,7 +1245,7 @@
         "id": "svc-mall-walk",
         "active": true,
         "name": "Air-conditioned mall walkers club",
-        "comment": "Indoor walking loop before shops open, good on hot or smoky days",
+        "comment": "Indoor walking loop from 10:00 when the mall opens, good on hot or smoky days",
         "providedBy": {
           "reference": "Organization/org-demo-clinic"
         },
@@ -1001,6 +1481,447 @@
       "request": {
         "method": "PUT",
         "url": "HealthcareService/svc-cycle-class"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-bn-badminton",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-bn-badminton",
+        "active": true,
+        "name": "Social badminton club",
+        "comment": "Doubles, friendly pace, Tue & Fri 18:30",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-bn-hall"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "moderate"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-bn-badminton"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-bn-bowling",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-bn-bowling",
+        "active": true,
+        "name": "Seniors' bowling league",
+        "comment": "Weekly league, Wed 10:00",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-bn-alley"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "light"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-bn-bowling"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-bn-tabletennis",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-bn-tabletennis",
+        "active": true,
+        "name": "Community table-tennis room",
+        "comment": "Drop-in play, daily 16:00-20:00",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-bn-ttroom"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "moderate"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-bn-tabletennis"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-bn-pickleball",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-bn-pickleball",
+        "active": true,
+        "name": "Pickleball beginners' group",
+        "comment": "Coached intro, Sat & Sun 07:30",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-bn-courts"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "moderate"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-bn-pickleball"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-bn-range",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-bn-range",
+        "active": true,
+        "name": "Seniors' driving-range club",
+        "comment": "Practice session, Sat 07:00",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-bn-range"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "light"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-bn-range"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-bn-petanque",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-bn-petanque",
+        "active": true,
+        "name": "Petanque club",
+        "comment": "Daily 16:30",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-bn-park"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "light"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-bn-petanque"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-bn-walk",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-bn-walk",
+        "active": true,
+        "name": "Morning walking group",
+        "comment": "Easy walk, weekdays 06:30",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-bn-river"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "light"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-bn-walk"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-bn-class",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-bn-class",
+        "active": true,
+        "name": "Community park exercise class",
+        "comment": "Mon/Wed/Fri 17:00",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-bn-park"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "light"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-bn-class"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/HealthcareService/svc-bn-walkfootball",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "svc-bn-walkfootball",
+        "active": true,
+        "name": "Walking-football group",
+        "comment": "Tue & Thu 17:30",
+        "providedBy": {
+          "reference": "Organization/org-demo-clinic"
+        },
+        "location": [
+          {
+            "reference": "Location/loc-bn-field"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+                "code": "exercise-activity",
+                "display": "Exercise activity"
+              }
+            ],
+            "text": "Exercise activity"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/activity-intensity",
+            "valueCode": "moderate"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/svc-bn-walkfootball"
       }
     }
   ]

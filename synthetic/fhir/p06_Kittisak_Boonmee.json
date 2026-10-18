@@ -1420,10 +1420,10 @@
               {
                 "system": "http://loinc.org",
                 "code": "59284-0",
-                "display": "Patient Consent"
+                "display": "Consent Document"
               }
             ],
-            "text": "Patient Consent"
+            "text": "Consent Document"
           }
         ],
         "dateTime": "2026-09-27T10:00:00+07:00",
@@ -1455,13 +1455,28 @@
                       {
                         "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
                         "code": "PAYOR",
-                        "display": "payor"
+                        "display": "invoice payor"
                       }
                     ],
-                    "text": "payor"
+                    "text": "invoice payor"
                   },
                   "reference": {
-                    "display": "Any insurer"
+                    "display": "Any insurer (payer)"
+                  }
+                },
+                {
+                  "role": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
+                        "code": "UNDWRT",
+                        "display": "underwriter"
+                      }
+                    ],
+                    "text": "underwriter"
+                  },
+                  "reference": {
+                    "display": "Any insurer (underwriting)"
                   }
                 }
               ]

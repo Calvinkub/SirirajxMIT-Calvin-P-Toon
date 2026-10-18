@@ -181,7 +181,7 @@ body.gif .gifstep span{font-family:var(--mono);font-size:16px;font-weight:500;co
   </header>
   <div class="grid">
     <section class="phone" aria-label="Patient app">
-      <div class="appbar"><span class="brand">heartstep</span><span class="who">Somchai, 58 · high blood pressure (synthetic)</span></div>
+      <div class="appbar"><span class="brand">heartstep</span><span class="who">Somchai, 58 · high blood pressure, heart attack this year (synthetic record cmc-p01)</span></div>
       <div class="chat" id="chat" aria-live="polite"></div>
       <div class="presets" id="presets"></div>
       <form class="composer" id="composer">
@@ -326,23 +326,24 @@ const DIMS = "oitbacswrmk".split("");
 const ACTS = RAW.trim().split("\n").map((l, i) => { const [en, th, met, tags, flags, code] = l.split("|");
   return { id: i, en, th, met: +met, tags, flags: flags || "", code: code || "", vec: DIMS.map(d => tags.includes(d) ? 1 : 0) }; });
 
-const LIMIT = { source: "CarePlan/cmc-p09-limits (synthetic)", signedBy: "Dr. Narin R. (synthetic)", maxMet: 5.9, hr: 120,
+const LIMIT = { source: "CarePlan/cmc-p01-limits (synthetic)", signedBy: "Dr. Narin Rattanakul (synthetic)", maxMet: 5.9, hr: 110,
   rpe: "11–13 (fairly light to somewhat hard)", avoid: "heavy straining and breath-holding" };
 const GUIDE = [ // ESC 2020 sports cardiology guideline, section 4.2.3 Hypertension (paraphrased)
   "At least 30 min of moderate dynamic aerobic exercise (walking, cycling, swimming) 5–7 days a week.",
   "Resistance training 2–3 days a week is also advised.",
   "Avoid heavy weightlifting with static (isometric) effort and breath-holding (Valsalva).",
   "If blood pressure is uncontrolled (SBP > 160), no high-intensity exercise until it is controlled."];
+// Each group is a FHIR HealthcareService at a FHIR Location in synthetic/fhir/00_shared_reference_data.json; distances from Somchai's home district (Bang Na).
 const COMMUNITY = {
-  golf: [["Seniors’ driving-range club, Bang Na (synthetic)", "2.1 km", "Sat 07:00"], ["Public 9-hole course, walking allowed (synthetic)", "8.4 km", "daily from 06:00"]],
-  "walking football": [["Walking-football group, community park (synthetic)", "3.4 km", "Tue & Thu 17:30"]],
-  petanque: [["Petanque club at the district park (synthetic)", "0.8 km", "daily 16:30"]],
-  walk: [["Morning walking group, riverside park (synthetic)", "1.2 km", "weekdays 06:30"]],
-  badminton: [["Social badminton club, district sports hall (synthetic)", "1.9 km", "Tue & Fri 18:30"]],
-  bowling: [["Seniors’ bowling league, mall alley (synthetic)", "3.2 km", "Wed 10:00"]],
-  tabletennis: [["Community table-tennis room (synthetic)", "0.9 km", "daily 16:00–20:00"]],
-  pickleball: [["Pickleball beginners’ group, park courts (synthetic)", "4.6 km", "Sat & Sun 07:30"]],
-  default: [["Community park exercise class (synthetic)", "1.5 km", "Mon/Wed/Fri 17:00"]] };
+  golf: [["Seniors' driving-range club (svc-bn-range)", "2.1 km", "Sat 07:00"]],
+  "walking football": [["Walking-football group (svc-bn-walkfootball)", "3.4 km", "Tue & Thu 17:30"]],
+  petanque: [["Petanque club, district park (svc-bn-petanque)", "0.8 km", "daily 16:30"]],
+  walk: [["Morning walking group, riverside (svc-bn-walk)", "1.2 km", "weekdays 06:30"]],
+  badminton: [["Social badminton club, sports hall (svc-bn-badminton)", "1.9 km", "Tue & Fri 18:30"]],
+  bowling: [["Seniors' bowling league, mall alley (svc-bn-bowling)", "3.2 km", "Wed 10:00"]],
+  tabletennis: [["Community table-tennis room (svc-bn-tabletennis)", "0.9 km", "daily 16:00–20:00"]],
+  pickleball: [["Pickleball beginners' group, park courts (svc-bn-pickleball)", "4.6 km", "Sat & Sun 07:30"]],
+  default: [["Community park exercise class (svc-bn-class)", "0.8 km", "Mon/Wed/Fri 17:00"]] };
 const COHORT = { "Badminton, social": 57, "Bowling": 49, "Table tennis, social": 52, "Darts": 26, "Billiards": 33, "Walking football": 64, "Golf, walking with a pull cart": 58, "Golf, walking and carrying clubs": 55, "Petanque": 47,
   "Miniature golf": 31, "Pickleball": 44, "Volleyball, recreational": 39, "Croquet": 22, "Bocce": 35, "Driving range": 50 };
 const LIKES = [
@@ -529,7 +530,7 @@ function plan(text) {
       call: `router(text) → intent = build_activity_plan\nslots = { likes: [${liked.map(a => `"${a.en}"`).join(", ")}], condition: "hypertension" }` },
     { pitch: true, phase: "limits", tag: "fhir", title: T("Read my limits and guideline", "อ่านขีดจำกัดของฉันและแนวทาง"),
       body: T(`Signed by ${LIMIT.signedBy}: up to ~${LIMIT.maxMet} METs, heart rate under ${LIMIT.hr}, effort ${LIMIT.rpe}, avoid ${LIMIT.avoid}.`, `แพทย์ลงนาม: ไม่เกิน ~${LIMIT.maxMet} METs ชีพจรไม่เกิน ${LIMIT.hr} ความเหนื่อยระดับ 11–13 เลี่ยงการเบ่งกลั้นหายใจ`),
-      call: `GET /fhir/r4/CarePlan?patient=cmc-p09&status=active\nvector_search("hypertension exercise", collection="approved_guidelines", k=4) → ESC 2020 §4.2.3`, extra: () => list(GUIDE) },
+      call: `GET /fhir/r4/CarePlan?patient=cmc-p01&status=active\nvector_search("hypertension exercise", collection="approved_guidelines", k=4) → ESC 2020 §4.2.3`, extra: () => list(GUIDE) },
     { pitch: true, tag: "rules", title: T(`Filter ${ACTS.length} activities by the guideline`, `คัดกิจกรรม ${ACTS.length} อย่างตามแนวทาง`),
       body: excludedLiked.length ? T(`Not allowed for now: ${excludedLiked.map(a => a.en).join(", ")} (too intense or contact).`, `ยังไม่เหมาะตอนนี้: ${excludedLiked.map(a => a.th).join(", ")} (หนักเกินหรือปะทะ)`) : T("Everything you like fits your limits.", "กิจกรรมที่ชอบอยู่ในขีดจำกัด"),
       call: `filter(catalog, met <= ${LIMIT.maxMet}, no contact, no breath-holding, no bursts)`, phase: "filter" },
@@ -537,7 +538,7 @@ function plan(text) {
       body: T("Nearest neighbours to your favourite sports, among allowed activities only.", "หากิจกรรมที่ใกล้เคียงกีฬาที่ชอบ จากรายการที่อนุญาตเท่านั้น"),
       call: `knn(query = mean(${liked.map(a => `"${a.en}"`).join(", ")}), k = 5, metric = cosine)`, phase: "knn", extra: () => view === "full" ? bars(top.map(({ a, s }) => [`${name(a)} · ≈${a.met} METs`, s, s.toFixed(2)])) : null },
     { pitch: true, phase: "map", tag: "fhir", title: T("Search nearby community", "ค้นหาชุมชนใกล้บ้าน"), body: T("Groups and places near the home district, open at a cool time of day.", "กลุ่มและสถานที่ใกล้บ้าน เปิดในช่วงเวลาที่อากาศไม่ร้อน"),
-      call: `GET /fhir/r4/HealthcareService?location.near=13.67|100.60|5|km\nget_heat_index(district) → afternoon hot, prefer morning/evening`, extra: () => list(options.map(o => `${name(o.a)} → ${o.comm[0]} · ${o.comm[1]} · ${o.comm[2]}`)) },
+      call: `GET /fhir/r4/Location?near=13.668|100.604|5|km → HealthcareService?location=…\nget_heat_index(district) → afternoon hot, prefer morning/evening`, extra: () => list(options.map(o => `${name(o.a)} → ${o.comm[0]} · ${o.comm[1]} · ${o.comm[2]}`)) },
     { pitch: true, phase: "cohort", tag: "knn", title: T("What similar users kept doing", "ผู้ใช้ที่คล้ายกันทำอะไรต่อเนื่อง"), body: T("Share still active after 4 weeks, users with a similar profile (synthetic cohort, n = 52).", "สัดส่วนที่ยังทำต่อหลัง 4 สัปดาห์ (กลุ่มตัวอย่างสมมุติ n = 52)"),
       call: `cohort_stats(similar_to = patient, outcome = "active_week_4")`, extra: () => bars(options.map(o => [name(o.a), (o.cohort ?? 30) / 100, `${o.cohort ?? 30}%`])) },
     { pitch: true, tag: "you", title: T("Ask you, then save the plan", "ถามคุณ แล้วบันทึกแผน"), body: T("You choose; the plan is written as FHIR Tasks inside your limits.", "คุณเลือกเอง แผนถูกบันทึกเป็น FHIR Task ภายใต้ขีดจำกัด"),

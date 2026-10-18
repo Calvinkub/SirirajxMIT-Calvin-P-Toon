@@ -103,11 +103,11 @@
           "coding": [
             {
               "system": "http://snomed.info/sct",
-              "code": "232717009",
-              "display": "Coronary artery bypass graft (history)"
+              "code": "38341003",
+              "display": "Hypertensive disorder"
             }
           ],
-          "text": "Coronary artery bypass graft (history)"
+          "text": "Hypertensive disorder"
         },
         "onsetDateTime": "2026-09-04T09:00:00+07:00",
         "meta": {
@@ -157,11 +157,11 @@
           "coding": [
             {
               "system": "http://snomed.info/sct",
-              "code": "38341003",
-              "display": "Hypertensive disorder"
+              "code": "44054006",
+              "display": "Type 2 diabetes mellitus"
             }
           ],
-          "text": "Hypertensive disorder"
+          "text": "Type 2 diabetes mellitus"
         },
         "onsetDateTime": "2026-08-28T09:00:00+07:00",
         "meta": {
@@ -211,11 +211,11 @@
           "coding": [
             {
               "system": "http://snomed.info/sct",
-              "code": "44054006",
-              "display": "Type 2 diabetes mellitus"
+              "code": "53741008",
+              "display": "Coronary arteriosclerosis"
             }
           ],
-          "text": "Type 2 diabetes mellitus"
+          "text": "Coronary arteriosclerosis"
         },
         "onsetDateTime": "2026-08-21T09:00:00+07:00",
         "meta": {
@@ -231,6 +231,41 @@
       "request": {
         "method": "PUT",
         "url": "Condition/cmc-p05-cond-3"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Procedure/cmc-p05-proc-1",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "cmc-p05-proc-1",
+        "status": "completed",
+        "subject": {
+          "reference": "Patient/cmc-p05"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "232717009",
+              "display": "Coronary artery bypass grafting"
+            }
+          ],
+          "text": "Coronary artery bypass grafting"
+        },
+        "performedDateTime": "2026-08-30T08:00:00+07:00",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/cmc-p05-proc-1"
       }
     },
     {
@@ -431,7 +466,7 @@
           {
             "attachment": {
               "contentType": "text/plain; charset=utf-8",
-              "data": "U1lOVEhFVElDIERJU0NIQVJHRSBTVU1NQVJZIChkZW1vIG9ubHksIG5vdCBhIHJlYWwgcGF0aWVudCkKUGF0aWVudDogV2FuaWRhIENoYWl5YXBvcm4KRGlhZ25vc2VzOiBDb3JvbmFyeSBhcnRlcnkgYnlwYXNzIGdyYWZ0IChoaXN0b3J5KSwgSHlwZXJ0ZW5zaXZlIGRpc29yZGVyLCBUeXBlIDIgZGlhYmV0ZXMgbWVsbGl0dXMKTFZFRiA1MCUuIFJpc2sgY2xhc3M6IGxvdy4KTWVkaWNhdGlvbnM6IEJpc29wcm9sb2wgMi41IG1nIG9uY2UgZGFpbHk7IEFzcGlyaW4gODEgbWcgb25jZSBkYWlseTsgQXRvcnZhc3RhdGluIDQwIG1nIGF0IG5pZ2h0OyBNZXRmb3JtaW4gNTAwIG1nIHR3aWNlIGRhaWx5CkNBQkcgNiB3ZWVrcyBhZ287IHN0ZXJuYWwgcHJlY2F1dGlvbnMsIG5vIHVwcGVyLWJvZHkgbGlmdGluZy4KUGxhbjogY2FyZGlhYyByZWhhYmlsaXRhdGlvbiByZWZlcnJhbDsgZm9sbG93LXVwIGluIGNhcmRpb2xvZ3kgY2xpbmljIGluIDQgd2Vla3Mu"
+              "data": "U1lOVEhFVElDIERJU0NIQVJHRSBTVU1NQVJZIChkZW1vIG9ubHksIG5vdCBhIHJlYWwgcGF0aWVudCkKUGF0aWVudDogV2FuaWRhIENoYWl5YXBvcm4KRGlhZ25vc2VzOiBIeXBlcnRlbnNpdmUgZGlzb3JkZXIsIFR5cGUgMiBkaWFiZXRlcyBtZWxsaXR1cywgQ29yb25hcnkgYXJ0ZXJpb3NjbGVyb3NpcwpMVkVGIDUwJS4gUmlzayBjbGFzczogbG93LgpNZWRpY2F0aW9uczogQmlzb3Byb2xvbCAyLjUgbWcgb25jZSBkYWlseTsgQXNwaXJpbiA4MSBtZyBvbmNlIGRhaWx5OyBBdG9ydmFzdGF0aW4gNDAgbWcgYXQgbmlnaHQ7IE1ldGZvcm1pbiA1MDAgbWcgdHdpY2UgZGFpbHkKQ0FCRyA2IHdlZWtzIGFnbzsgc3Rlcm5hbCBwcmVjYXV0aW9ucywgbm8gdXBwZXItYm9keSBsaWZ0aW5nLgpQbGFuOiBjYXJkaWFjIHJlaGFiaWxpdGF0aW9uIHJlZmVycmFsOyBmb2xsb3ctdXAgaW4gY2FyZGlvbG9neSBjbGluaWMgaW4gNCB3ZWVrcy4="
             }
           }
         ],
@@ -1581,10 +1616,10 @@
               {
                 "system": "http://loinc.org",
                 "code": "59284-0",
-                "display": "Patient Consent"
+                "display": "Consent Document"
               }
             ],
-            "text": "Patient Consent"
+            "text": "Consent Document"
           }
         ],
         "dateTime": "2026-09-27T10:00:00+07:00",
@@ -1616,13 +1651,28 @@
                       {
                         "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
                         "code": "PAYOR",
-                        "display": "payor"
+                        "display": "invoice payor"
                       }
                     ],
-                    "text": "payor"
+                    "text": "invoice payor"
                   },
                   "reference": {
-                    "display": "Any insurer"
+                    "display": "Any insurer (payer)"
+                  }
+                },
+                {
+                  "role": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
+                        "code": "UNDWRT",
+                        "display": "underwriter"
+                      }
+                    ],
+                    "text": "underwriter"
+                  },
+                  "reference": {
+                    "display": "Any insurer (underwriting)"
                   }
                 }
               ]
@@ -1703,6 +1753,22 @@
               "system": "http://unitsofmeasure.org",
               "code": "/min"
             }
+          },
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/max-met",
+            "valueDecimal": 4.5
+          },
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/excluded-activity-flag",
+            "valueCode": "contact"
+          },
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/excluded-activity-flag",
+            "valueCode": "isometric-breath-holding"
+          },
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/excluded-activity-flag",
+            "valueCode": "vigorous-bursts"
           },
           {
             "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/rpe-target",

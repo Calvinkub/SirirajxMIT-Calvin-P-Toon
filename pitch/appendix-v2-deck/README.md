@@ -46,3 +46,9 @@ No invented statistics or citations. Every number traces to a repo file or an ex
 | P20 | Regulatory, PDPA and accountability |
 | P21 | Roadmap to pilot: six gates |
 | P22 | Team: built at the event vs reused vs planned |
+
+## Changes after the pages were written (2026-10-18)
+
+- **One Somchai.** The demo patient is now synthetic record `cmc-p01` (Somchai Kaewmanee, born 1968-03-12 so 58, Bang Na; high blood pressure and an MI this year; low risk, CPET done; limit record: heart rate < 110, ≤ 5.9 METs, RPE 11–13, no contact / breath-holding / bursts). `cmc-p09` no longer exists. Pages that say "cmc-p09 is not in the bundles" or "HR < 120" are superseded by this note.
+- **Groups are FHIR.** Nine Bang Na `Location` + `HealthcareService` resources (`loc-bn-*`, `svc-bn-*`) at the distances the demo shows (0.8–4.6 km from 13.6680, 100.6040).
+- **Codes fixed.** Consent category LOINC 59284-0 now displays "Consent Document"; bypass surgery is a `Procedure` (SNOMED 232717009), with coronary arteriosclerosis (53741008) as the condition; Consent denies both `PAYOR` and `UNDWRT`; limit records carry `max-met` and `excluded-activity-flag` extensions. Bundles regenerated and validated: 401 resources.
