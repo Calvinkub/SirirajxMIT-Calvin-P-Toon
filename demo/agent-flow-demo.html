@@ -171,6 +171,19 @@ body.gif .day2{font-size:15px;min-height:150px} body.gif .day2 b{font-size:18px}
 body.gif .gifstep span{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--accent);letter-spacing:.08em}
 @media (prefers-reduced-motion: reduce){.b,.b circle,.b text{transition:none}.b.pick{animation:none}.rise,.pop,.map .pin{animation:none;opacity:1}.scanbar{display:none}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+body.trace-embed{margin:0;background:#fff}
+body.trace-embed header,body.trace-embed .phone,body.trace-embed footer{display:none!important}
+body.trace-embed .wrap{max-width:none;padding:0;gap:0}
+body.trace-embed .grid{display:block}
+body.trace-embed .trace{border:0;border-radius:0;padding:12px;background:#fff}
+body.trace-embed .trace-head h2{font-size:18px}
+body.trace-embed .trace-head{align-items:flex-start}
+body.trace-embed .field{padding:8px}
+body.trace-embed .step{font-size:13px;padding:10px}
+body.trace-embed .step h3{font-size:14px}
+body.trace-embed .step p{font-size:12px}
+body.trace-embed .call{font-size:10px;white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:420px){body.trace-embed .toggle{width:100%}body.trace-embed .toggle button{flex:1}.bar{grid-template-columns:minmax(0,1fr) 65px 35px}.week{grid-template-columns:repeat(2,minmax(0,1fr))}.day2:last-child{grid-column:1/-1}.legend{gap:5px}.tag{font-size:9px}.stepctl button{padding:5px 8px}.field svg{max-width:310px}}
 </style>
 
 <div class="wrap">
@@ -666,7 +679,9 @@ document.addEventListener("keydown", e => { if (/INPUT|TEXTAREA/.test(document.a
   else if (e.key === " ") { e.preventDefault(); $("#play").click(); } });
 $("#v-pitch").addEventListener("click", () => setView("pitch"));
 $("#v-full").addEventListener("click", () => setView("full"));
+const traceEmbed = location.hash === "#trace";
 if (location.hash === "#gif") document.body.classList.add("gif");
+if (traceEmbed) { document.body.classList.add("trace-embed"); setView("full"); }
 say("Hi Somchai. Tell me a lifestyle goal and I’ll build a plan inside your doctor’s limits.\nสวัสดีครับ บอกเป้าหมายที่อยากทำได้เลย");
-run(PRESETS[0]);
+run(new URLSearchParams(location.search).get("prompt") || PRESETS[0]);
 </script>

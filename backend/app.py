@@ -132,6 +132,6 @@ def runtime():
 @app.get("/{filename:path}")
 def static(filename: str):
     filename = filename or "index.html"
-    if filename not in {"index.html", "app.js", "safety.js", "styles.css", "access.js"}:
+    if filename not in {"index.html", "app.js", "safety.js", "styles.css", "access.js", "demo/agent-flow-demo.html"}:
         raise HTTPException(404)
     return FileResponse(ROOT / filename)

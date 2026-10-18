@@ -9,3 +9,5 @@ backend/__pycache__/
 !runtime.js
 
 !access.js
+!demo/
+!demo/agent-flow-demo.html

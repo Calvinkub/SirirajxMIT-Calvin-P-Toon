@@ -14,6 +14,7 @@ function boot(options={}) {
 }
 test('all five screens render and mission completion persists',()=>{
   const app=boot();
+  assert.equal(app.nodes['#agent-observer'].hidden,true);
   assert.match(app.html(),/Your two little missions/);
   app.click('walk');assert.match(app.modal(),/I’ve finished my walk/);
   app.click('finish-walk');assert.deepEqual(app.state().done,['walk']);
@@ -32,6 +33,16 @@ test('warning symptom in chat immediately pauses exercise and further coaching',
   assert.equal(app.state().stopped,true);assert.match(app.html(),/Stop now and call 1669/);
   const count=app.state().messages.length;app.submit('chat-form',{message:'Can I continue?'});assert.equal(app.state().messages.length,count);
   app.page('today');assert.match(app.html(),/data-action="walk"[^>]*disabled/);
+});
+test('agent-flow chat offers activities, frequency, and a seven-day plan',()=>{
+  const app=boot();app.page('coach');app.submit('chat-form',{message:'I used to play tennis. Maybe badminton or bowling?'});
+  assert.match(app.html(),/Social badminton/);assert.match(app.html(),/Seniors(?:'|&#39;) bowling league/);
+  app.click('chat-option',{index:'0'});assert.match(app.html(),/Start gently: 2 sessions/);
+  app.click('chat-frequency',{count:'2'});assert.match(app.html(),/This week · heart rate under 110/);
+  assert.equal((app.html().match(/<div><b>/g)||[]).length,7);
+  assert.doesNotMatch(app.html(),/What the AI is doing/);
+  assert.equal(app.nodes['#agent-observer'].hidden,false);
+  assert.match(app.nodes['#agent-observer-frame'].src,/agent-flow-demo\.html\?prompt=I%20used%20to%20play%20tennis/);
 });
 test('symptom picker stops an active walk and reset restores sample state',()=>{
   const app=boot();app.click('walk');app.click('red-flag');app.click('finish-walk');assert.deepEqual(app.state().done,[]);
