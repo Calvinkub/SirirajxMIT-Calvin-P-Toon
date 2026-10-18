@@ -56,6 +56,14 @@ h1{font-family:var(--display);font-weight:600;color:var(--ink);font-size:clamp(2
 .trace{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
 .trace-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
 .trace-head h2{font-family:var(--display);font-weight:600;color:var(--ink);font-size:20px;margin:0}
+.stepctl{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.stepctl button{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.stepctl button:hover:not(:disabled),.stepctl button:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+.stepctl button:disabled{opacity:.4;cursor:default}
+#play{background:var(--accent);color:#FFFFFF;border-color:var(--accent)}
+#stepnum{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:74px}
+#layer-b.instant .b,#layer-b.instant .b circle,#layer-b.instant .b text{transition:none!important}
+body.gif .stepctl{display:none}
 .toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
 .toggle button{font:inherit;font-size:13px;border:none;background:transparent;color:var(--muted);padding:6px 12px;cursor:pointer}
 .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
@@ -193,6 +201,12 @@ body.gif .gifstep span{font-family:var(--mono);font-size:16px;font-weight:500;co
     <section class="trace" aria-label="What the AI is doing">
       <div class="trace-head">
         <h2>What the AI is doing</h2>
+        <div class="stepctl" role="group" aria-label="Step controls">
+          <button type="button" id="prev" aria-label="Previous step">◀ Back</button>
+          <button type="button" id="play">Pause</button>
+          <button type="button" id="next" aria-label="Next step">Next ▶</button>
+          <span id="stepnum" aria-live="polite"></span>
+        </div>
         <div class="toggle" role="group" aria-label="Detail level">
           <button type="button" id="v-pitch" aria-pressed="true">Simple</button>
           <button type="button" id="v-full" aria-pressed="false">With tool calls</button>
@@ -362,8 +376,9 @@ const T = (en, th) => lang === "th" ? th : en;
 const name = a => lang === "th" ? `${a.th}` : a.en;
 const cos = (u, v) => { let d = 0, a = 0, b = 0; u.forEach((x, i) => { d += x * v[i]; a += x * x; b += v[i] * v[i]; }); return a && b ? d / Math.sqrt(a * b) : 0; };
 function say(text, who = "ai", cls = "") { const d = document.createElement("div"); d.className = `msg ${who} ${cls}`; d.textContent = text; chat.append(d); chat.scrollTop = chat.scrollHeight; return d; }
-function later(fn, ms) { timers.push(setTimeout(fn, reduce ? 0 : ms)); }
-function clearRun() { timers.forEach(clearTimeout); timers = []; stepsEl.innerHTML = ""; $("#replay").hidden = true; }
+let instant = false; // true while replaying earlier steps after a jump
+function later(fn, ms) { if (instant) return fn(); timers.push(setTimeout(fn, reduce ? 0 : ms)); }
+function clearRun() { timers.forEach(clearTimeout); timers = []; clearTimeout(cur.timer); stepsEl.innerHTML = ""; $("#replay").hidden = true; }
 
 
 // ---------- activity bubble field ----------
@@ -384,7 +399,7 @@ function buildField() {
 function place(n, x, y, r, op, label, fs) { n.g.style.transform = `translate(${x}px,${y}px)`; n.c.setAttribute("r", r); n.g.style.opacity = op;
   if (label !== undefined) n.t.textContent = label; n.t.style.fontSize = (fs || Math.max(3.6, r * 0.38)) + "px"; }
 function count(to, label) { const el = $("#cnt"), from = +el.textContent || 0; $("#cntlab").textContent = label;
-  if (reduce) { el.textContent = to; return; } const t0 = performance.now(), d = 900;
+  if (reduce || instant) { el.textContent = to; return; } const t0 = performance.now(), d = 900;
   const tick = now => { const k = Math.min(1, (now - t0) / d); el.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
 function cap(t) { $("#fcap").textContent = t; }
 function setPhase(ph, data) {
@@ -565,15 +580,42 @@ function render(steps) {
     stepsEl.append(li); });
 }
 
+let cur = { steps: [], shown: [], i: -1, playing: false, timer: null, finished: false }, navTok = 0;
+const BUB = ["filter", "knn", "choose"];
+const dur = st => st && (st.phase === "filter" || st.phase === "knn") ? 2600 : 2300;
 function run(text) {
   clearRun(); say(text, "me");
   const steps = plan(text); render(steps);
+  cur = { steps, shown: steps.filter(st => st.el), i: -1, playing: true, timer: null, finished: false };
   stage("all", field.data || {});
-  const shown = steps.filter(s => s.el); let t = 300;
-  shown.forEach((s, i) => { later(() => { $("#gifstep").innerHTML = `<span>STEP ${i + 1}/${shown.length}</span>${esc(s.title)}`; s.el.classList.add("run"); if (s.phase && field.data) stage(s.phase, field.data); }, t); t += s.phase === "filter" || s.phase === "knn" ? 2600 : 2300;
-    later(() => { s.el.classList.remove("run"); s.el.classList.add(s.stop ? "stopped" : "done"); }, t); });
-  later(() => finish(steps), t + 200);
+  ctl(); cur.timer = setTimeout(advance, reduce ? 0 : 300);
 }
+function show(i) {
+  const sh = cur.shown; if (!sh.length) return;
+  i = Math.max(0, Math.min(sh.length - 1, i));
+  cur.i = i; const tok = ++navTok;
+  timers.forEach(clearTimeout); timers = [];
+  sh.forEach((st, j) => { st.el.classList.remove("run", "done", "stopped");
+    if (j < i) st.el.classList.add(st.stop ? "stopped" : "done"); else if (j === i) st.el.classList.add("run"); });
+  $("#gifstep").innerHTML = `<span>STEP ${i + 1}/${sh.length}</span>${esc(sh[i].title)}`;
+  const st = sh[i], d = field.data || {};
+  if (!BUB.includes(st.phase)) { if (st.phase) stage(st.phase, d); }
+  else { // bubble steps: rebuild the field instantly up to the step before, then animate this one (works forward and backward)
+    const lb = $("#layer-b"); lb.classList.add("instant"); instant = true;
+    stage("all", d); sh.slice(0, i).filter(x => BUB.includes(x.phase)).forEach(x => setPhase(x.phase, d));
+    instant = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => { if (tok !== navTok) return; lb.classList.remove("instant"); stage(st.phase, d); }));
+  }
+  if (i === sh.length - 1 && !cur.finished) { cur.finished = true; timers.push(setTimeout(() => { st.el.classList.remove("run"); st.el.classList.add(st.stop ? "stopped" : "done"); finish(cur.steps); }, reduce ? 0 : dur(st))); }
+  st.el.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+  ctl();
+}
+function advance() { if (cur.i >= cur.shown.length - 1) { cur.playing = false; return ctl(); }
+  show(cur.i + 1); if (cur.playing) cur.timer = setTimeout(advance, reduce ? 0 : dur(cur.shown[cur.i])); }
+function pause() { cur.playing = false; clearTimeout(cur.timer); ctl(); }
+function ctl() { const n = cur.shown.length; $("#stepnum").textContent = n ? `Step ${Math.max(1, cur.i + 1)} / ${n}` : "";
+  $("#prev").disabled = cur.i <= 0; $("#next").disabled = cur.i >= n - 1;
+  $("#play").textContent = cur.playing ? "Pause" : "Play"; $("#play").setAttribute("aria-label", cur.playing ? "Pause autoplay" : "Play from here"); }
 
 function finish(steps) {
   $("#replay").hidden = false;
@@ -626,6 +668,12 @@ $("#composer").addEventListener("submit", e => { e.preventDefault(); const v = $
 $("#replay").addEventListener("click", () => { const first = chat.querySelector(".msg.me"); if (first) { const t = first.textContent; chat.innerHTML = ""; run(t); } });
 function setView(v) { view = v; $("#v-pitch").setAttribute("aria-pressed", v === "pitch"); $("#v-full").setAttribute("aria-pressed", v === "full");
   const first = chat.querySelector(".msg.me"); if (first) { const t = first.textContent; chat.innerHTML = ""; run(t); } }
+$("#prev").addEventListener("click", () => { pause(); show(cur.i - 1); });
+$("#next").addEventListener("click", () => { pause(); show(cur.i + 1); });
+$("#play").addEventListener("click", () => { if (cur.playing) return pause(); cur.playing = true; ctl(); cur.timer = setTimeout(advance, 150); });
+document.addEventListener("keydown", e => { if (/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  if (e.key === "ArrowRight") { pause(); show(cur.i + 1); } else if (e.key === "ArrowLeft") { pause(); show(cur.i - 1); }
+  else if (e.key === " ") { e.preventDefault(); $("#play").click(); } });
 $("#v-pitch").addEventListener("click", () => setView("pitch"));
 $("#v-full").addEventListener("click", () => setView("full"));
 if (location.hash === "#gif") document.body.classList.add("gif");
