@@ -1,6 +1,6 @@
 # Remote monitoring: from episodic care to value-based care
 
-This branch (`feat/remote-monitoring-dashboard`) moves Heartstep from occasional visits to continuous, patient-reported monitoring.
+This branch (`feat/remote-monitoring-dashboard`) moves ReVibe from occasional visits to continuous, patient-reported monitoring.
 
 ## What it does
 

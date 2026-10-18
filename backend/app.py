@@ -10,7 +10,7 @@ from .db import transaction
 from . import accounts
 from .models import Registration, Username
 
-app = FastAPI(title="Heartstep IRIS demo", version="0.1.0")
+app = FastAPI(title="ReVibe IRIS demo", version="0.1.0")
 ROOT = Path(__file__).resolve().parent.parent
 
 

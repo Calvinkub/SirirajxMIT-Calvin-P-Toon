@@ -15,6 +15,8 @@ function boot(options={}) {
 test('all five screens render and mission completion persists',()=>{
   const app=boot();
   assert.equal(app.nodes['#agent-observer'].hidden,true);
+  assert.match(app.html(),/class="sample-badge synced"><i aria-hidden="true"><\/i>Synced/);
+  assert.doesNotMatch(app.html(),/>Sample data<\/span>/);
   assert.match(app.html(),/Your two little missions/);
   app.click('walk');assert.match(app.modal(),/I’ve finished my walk/);
   app.click('finish-walk');assert.deepEqual(app.state().done,['walk']);

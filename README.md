@@ -17,7 +17,7 @@ Run `npm run test:iris` to verify the running database integration. The browser-
 
 ## Browser-only prototype
 
-**Heartstep** is the working UI name. Run with Node.js 22 or later (no dependency installation required):
+**ReVibe** is the working UI name. Run with Node.js 22 or later (no dependency installation required):
 
 ```sh
 npm run dev
