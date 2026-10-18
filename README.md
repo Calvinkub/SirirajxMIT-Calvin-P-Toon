@@ -33,3 +33,7 @@ npm test
 This is a local interactive demo with fictional data and scripted coach replies. Watch connections, notifications, clinical approvals, and AI services are not connected. Use sample details only. Dates and weekly history are illustrative fixtures.
 
 See the [document review and UI decisions](docs/initial-ui-review.md) for requirement mapping, assumptions, unresolved questions, and verification limits.
+
+## Remote monitoring (branch `feat/remote-monitoring-dashboard`)
+
+Patient diary (BP, weight, heart rate, one coffee question), rule-based green/amber/red zones, care-network dashboard (`dashboard.html`) and a red-zone tracker. See [docs/remote-monitoring.md](docs/remote-monitoring.md) for rules, sources and reference repos.

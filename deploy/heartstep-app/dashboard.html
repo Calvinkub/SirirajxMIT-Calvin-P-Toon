@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Care network dashboard · Heartstep</title>
+<style>
+:root{--ink:#17302a;--muted:#6b7a74;--line:#e2e8e2;--bg:#f6f8f4;--card:#fff;--green:#3f8f5a;--amber:#e3a008;--red:#c9362b;--brand:#244f43;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.45}
+header{background:#fff;border-bottom:1px solid var(--line);padding:14px 28px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+h1{font-size:20px;margin:0}h2{font-size:16px;margin:0 0 10px}.sub{color:var(--muted);font-size:13px}
+.roles{display:flex;gap:6px}.roles button{border:1px solid var(--line);background:#fff;padding:8px 14px;border-radius:999px;cursor:pointer;font:inherit}.roles button[aria-pressed=true]{background:var(--brand);color:#fff;border-color:var(--brand)}
+main{max-width:1180px;margin:0 auto;padding:22px 28px 60px;display:grid;gap:20px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}.tile b{font-size:30px;display:block}.tile span{color:var(--muted);font-size:13px}
+.t-red b{color:var(--red)}.t-amber b{color:var(--amber)}.t-green b{color:var(--green)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+table{width:100%;border-collapse:collapse}th{text-align:left;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding:6px 8px}td{padding:10px 8px;border-top:1px solid var(--line);vertical-align:top}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-weight:650;font-size:12px;color:#fff}.pill.red{background:var(--red)}.pill.amber{background:var(--amber)}.pill.green{background:var(--green)}
+tr.zone-red{background:#fff5f4}.live{font-size:11px;background:#e6efff;color:#2b4fbf;border-radius:6px;padding:1px 6px;margin-left:6px}
+.spark{width:90px;height:26px}button.act{border:1px solid var(--brand);background:#fff;color:var(--brand);border-radius:8px;padding:5px 10px;cursor:pointer;font:inherit;font-size:13px;margin:2px 4px 2px 0}button.act:hover{background:var(--brand);color:#fff}button.act:disabled{opacity:.4;cursor:default}
+.incident{display:grid;grid-template-columns:1fr auto;gap:8px;padding:12px 0;border-top:1px solid var(--line)}.incident:first-of-type{border-top:0}.log{color:var(--muted);font-size:12px;margin:4px 0 0;padding-left:16px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}.step{font-size:11px;padding:2px 8px;border-radius:6px;background:#eef1ee;color:var(--muted)}.step.on{background:var(--brand);color:#fff}
+.path{display:grid;grid-template-columns:1fr 1fr;gap:12px}.path div{padding:12px;border-radius:12px;background:#f1f4ef}.path .new{background:#e6f1ea}
+ul.rules{margin:0;padding-left:18px}.note{font-size:12px;color:var(--muted)}
+@media(max-width:760px){header,main{padding-left:14px;padding-right:14px}.path{grid-template-columns:1fr}th:nth-child(4),td:nth-child(4){display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>Care network dashboard</h1><div class="sub" id="today"></div></div>
+  <div class="roles" role="group" aria-label="View as">
+    <button data-role="doctor" aria-pressed="false">Doctor</button>
+    <button data-role="nurse" aria-pressed="true">Nurse</button>
+    <button data-role="coach" aria-pressed="false">Coach</button>
+  </div>
+</header>
+<main>
+  <section class="path" aria-label="From episodic care to continuous care">
+    <div><strong>Before: episodic care</strong><br><span class="sub">A visit every few months. Weight gain or high BP between visits goes unseen until it is an emergency.</span></div>
+    <div class="new"><strong>Now: value-based monitoring</strong><br><span class="sub">The patient logs BP, weight, heart rate and one coffee question each day. Rules flag the trend. The care network acts early.</span></div>
+  </section>
+  <section class="tiles" id="tiles"></section>
+  <section class="card"><h2>Triage list</h2><div class="sub" id="roleNote" style="margin-bottom:8px"></div><div style="overflow-x:auto"><table><thead><tr><th>Patient</th><th>Zone</th><th>Why</th><th>Trend</th><th>Next step</th></tr></thead><tbody id="rows"></tbody></table></div></section>
+  <section class="card"><h2>Red zone tracker</h2><div id="incidents"></div></section>
+  <section class="card"><h2>Rules in use (prototype defaults, a clinician sets them per patient)</h2>
+    <ul class="rules">
+      <li><b>Weight:</b> amber at +1.0 kg in 2 days or +1.5 kg in 7 days; red at +2.0 kg in 3 days or +2.5 kg in 7 days. The 2 kg in 3 days rule follows the ESC Heart Failure Association patient advice.</li>
+      <li><b>Blood pressure:</b> red at 180/110 or higher, or top number under 90; amber at 160/100 or higher, under 100, or 140/90 or higher three readings in a row.</li>
+      <li><b>Heart rate (resting):</b> red above 120 or under 45; amber above 100 or under 50. No guideline source found: clinician-set.</li>
+      <li><b>Coffee:</b> a yes adds a "recheck in 30 minutes" note to amber BP and heart rate. It never lowers a red zone.</li>
+      <li><b>Symptoms or no diary:</b> a reported warning symptom is red. Two days without a diary is amber.</li>
+    </ul>
+    <p class="note">Synthetic patients, except the row marked LIVE, which reads the diary saved in this browser by the patient app. Not medical advice.</p>
+  </section>
+</main>
+<script src="monitor.js"></script>
+<script>
+const M = window.HeartstepMonitor;
+const RZ_KEY = 'heartstep-redzone-v1';
+const today = new Date().toISOString().slice(0, 10);
+let role = 'nurse';
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $ = id => document.getElementById(id);
+const load = () => { try { return JSON.parse(localStorage.getItem(RZ_KEY)) || {}; } catch { return {}; } };
+const store = v => { try { localStorage.setItem(RZ_KEY, JSON.stringify(v)); } catch {} };
+const STAGES = ['open', 'acknowledged', 'called', 'resolved'];
+const CAN = { doctor: ['acknowledged', 'called', 'resolved'], nurse: ['acknowledged', 'called', 'resolved'], coach: [] };
+
+function cohort() {
+  const list = M.seedCohort(today), live = M.loadDiary(localStorage);
+  if (live.length) { const p = list.find(x => x.id === 'cmc-p01'); p.entries = live; p.live = true; }
+  return list.map(p => ({ ...p, result: M.evaluate(p.entries, today) }));
+}
+function spark(vals, color) {
+  const v = vals.filter(Number.isFinite); if (v.length < 2) return '';
+  const lo = Math.min(...v), hi = Math.max(...v), sp = hi - lo || 1;
+  return `<svg class="spark" viewBox="0 0 90 26" aria-hidden="true"><polyline fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${v.map((x, i) => `${(i / (v.length - 1) * 90).toFixed(1)},${(23 - (x - lo) / (hi - lo || 1) * 20).toFixed(1)}`).join(' ')}"/></svg>`;
+}
+const coachWhy = r => r.reasons.length ? [...new Set(r.reasons.map(x => ({ weight: 'Weight trend', bp: 'Blood pressure', 'bp-sustained': 'Blood pressure', hr: 'Heart rate', missed: 'Missed diary', symptoms: 'Reported a symptom', 'no-data': 'No diary yet' }[x.code])))].join(', ') : 'On track';
+const adherence = p => `${p.entries.filter(e => M.day(today) - M.day(e.date) < 7).length}/7 days logged`;
+
+function syncIncidents(list) {
+  const inc = load();
+  for (const p of list) {
+    const cur = inc[p.id];
+    if (p.result.zone === 'red' && (!cur || cur.status === 'resolved')) inc[p.id] = { opened: today, status: 'open', log: [{ d: today, who: 'system', t: 'Red zone opened: ' + p.result.reasons.filter(r => r.zone === 'red').map(r => r.text).join(' ') }], name: p.name, hist: cur ? [...(cur.hist || []), cur.opened] : [] };
+  }
+  store(inc); return inc;
+}
+
+function render() {
+  $('today').textContent = new Date().toDateString() + ' · synthetic cohort';
+  document.querySelectorAll('[data-role]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.role === role)));
+  const list = cohort(), inc = syncIncidents(list), n = z => list.filter(p => p.result.zone === z).length;
+  const rank = { red: 0, amber: 1, green: 2 };
+  list.sort((a, b) => rank[a.result.zone] - rank[b.result.zone] || a.name.localeCompare(b.name));
+  const openRed = Object.values(inc).filter(i => i.status !== 'resolved').length;
+  const avg = k => { const v = list.flatMap(p => p.entries.slice(-7).map(e => e[k]).filter(Number.isFinite)); return v.length ? (v.reduce((a, b) => a + b, 0) / v.length).toFixed(1) : '–'; };
+  $('tiles').innerHTML = `<div class="tile t-red"><b>${n('red')}</b><span>Red zone now</span></div><div class="tile t-amber"><b>${n('amber')}</b><span>Amber zone</span></div><div class="tile t-green"><b>${n('green')}</b><span>Green zone</span></div><div class="tile"><b>${openRed}</b><span>Open red-zone cases</span></div><div class="tile"><b>${avg('prom')}/5</b><span>PROM: how patients feel (7 days)</span></div><div class="tile"><b>${avg('prem')}/5</b><span>PREM: felt listened to (7 days)</span></div>`;
+  $('roleNote').textContent = role === 'coach' ? 'Coach view: zone, adherence and nudges. Clinical numbers stay with the nurse and doctor.' : role === 'nurse' ? 'Nurse view: call patients in red first, then check in with amber within 48 hours.' : 'Doctor view: review red-zone cases the nurse could not resolve, and adjust limits.';
+  $('rows').innerHTML = list.map(p => {
+    const r = p.result, z = r.zone, coach = role === 'coach';
+    const w = p.entries.slice(-7), why = coach ? coachWhy(r) : (r.reasons.length ? r.reasons.map(x => esc(x.text)).join('<br>') : 'Stable');
+    const next = coach ? (z === 'green' ? '<button class="act" data-nudge="' + p.id + '">Send encouragement</button>' : '<button class="act" data-nudge="' + p.id + '">Send a nudge to log today</button>') + `<div class="note">${adherence(p)}</div>` : esc(r.action);
+    return `<tr class="zone-${z}"><td><b>${esc(p.name)}</b>${p.live ? '<span class="live">LIVE</span>' : ''}<div class="sub">${p.age} · ${esc(p.dx)}</div></td><td><span class="pill ${z}">${z.toUpperCase()}</span></td><td>${why}</td><td>${coach ? '' : spark(w.map(e => e.weightKg), '#d77c50') + spark(w.map(e => e.sys), '#244f43')}</td><td>${next}</td></tr>`;
+  }).join('');
+  const items = Object.entries(inc).sort((a, b) => (a[1].status === 'resolved') - (b[1].status === 'resolved'));
+  $('incidents').innerHTML = items.length ? items.map(([id, i]) => {
+    const idx = STAGES.indexOf(i.status), allowed = CAN[role];
+    const btns = STAGES.slice(1).map((s, k) => `<button class="act" data-inc="${id}" data-to="${s}" ${allowed.includes(s) && STAGES.indexOf(s) === idx + 1 ? '' : 'disabled'}>${{ acknowledged: 'Acknowledge', called: 'Log call to patient', resolved: 'Resolve' }[s]}</button>`).join('');
+    const days = M.day(today) - M.day(i.opened);
+    return `<div class="incident"><div><b>${esc(i.name)}</b> · opened ${esc(i.opened)} (${days === 0 ? 'today' : days + ' d ago'})<div class="steps">${STAGES.map((s, k) => `<span class="step ${k <= idx ? 'on' : ''}">${s}</span>`).join('')}</div><ul class="log">${i.log.map(l => `<li>${esc(l.d)} · ${esc(l.who)}: ${esc(l.t)}</li>`).join('')}</ul></div><div>${role === 'coach' ? '<span class="note">Clinical team only</span>' : btns}</div></div>`;
+  }).join('') : '<p class="sub">No red-zone cases.</p>';
+}
+
+document.addEventListener('click', e => {
+  const r = e.target.closest('[data-role]'); if (r) { role = r.dataset.role; render(); return; }
+  const nb = e.target.closest('[data-nudge]'); if (nb) { nb.textContent = 'Sent'; nb.disabled = true; return; }
+  const b = e.target.closest('[data-inc]'); if (!b || b.disabled) return;
+  const inc = load(), i = inc[b.dataset.inc]; if (!i) return;
+  const to = b.dataset.to, text = { acknowledged: 'Case acknowledged.', called: 'Called the patient.', resolved: 'Resolved after review.' }[to];
+  i.status = to; i.log.push({ d: today, who: role, t: text }); store(inc); render();
+});
+render();
+</script>
+</body>
+</html>

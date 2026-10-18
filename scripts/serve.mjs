@@ -10,7 +10,7 @@ createServer(async (req, res) => {
     const path = resolve(root, '.' + decodeURIComponent(new URL(req.url, 'http://localhost').pathname));
     if (!path.startsWith(root + sep) && path !== root) throw new Error('Invalid path');
     const target = path === root ? resolve(root, 'index.html') : path;
-    if (!['index.html', 'styles.css', 'app.js', 'safety.js', 'runtime.js', 'access.js', 'demo/agent-flow-demo.html'].includes(target.slice(root.length + 1))) {
+    if (!['index.html', 'styles.css', 'app.js', 'safety.js', 'runtime.js', 'access.js', 'monitor.js', 'dashboard.html', 'demo/agent-flow-demo.html'].includes(target.slice(root.length + 1))) {
       res.writeHead(404).end('Not found'); return;
     }
     res.writeHead(200, { 'Content-Type': `${types[extname(target)]}; charset=utf-8`, 'Cache-Control': 'no-store' });
