@@ -1,0 +1,47 @@
+name: heartstep
+services:
+  iris:
+    build:
+      context: ./infra/iris
+      args:
+        IRIS_IMAGE: ${IRIS_IMAGE:-intersystems/irishealth-community:latest-cd}
+    environment:
+      ISC_DATA_DIRECTORY: /durable
+      ISC_CPF_MERGE_FILE: /config/merge.cpf
+    ports:
+      - "127.0.0.1:1972:1972"
+      - "127.0.0.1:52773:52773"
+    volumes:
+      - iris-data:/durable
+      - ./infra/iris/merge.cpf:/config/merge.cpf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "iris qlist IRIS | grep -q 'running'"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      IRIS_HOST: iris
+      IRIS_PORT: "1972"
+      IRIS_NAMESPACE: FHIRSERVER
+      IRIS_USERNAME: SuperUser
+      IRIS_PASSWORD: ${IRIS_PASSWORD:-SYS}
+      FHIR_BASE_URL: http://iris:52773/fhir/r4
+    ports:
+      - "127.0.0.1:${APP_PORT:-8000}:8000"
+    depends_on:
+      iris:
+        condition: service_healthy
+    command: ["sh", "-c", "python -m backend.setup && uvicorn backend.app:app --host 0.0.0.0 --port 8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=5)"]
+      interval: 10s
+      timeout: 6s
+      retries: 30
+      start_period: 180s
+volumes:
+  iris-data:
