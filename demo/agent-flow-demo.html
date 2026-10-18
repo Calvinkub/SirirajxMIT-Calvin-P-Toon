@@ -598,7 +598,6 @@ function show(i) {
     requestAnimationFrame(() => requestAnimationFrame(() => { if (tok !== navTok) return; lb.classList.remove("instant"); stage(st.phase, d); }));
   }
   if (i === sh.length - 1 && !cur.finished) { cur.finished = true; timers.push(setTimeout(() => { st.el.classList.remove("run"); st.el.classList.add(st.stop ? "stopped" : "done"); finish(cur.steps); }, reduce ? 0 : dur(st))); }
-  st.el.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
   ctl();
 }
 function advance() { if (cur.i >= cur.shown.length - 1) { cur.playing = false; return ctl(); }
