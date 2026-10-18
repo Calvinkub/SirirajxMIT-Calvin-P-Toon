@@ -107,7 +107,7 @@ sequenceDiagram
 
 | Step | What happens | Technology |
 |---|---|---|
-| 1. Limits | Signed `CarePlan` read: up to about 5.9 METs, HR under 120, RPE 11–13, avoid straining and breath-holding | FHIR Server |
+| 1. Limits | Signed `CarePlan` read: up to about 5.9 METs, HR under 110, RPE 11–13, avoid straining and breath-holding | FHIR Server |
 | 2. Guideline vector search | Four approved guideline lines retrieved to explain the plan | IRIS Vector Search |
 | 3. Filter 100 activities | 100-item Thai/English catalogue (golf, petanque, takraw, ram mai phlong, ruesi dat ton…). Rules keep 67 (44 intensities from the 2024 Compendium). Tennis (or football) is excluded and the patient is told why | Rules (SQL in production) |
 | 4. KNN | Nearest allowed activities to what the patient enjoys (e.g. walking golf, walking football) | Vector similarity |
@@ -116,7 +116,7 @@ sequenceDiagram
 | 7. Patient choice | The patient picks one of 3, and how often | The patient decides, not the AI |
 | 8. Save | Tasks + Provenance inside the limits | FHIR Server |
 
-**Honesty notes for the demo:** it is scripted JavaScript, not live models. The KNN runs on hand-made 11-dimension activity tag vectors, not learned embeddings. MET values are approximate, "in the style of the Compendium of Physical Activities", and must be checked by a clinician. Guideline lines are paraphrased examples, not quotations. Community groups and the "similar users" cohort (n = 52, with percentages) are **invented**. The demo patient id `cmc-p09` is not one of the 8 synthetic FHIR bundles.
+**Honesty notes for the demo:** it is scripted JavaScript, not live models. The KNN runs on hand-made 11-dimension activity tag vectors, not learned embeddings. MET values are approximate, "in the style of the Compendium of Physical Activities", and must be checked by a clinician. Guideline lines are paraphrased examples, not quotations. Community groups and the "similar users" cohort (n = 52, with percentages) are **invented**. The demo patient id `cmc-p01` is not one of the 8 synthetic FHIR bundles.
 
 ## Sources / evidence in repo
 

@@ -108,7 +108,7 @@ The kit's model (`text-embedding-3-small`, 1536 dimensions) is called over the O
 | ≥ 8 | 0 | 14 | 14 | 5 |
 | **Total** | **67** | **33** | **100** | **44** |
 
-Annotation: "4 activities under the limit removed by safety flags: power yoga and plank holds (straining), digging the garden (straining), Muay Thai bag work (contact, bursts)." Vertical line at 5.9 METs labelled "synthetic limit, cmc-p09". **What to notice:** the filter uses two kinds of rule (intensity and movement type); only 31 of the 67 allowed activities have a Compendium code, so 36 MET values are team estimates a clinician must check.
+Annotation: "4 activities under the limit removed by safety flags: power yoga and plank holds (straining), digging the garden (straining), Muay Thai bag work (contact, bursts)." Vertical line at 5.9 METs labelled "synthetic limit, cmc-p01". **What to notice:** the filter uses two kinds of rule (intensity and movement type); only 31 of the 67 allowed activities have a Compendium code, so 36 MET values are team estimates a clinician must check.
 
 ### Chart 2 · Histogram: similarity scores of the 67 allowed activities for Somchai
 

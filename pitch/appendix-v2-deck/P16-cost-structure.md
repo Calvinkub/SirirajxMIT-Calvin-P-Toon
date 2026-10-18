@@ -57,7 +57,7 @@ A hybrid is the realistic pilot setup: de-identified, non-patient work (for exam
 
 ### Worked example: Somchai's month
 
-Somchai, 58, used to play tennis and now has hypertension. In a typical month he sends a few dozen chat messages, gets a weekly plan (badminton Tuesday and Friday, a walking day), answers symptom taps after each session, and his clinician gets one summary a week. On our budget his month costs about 78 US cents on the Sonnet API. If he switched his phone to Thai voice, ASR and TTS compute would be added, and we have not modelled it. If he reported chest tightness, the stop path runs in rules and costs nothing in tokens. The expensive minutes in his month are human: the cardiologist who signed his limit (≤ 5.9 METs, heart rate under 120, RPE 11–13 in the synthetic demo record) and who reads his weekly flags.
+Somchai, 58, used to play tennis and now has hypertension. In a typical month he sends a few dozen chat messages, gets a weekly plan (badminton Tuesday and Friday, a walking day), answers symptom taps after each session, and his clinician gets one summary a week. On our budget his month costs about 78 US cents on the Sonnet API. If he switched his phone to Thai voice, ASR and TTS compute would be added, and we have not modelled it. If he reported chest tightness, the stop path runs in rules and costs nothing in tokens. The expensive minutes in his month are human: the cardiologist who signed his limit (≤ 5.9 METs, heart rate under 110, RPE 11–13 in the synthetic demo record) and who reads his weekly flags.
 
 ### What the R&D itself cost
 

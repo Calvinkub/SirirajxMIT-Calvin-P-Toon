@@ -51,7 +51,7 @@ It does not simulate physiology: resting HR (63–76 bpm means) and steps (633�
 ### 6. Consistency fixes already made and still open
 
 - Fixed: cmc-p07 was first generated with LVEF 48% and risk class "low", inconsistent with the low-risk band (LVEF ≥ 50%); now LVEF 53% (A03).
-- Open: the demo's Somchai (`cmc-p09`, 58, hypertension, MET limit 5.9, HR < 120, badminton-type activities) is not in the bundles. Bundle `cmc-p01` is a different Somchai (born 1964, so 62 in 2026, post-MI, HR ≤ 110, walking and cycling only). Either add `cmc-p09` or rename.
+- Resolved (2026-10-18): the demo patient is now bundle `cmc-p01` (Somchai, 58, Bang Na, high blood pressure and an MI this year, HR < 110, ≤ 5.9 METs); `cmc-p01` was removed. See README "Changes after the pages were written".
 - Open: `allowed-activity` codes are only `walking` and `stationary-cycling`; the demo catalogue's 100 activities are not yet represented as codes in any `CarePlan`.
 
 ## Visualizations
@@ -151,7 +151,7 @@ Repo:
 - `synthetic/fhir/00_shared_reference_data.json`, `synthetic/fhir/p01…p08_*.json` (all counts computed with python3 on 2026-10-18)
 - `pitch/appendix/A03-fhir-data-model.md`, `pitch/appendix-deck/P04-synthetic-fhir-bundles.md`
 - `FHIR-AI-Hackathon-Kit/skills/iris-fhir/SKILL.md`, `skills/iris-environment/SKILL.md`, `Tutorials/3-fhir/markdown/3.1-load-fhir-data.md`, `3.3-create-fhir-resources.md`, `3.4-create-transaction-bundles.md`
-- `demo/agent-flow-demo.html` (`LIMIT`, patient `cmc-p09`)
+- `demo/agent-flow-demo.html` (`LIMIT`, patient `cmc-p01`)
 
 External (opened 2026-10-18):
 - HL7 FHIR R4 Task (status, basedOn): https://hl7.org/fhir/R4/task.html

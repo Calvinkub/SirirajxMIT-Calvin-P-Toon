@@ -19,7 +19,7 @@ Regenerate: `.venv/bin/python synthetic/generate_fhir.py` (needs `fhir.resources
 
 | Id | Case | What the app should do |
 |---|---|---|
-| cmc-p01 | Low risk after MI, CPET limit, beta-blocker | Normal daily missions |
+| cmc-p01 | **Demo patient.** Somchai, 58, Bang Na; high blood pressure and MI this year; low risk, CPET limit (HR < 110, ≤ 5.9 METs), beta-blocker; used to play tennis | Normal daily missions; Netflix-style picks: bowling, table tennis, badminton |
 | cmc-p02 | Aged 71, limit from 6-minute walk, low tech comfort | Simple missions, caregiver help |
 | cmc-p03 | Moderate risk, LVEF 42% | Supervised sessions first |
 | cmc-p04 | High risk, LVEF 30%, ICD | Blocked; `Flag` "not eligible" |

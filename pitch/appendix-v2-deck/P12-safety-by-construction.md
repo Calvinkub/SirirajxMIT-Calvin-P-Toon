@@ -68,7 +68,7 @@ The panel has **not been re-run** since the fixes, so no gate is claimed as pass
 
 ### 5. Worked example: Somchai on a hot afternoon
 
-Somchai's signed record says ≤ 5.9 METs, HR < 120, RPE 11–13 (synthetic). On Saturday at 15:00 the heat tool returns a high band. The mission engine removes outdoor options from the allowed set for that window and offers the indoor table-tennis room or an evening slot. MedGemma picks "table tennis, 30 min, 18:00"; the validator confirms the id is in the set. During the session his watch shows HR 160, 40 bpm over the limit (scenario SC-03): the app shows stop-and-rest, marks the mission incomplete and flags the clinician. If he types "หน้ามืด" (blacking out), the screen stops coaching before any model sees it. If his watch sends HR 300, the reading is rejected as implausible (SC-07; thresholds to be set by a clinician) but a plausible over-limit reading is never discarded.
+Somchai's signed record says ≤ 5.9 METs, HR < 110, RPE 11–13 (synthetic). On Saturday at 15:00 the heat tool returns a high band. The mission engine removes outdoor options from the allowed set for that window and offers the indoor table-tennis room or an evening slot. MedGemma picks "table tennis, 30 min, 18:00"; the validator confirms the id is in the set. During the session his watch shows HR 160, 40 bpm over the limit (scenario SC-03): the app shows stop-and-rest, marks the mission incomplete and flags the clinician. If he types "หน้ามืด" (blacking out), the screen stops coaching before any model sees it. If his watch sends HR 300, the reading is rejected as implausible (SC-07; thresholds to be set by a clinician) but a plausible over-limit reading is never discarded.
 
 ### 6. What is tested today
 

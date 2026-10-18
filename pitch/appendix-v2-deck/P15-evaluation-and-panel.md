@@ -92,7 +92,7 @@ Still open: named clinical owner (G5), clinician-signed phrase list and default 
 
 ### 10. Worked example: how the panel changed Somchai's first week
 
-Before the panel, a self-installed Somchai on the free week could have received a daily walk with limits typed in himself or read from a discharge note without confirmation. After R1 and rule 6, with no signed record he gets non-exertional content only (education, salt, sleep, fixed reminder text). With his clinician's signed `CarePlan` (≤ 5.9 METs, HR < 120, RPE 11–13, synthetic), the recommender offers bowling, table tennis and badminton (P09). If he types "แน่นหน้าอก", R2's fix means a deterministic screen stops coaching before any model.
+Before the panel, a self-installed Somchai on the free week could have received a daily walk with limits typed in himself or read from a discharge note without confirmation. After R1 and rule 6, with no signed record he gets non-exertional content only (education, salt, sleep, fixed reminder text). With his clinician's signed `CarePlan` (≤ 5.9 METs, HR < 110, RPE 11–13, synthetic), the recommender offers bowling, table tennis and badminton (P09). If he types "แน่นหน้าอก", R2's fix means a deterministic screen stops coaching before any model.
 
 ## Visualizations
 

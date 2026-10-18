@@ -39,7 +39,7 @@ The demo is scripted JavaScript running in the browser. It does not call a model
 
 **Step F: community and cohort (displayed, not ranked).** For each of the top 3, a keyword maps the activity to an invented community group with distance and time (e.g. "Community table-tennis room (synthetic) · 0.9 km · daily 16:00–20:00"). An invented cohort table gives "share of similar users still active after 4 weeks (synthetic cohort, n = 52)". **Neither number changes the ranking.** They are shown to illustrate the "people like you" and "near you" signals.
 
-**Step G: patient choice.** The patient taps one of 3 options, then "2 sessions" or "3 sessions". The week is assembled from fixed templates (30 min of the chosen activity, 20-min brisk walks on other days, Sunday rest) and labelled "heart rate under 120 · no breath-holding".
+**Step G: patient choice.** The patient taps one of 3 options, then "2 sessions" or "3 sessions". The week is assembled from fixed templates (30 min of the chosen activity, 20-min brisk walks on other days, Sunday rest) and labelled "heart rate under 110 · no breath-holding".
 
 ### 3. Worked example: Somchai, 58, used to play tennis, now has hypertension
 
@@ -185,7 +185,7 @@ Offline (on logged data): hit rate and precision at 3 against what patients late
 | Football + golf top 3 cosine | 0.894 each | same | checked |
 | Distinct scores, ILD, coverage | 18 / 13; 0.000 / 0.133; 23 of 67 | same | checked (our computation) |
 | Dance keyword bug | "Line dancing" not in catalogue | same | checked |
-| Signed limit 5.9 METs, HR 120, RPE 11–13 | — | `LIMIT` in demo | synthetic |
+| Signed limit 5.9 METs, HR 110, RPE 11–13 | — | `LIMIT` in demo | synthetic |
 | Community groups and distances | e.g. 0.9 km table tennis | `COMMUNITY` in demo | synthetic |
 | Week-4 cohort percentages, n = 52 | e.g. 49%, 52%, 57% | `COHORT` in demo | synthetic, invented; never quote as data |
 | Netflix: recommendations influence ~80% of hours streamed | ~80% | Gomez-Uribe & Hunt 2015, §2.8 | checked (PDF opened) |

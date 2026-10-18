@@ -87,7 +87,7 @@ Agents touch data only through these tools (proposed in A04, pattern from the ha
 
 ### 7. Worked example: Somchai asks by voice
 
-Somchai says in Thai that he used to play tennis and wants something gentler. Qwen3-ASR transcribes; the red-flag screen runs on the transcript (clear); the router decides "build activity plan"; `get_patient_limits()` returns the signed ceiling (synthetic: 5.9 METs, HR 120, RPE 11–13); the rules filter the catalogue to 67; the recommender (P09) ranks; three options go back in Thai. If he had said "แน่นหน้าอก" (chest tightness), the screen would stop the flow before the router, play the pre-recorded stop message and create a FHIR `Flag` + `Communication`. In the browser demo all of this is scripted; no model is called.
+Somchai says in Thai that he used to play tennis and wants something gentler. Qwen3-ASR transcribes; the red-flag screen runs on the transcript (clear); the router decides "build activity plan"; `get_patient_limits()` returns the signed ceiling (synthetic: 5.9 METs, HR 110, RPE 11–13); the rules filter the catalogue to 67; the recommender (P09) ranks; three options go back in Thai. If he had said "แน่นหน้าอก" (chest tightness), the screen would stop the flow before the router, play the pre-recorded stop message and create a FHIR `Flag` + `Communication`. In the browser demo all of this is scripted; no model is called.
 
 ### 8. Alternatives we rejected
 

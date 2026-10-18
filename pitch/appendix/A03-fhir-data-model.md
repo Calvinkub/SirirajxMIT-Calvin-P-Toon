@@ -53,7 +53,7 @@ flowchart LR
 
 | Our concept | FHIR R4 resource | Key fields and codes (as generated) | Synthetic example | Who writes it in production |
 |---|---|---|---|---|
-| Patient | `Patient` | `communication.language` = `th` (BCP-47), preferred. `address.district` only (no street). Extension `home-district-position` (lat/lon) | `cmc-p01` Somchai Kaewmanee, Bang Rak | Onboarding |
+| Patient | `Patient` | `communication.language` = `th` (BCP-47), preferred. `address.district` only (no street). Extension `home-district-position` (lat/lon) | `cmc-p01` Somchai Kaewmanee, Bang Na (demo patient) | Onboarding |
 | Diagnoses | `Condition` | SNOMED CT: 22298006 MI, 38341003 hypertension, 44054006 T2DM, 49436004 AF, 84114007 HF, 232717009 CABG history. Clinical and verification status | p01: MI + hypertension | Clinician, or MedGemma 1.5 4B extraction then clinician confirmation |
 | Medicines | `MedicationStatement` | ATC, e.g. C07AB07 bisoprolol, B01AC06 aspirin, B01AC24 ticagrelor, C10AA05 atorvastatin. `dosage.text`. Extension `beta-blocker` = true | p01: bisoprolol 2.5 mg + 3 others | Clinician-confirmed |
 | Discharge note | `DocumentReference` | LOINC 18842-5 "Discharge summary". `attachment.data` is base64 UTF-8 text (spec-correct; the kit's 3.1 notebook uses hex) | "SYNTHETIC DISCHARGE SUMMARY…" | Patient upload or hospital feed |

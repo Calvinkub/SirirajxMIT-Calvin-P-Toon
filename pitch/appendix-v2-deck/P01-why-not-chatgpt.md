@@ -45,7 +45,7 @@ Somchai types (demo preset 1): "I used to play tennis every weekend, but now I h
 
 1. **Safety screen (rules, about 0.1 ms, no model).** No red-flag phrase. Continue.
 2. **Understand the goal (small model).** Router output: intent `build_activity_plan`; likes = tennis, badminton, bowling; condition = hypertension.
-3. **Read limits (FHIR).** `GET /fhir/r4/CarePlan?patient=cmc-p09&status=active` returns a synthetic signed limit: up to about 5.9 METs, heart rate under 120, RPE 11–13, avoid heavy straining and breath-holding. Guideline lines come from `vector_search("hypertension exercise", collection="approved_guidelines", k=4)` (four paraphrased ESC 2020 §4.2.3 lines, P07).
+3. **Read limits (FHIR).** `GET /fhir/r4/CarePlan?patient=cmc-p01&status=active` returns a synthetic signed limit: up to about 5.9 METs, heart rate under 110, RPE 11–13, avoid heavy straining and breath-holding. Guideline lines come from `vector_search("hypertension exercise", collection="approved_guidelines", k=4)` (four paraphrased ESC 2020 §4.2.3 lines, P07).
 4. **Filter (rules).** 100 activities → 67 allowed. Tennis singles (8.0 METs, flagged "vigorous bursts") is removed. The patient is told why: too intense with his blood pressure for now.
 5. **Match taste (KNN).** The mean of tennis, badminton and bowling tag vectors is compared with every allowed activity. Top three, all cosine 0.945: bowling (3.8 METs), table tennis, social (4.0), badminton, social (5.5).
 6. **Near you (FHIR, synthetic).** Seniors' bowling league 3.2 km (Wed 10:00); community table-tennis room 0.9 km (daily 16:00–20:00); social badminton club 1.9 km (Tue and Fri 18:30).
@@ -132,7 +132,7 @@ Left, "General chatbot": Patient asks → model decides facts, safety and tone �
 | Top 3 for Somchai | Bowling, table tennis, badminton, cosine 0.945 | computed from `plan()` | checked |
 | Group distances | 3.2 km, 0.9 km, 1.9 km | `COMMUNITY` in demo | synthetic |
 | Week-4 activity shares | 57%, 52%, 49% (n = 52) | `COHORT` in demo | synthetic |
-| Demo limit | ≤ 5.9 METs, HR < 120, RPE 11–13 | `LIMIT` (patient `cmc-p09`) | synthetic |
+| Demo limit | ≤ 5.9 METs, HR < 110, RPE 11–13 | `LIMIT` (patient `cmc-p01`) | synthetic |
 | Red flags missed, model writes call | 4 of 4 (0.6B, 1.7B, 4B) | `experiments/RESULTS_tool_router_demo.md` | simulated (synthetic) |
 | Red flags missed, rules first | 0 of 4 | same | simulated (synthetic) |
 | Blind v2 red flags caught | 26 of 30 | same, v2 section | simulated (synthetic) |
@@ -145,7 +145,7 @@ Left, "General chatbot": Patient asks → model decides facts, safety and tone �
 
 - The comparison with general chatbots is architectural, not a head-to-head test. We have not run ChatGPT or Claude on the same 36 or 270 messages; doing so (with the same rules scoring) would turn an argument into a measurement.
 - The "people like you" and "near you" rows are invented data in the demo. Only the taste ranking is real code.
-- The demo patient (`cmc-p09`, Somchai, 58, hypertension, limit 5.9 METs) is **not** one of the eight FHIR bundles. Bundle `cmc-p01` is also called Somchai but is a 62-year-old (born 1964-03-12) post-MI patient with an HR ceiling of 110 and walking plus stationary cycling only. The pitch should either add `cmc-p09` to the bundles or rename one of them.
+- Resolved (2026-10-18): the demo patient is now bundle `cmc-p01` (Somchai, 58, Bang Na, high blood pressure and an MI this year, HR < 110, ≤ 5.9 METs). See README "Changes after the pages were written".
 - The 11-tag taste vector is coarse (three-way tie at the top).
 - Red-flag rules were written by the same person who wrote the test messages; the blind v2 test still missed 4 of 30.
 - "1669" as the patient-facing number must be confirmed by the clinical mentor.

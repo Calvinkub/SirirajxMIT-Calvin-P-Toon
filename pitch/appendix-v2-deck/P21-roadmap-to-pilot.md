@@ -96,7 +96,7 @@ So safety must rest on the deterministic layers (signed limits, rules filter, re
 
 ### Worked example: Somchai through the gates
 
-Today Somchai exists only as synthetic FHIR and a scripted demo (G-A). At G-B, a Siriraj cardiologist decides whether a 5.9 MET ceiling, a heart rate under 120 and RPE 11–13 are a sensible kind of limit record for someone like him, and signs the Thai phrases that must stop him. At G-C, eight people his age try to onboard and pick badminton or bowling without help. At G-D, an IRB and lawyers approve the consent text and the device position. At G-E, real low-risk post-MI patients use it with weekly safety review. Only at G-F does an insurer see aggregate results, against outcomes written down in advance.
+Today Somchai exists only as synthetic FHIR and a scripted demo (G-A). At G-B, a Siriraj cardiologist decides whether a 5.9 MET ceiling, a heart rate under 110 and RPE 11–13 are a sensible kind of limit record for someone like him, and signs the Thai phrases that must stop him. At G-C, eight people his age try to onboard and pick badminton or bowling without help. At G-D, an IRB and lawyers approve the consent text and the device position. At G-E, real low-risk post-MI patients use it with weekly safety review. Only at G-F does an insurer see aggregate results, against outcomes written down in advance.
 
 ## Visualizations
 

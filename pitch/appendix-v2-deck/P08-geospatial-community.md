@@ -99,7 +99,7 @@ Annotations: shade 10:00–14:00 "hottest hours"; mark 06:30 (synthetic walking 
 
 | Patient home (district) | Nearest station | Distance (km) | PM2.5 | AQI |
 |---|---|---|---|---|
-| p01 Bang Rak | Bangrak Lovely Plaza | 0.5 | 21.2 | 41 |
+| Bang Rak (p01 before the move to Bang Na) | Bangrak Lovely Plaza | 0.5 | 21.2 | 41 |
 | p02 Phra Nakhon | Phra Nakhon District Office | 1.1 | 23.1 | 45 |
 | p03 Chatuchak | Chatuchak Park | 0.4 | 18.0 | 33 |
 | p04 Thon Buri | Thonburi Power Sub-Station | 0.3 | 25.1 | 51 |
@@ -117,7 +117,7 @@ Context: across the 77 Bangkok stations reporting that morning, PM2.5 ranged fro
 
 | Home | Within 5 km | Nearest place (km) |
 |---|---|---|
-| p01 Bang Rak | 2 | Riverside Community Park 0.9 |
+| Bang Rak (p01 before the move to Bang Na) | 2 | Riverside Community Park 0.9 |
 | p02 Phra Nakhon | 3 | Wat Demo Walking Courtyard 0.3 |
 | p03 Chatuchak | 3 | Northern Green Park 0.6 |
 | p04 Thon Buri | 3 | Riverside Community Park / Wat Demo 3.4 |

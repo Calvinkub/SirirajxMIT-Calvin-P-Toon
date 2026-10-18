@@ -15,7 +15,7 @@ In the demo, Somchai's message "I used to play tennis … now I have hypertensio
 
 ### 1. What the demo is
 
-`demo/agent-flow-demo.html` is a single HTML file that plays the agent trace in the browser, with a bubble field showing the 100 activities shrinking to 67 and then to the nearest matches. It runs in two views ("pitch" and "full", the latter showing the call for each step). It is **scripted JavaScript**: no model is called, no IRIS server is contacted, and patient `cmc-p09` is synthetic and not one of the eight FHIR bundles in `synthetic/fhir`. Four presets exist: tennis (English), tennis (Thai), football + golf (English), and a red-flag message in Thai ("แน่นหน้าอกตอนเดิน", chest tightness when walking).
+`demo/agent-flow-demo.html` is a single HTML file that plays the agent trace in the browser, with a bubble field showing the 100 activities shrinking to 67 and then to the nearest matches. It runs in two views ("pitch" and "full", the latter showing the call for each step). It is **scripted JavaScript**: no model is called, no IRIS server is contacted, and patient `cmc-p01` is synthetic and not one of the eight FHIR bundles in `synthetic/fhir`. Four presets exist: tennis (English), tennis (Thai), football + golf (English), and a red-flag message in Thai ("แน่นหน้าอกตอนเดิน", chest tightness when walking).
 
 ### 2. The eight steps, as coded in `plan()`
 
@@ -23,7 +23,7 @@ In the demo, Somchai's message "I used to play tennis … now I have hypertensio
 |---|---|---|---|---|
 | 1 | Safety screen | rules | `red_flag_screen(text) → clear (≈0.1 ms, no model)` | regex over Thai and English warning phrases; no match |
 | 2 | Understand the goal | small LLM | `router(text) → intent = build_activity_plan; slots = {likes, condition}` | likes: badminton, tennis, bowling; condition: hypertension |
-| 3 | Read limits and guideline | FHIR (+ vector) | `GET /fhir/r4/CarePlan?patient=cmc-p09&status=active`; `vector_search("hypertension exercise", collection="approved_guidelines", k=4)` | signed (synthetic) limits: ≤ 5.9 METs, HR < 120, RPE 11–13, avoid straining and breath-holding; 4 ESC 2020 §4.2.3 lines (paraphrased) |
+| 3 | Read limits and guideline | FHIR (+ vector) | `GET /fhir/r4/CarePlan?patient=cmc-p01&status=active`; `vector_search("hypertension exercise", collection="approved_guidelines", k=4)` | signed (synthetic) limits: ≤ 5.9 METs, HR < 110, RPE 11–13, avoid straining and breath-holding; 4 ESC 2020 §4.2.3 lines (paraphrased) |
 | 4 | Filter 100 activities | rules | `filter(catalog, met <= 5.9, no contact, no breath-holding, no bursts)` | 67 allowed; tennis singles out (8.0 METs, bursts) |
 | 5 | Match to what you enjoy | KNN | `knn(query = mean("Badminton, social", "Tennis, singles", "Bowling"), k = 5, metric = cosine)` | bowling, table tennis, badminton (0.945 each), then petanque, bocce (0.850) |
 | 6 | Search nearby community | FHIR | `GET /fhir/r4/HealthcareService?location.near=13.67|100.60|5|km`; `get_heat_index(district)` | bowling league 3.2 km Wed 10:00; table-tennis room 0.9 km daily 16:00–20:00; badminton club 1.9 km Tue & Fri 18:30 (all synthetic) |
@@ -34,7 +34,7 @@ Note on step 2: the demo labels it "small LLM", but in the browser it is a keywo
 
 ### 3. What the patient sees
 
-After step 7 the coach says (English preset): "Tennis is too intense with your blood pressure for now. Here are three options close to what you enjoy, all inside your limits. Which one do you like most?" Three chips follow, each with the group and distance. After the pick: "Start gently: 2 sessions (plus easy walks)" or "Try 3 sessions (if it feels easy)". The week is then shown with the header "This week · heart rate under 120 · no breath-holding", and the coach confirms: "Saved. You'll get one reminder per session, with a symptom check before and after."
+After step 7 the coach says (English preset): "Tennis is too intense with your blood pressure for now. Here are three options close to what you enjoy, all inside your limits. Which one do you like most?" Three chips follow, each with the group and distance. After the pick: "Start gently: 2 sessions (plus easy walks)" or "Try 3 sessions (if it feels easy)". The week is then shown with the header "This week · heart rate under 110 · no breath-holding", and the coach confirms: "Saved. You'll get one reminder per session, with a symptom check before and after."
 
 ### 4. The week that gets saved
 
@@ -129,7 +129,7 @@ With the red-flag preset, `plan()` returns a single step, "Safety screen: warnin
 | Step kinds | rules 2, FHIR 2, KNN 2, small LLM 1, patient 1 | same, `tag` fields | checked |
 | Catalogue → allowed | 100 → 67 | same, counted with python3 | checked |
 | Tennis top 3 | bowling, table tennis, badminton, 0.945 each | same | checked |
-| Limits | 5.9 METs, HR 120, RPE 11–13 | `LIMIT` | synthetic |
+| Limits | 5.9 METs, HR 110, RPE 11–13 | `LIMIT` | synthetic |
 | Screen time | "≈0.1 ms" | demo trace label; v2 router median 0.1 ms (`tool_router_v2_results_*`) | demo label; v2 value measured on synthetic data |
 | Community groups and distances | 3.2, 0.9, 1.9 km | `COMMUNITY` | synthetic |
 | Similar-user week-4 percentages | 49, 52, 57%, n = 52 | `COHORT` | invented |

@@ -69,7 +69,7 @@ We embed only clinician-approved content: guideline and education snippets, miss
 | Guideline lines | 4, ESC 2020 §4.2.3, paraphrased | `demo/agent-flow-demo.html` `GUIDE` | In repo; **primary guideline text not re-checked** |
 | Catalogue size | 100 | `demo/agent-flow-demo.html` `RAW` (counted) | Checked |
 | Compendium-coded | 44 (1 "closest listed") | counted from `RAW` | Checked; **each MET value to verify by clinician** |
-| Demo limit | 5.9 METs, HR 120, RPE 11–13 | `LIMIT` in demo (patient `cmc-p09`, not in the 8 bundles) | Synthetic |
+| Demo limit | 5.9 METs, HR 110, RPE 11–13 | `LIMIT` in demo (patient `cmc-p01`, synthetic bundle) | Synthetic |
 | Score threshold | — | A05 | **Missing: to tune on a labelled set** |
 | Thai retrieval quality (BGE-M3) | — | A05 | **Missing: test not run** |
 | Live IRIS vector table | — | — | **Not built** (demo is scripted in-browser) |

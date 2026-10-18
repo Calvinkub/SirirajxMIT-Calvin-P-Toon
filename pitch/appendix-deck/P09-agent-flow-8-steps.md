@@ -19,7 +19,7 @@ MESSAGE BUBBLE (pale grey, with a small patient icon): "I like golf and football
 TIMELINE: a teal horizontal line with eight numbered circles. Above each circle a short bold name; below each circle one grey line and one coloured tag pill. Tags: teal "RULES", grey "MODEL", teal "FHIR", teal "VECTOR", grey "KNN", orange-outline "PATIENT".
   1 "Safety screen" – "clear · ≈0.1 ms · no model" – tag "RULES"
   2 "Goal" – "likes golf, football; blood pressure" – tag "MODEL"
-  3 "Limits + guideline" – "≤ 5.9 METs · HR < 120 · RPE 11–13" – tags "FHIR" and "VECTOR"
+  3 "Limits + guideline" – "≤ 5.9 METs · HR < 110 · RPE 11–13" – tags "FHIR" and "VECTOR"
   4 "Filter" – "no contact, no breath-holding, no bursts" – tag "RULES"
   5 "Match" – "nearest to what he enjoys, k = 5" – tag "KNN"
   6 "Community" – "groups near home, cool hours" – tag "FHIR"
@@ -33,7 +33,7 @@ BELOW RIGHT: a strip with two short result lines, each with a small icon:
   green-check icon: "Walking golf: in"
   and under them in grey: "Similar-user numbers are invented for the demo"
 
-FOOTER: "Source: demo/agent-flow-demo.html (catalogue and filter counted); patient cmc-p09 is synthetic and not one of the 8 bundles"
+FOOTER: "Source: demo/agent-flow-demo.html (catalogue and filter counted); patient cmc-p01 is one of the 8 synthetic bundles"
 
 DO NOT: show a real person's face; add percentages for similar users; add numbers not listed; add any step beyond the eight.
 ```
@@ -73,7 +73,7 @@ Rules screen the message for warning symptoms first, in about 0.1 ms with no mod
 |---|---|---|---|
 | Catalogue size | 100 | `demo/agent-flow-demo.html` `RAW` (counted 2026-10-18) | Checked |
 | Allowed | 67 | same, filter `met ≤ 5.9` and no `h/x/v` flag | Checked. **A04 says 99 → 66 (older version of the demo): update A04 or say 100 → 67 consistently** |
-| Limits | 5.9 METs, HR 120, RPE 11–13 | `LIMIT` in demo | Synthetic (`cmc-p09`) |
+| Limits | 5.9 METs, HR 110, RPE 11–13 | `LIMIT` in demo | Synthetic (`cmc-p01`) |
 | Screen time | ≈ 0.1 ms | demo trace text; router v2 median 0.1 ms | Demo label; v2 measured median |
 | KNN | k = 5, cosine, 11-dim tag vectors | demo code | Hand-made features, not embeddings |
 | Similar users | n = 52, percentages | demo `COHORT` | **Invented: never quote as data** |

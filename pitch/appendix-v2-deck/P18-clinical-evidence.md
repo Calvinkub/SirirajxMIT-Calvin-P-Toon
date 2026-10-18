@@ -35,7 +35,7 @@ The clinician sets the limit; the `CarePlan` records the source test in a `limit
 
 A recommender needs a common intensity scale for 100 different activities. We use **METs** (metabolic equivalents) from the 2024 Adult Compendium of Physical Activities, the standard reference table of activity intensities. In the demo catalogue 44 of 100 activities carry a Compendium code; the other 56 are team estimates marked "to verify" in the page footer. We re-checked eight of the coded values against the Compendium sports table on 2026-10-18 and all eight match.
 
-The clinician's limit is expressed as a MET ceiling plus a heart-rate ceiling, an RPE band and an avoid-list. For Somchai's synthetic record (`CarePlan/cmc-p09-limits`, "Dr. Narin R. (synthetic)"): up to 5.9 METs, heart rate under 120 bpm, RPE 11–13, avoid heavy straining and breath-holding. The rules engine drops everything above the MET ceiling and everything flagged for contact, heavy straining or vigorous bursts. Only then does the recommender rank by taste.
+The clinician's limit is expressed as a MET ceiling plus a heart-rate ceiling, an RPE band and an avoid-list. For Somchai's synthetic record (`CarePlan/cmc-p01-limits`, "Dr. Narin R. (synthetic)"): up to 5.9 METs, heart rate under 110 bpm, RPE 11–13, avoid heavy straining and breath-holding. The rules engine drops everything above the MET ceiling and everything flagged for contact, heavy straining or vigorous bursts. Only then does the recommender rank by taste.
 
 **A caveat we say out loud:** MET values are population averages for an activity, not a measurement of how hard Somchai will play. Social badminton at 5.5 METs sits close to his 5.9 ceiling, so the plan pairs it with the heart-rate ceiling, the talk test and a symptom tap after each session. The 5.9 figure itself is synthetic; a real clinician would set it, and whether METs are the right unit for a limit record is one of the questions for the reviewing physician.
 
@@ -114,7 +114,7 @@ Per the research files, to verify against primary sources: Thai post-ACS recomme
 | Bowling | 15092 | 3.8 | — | In, offered |
 | Walking football | 15615 | 3.5 | — | In |
 
-- **Annotations:** vertical dashed line at 5.9 labelled "Signed limit: ≤ 5.9 METs, HR < 120, RPE 11–13 (synthetic record)". Colour bars above the line grey with "out", the three offered options teal.
+- **Annotations:** vertical dashed line at 5.9 labelled "Signed limit: ≤ 5.9 METs, HR < 110, RPE 11–13 (synthetic record)". Colour bars above the line grey with "out", the three offered options teal.
 - **What the reader should notice:** the cut is made by a published table and a clinician's number, not by the model. Social badminton sits close to the line, so it is paired with heart-rate and talk-test checks.
 
 ### Chart 2 · Stacked bar: what the rules remove from the 100-activity catalogue
@@ -166,7 +166,7 @@ Three lanes left to right. Lane 1 "Clinician (human)": test (CPET / stress ECG /
 |---|---|---|---|
 | MET values for 8 activities | as in Chart 1 | https://pacompendium.com/sports/ (opened 2026-10-18); `demo/agent-flow-demo.html` | checked |
 | Activities with a Compendium code in demo | 44 of 100 | `demo/agent-flow-demo.html` footer and RAW table | checked (others are estimates) |
-| Somchai limit | ≤ 5.9 METs, HR < 120, RPE 11–13, avoid straining and breath-holding | `demo/agent-flow-demo.html` `LIMIT` | synthetic |
+| Somchai limit | ≤ 5.9 METs, HR < 110, RPE 11–13, avoid straining and breath-holding | `demo/agent-flow-demo.html` `LIMIT` | synthetic |
 | Catalogue filter | 100 → 67 (29 above cap, 4 flagged) | computed from demo file | synthetic |
 | ESC 2020 §4.2.3 hypertension lines | 30 min moderate aerobic 5–7 days/week; resistance 2–3 days/week; avoid isometric and Valsalva; no high intensity if SBP > 160 until controlled | team brief; demo `GUIDE` (paraphrased via NotebookLM); section existence seen at https://academic.oup.com/eurheartj/article/42/1/17/5898937 | to verify (text not retrieved) |
 | ACC statement, JACC, 15 Oct 2026 | rehab first-line; testing not routinely required; 5,000–7,000 steps; digital tools may help with structured programs | https://www.news-medical.net/news/20261015/New-scientific-statement-urges-doctors-to-prescribe-exercise-for-heart-health.aspx | checked (news report, not the paper) |
@@ -216,4 +216,4 @@ External (opened 2026-10-18):
 
 ## Image-generation prompt
 
-Design one 16:9 information slide on a white background. Title, the key message: "A clinician sets the limit; the recommender only ranks what fits inside it." Main visual: a horizontal bar chart "METs (2024 Adult Compendium) vs Somchai's signed limit (synthetic)" with bars Tennis singles 8.0, Badminton competitive 7.0, Tennis doubles 6.0, Badminton social 5.5, Golf walking 4.3, Table tennis 4.0, Bowling 3.8, Walking football 3.5, and a dashed line at 5.9 labelled "Signed limit ≤ 5.9 METs · HR < 120 · RPE 11–13". Bars above the line grey "out"; Badminton social, Table tennis and Bowling highlighted "offered". Beside it a small four-row panel "Who may use it": Low – recommendations after clinician confirms; Moderate – supervised first; High – blocked + referral; Unknown – blocked. A small strip: "12 research contradictions sent to a rehab physician · ESC 2020 hypertension lines retrieved, never used to set limits". Badge: "Synthetic patient · first-pass research". No logos, no other numbers. ChatGPT chooses the design.
+Design one 16:9 information slide on a white background. Title, the key message: "A clinician sets the limit; the recommender only ranks what fits inside it." Main visual: a horizontal bar chart "METs (2024 Adult Compendium) vs Somchai's signed limit (synthetic)" with bars Tennis singles 8.0, Badminton competitive 7.0, Tennis doubles 6.0, Badminton social 5.5, Golf walking 4.3, Table tennis 4.0, Bowling 3.8, Walking football 3.5, and a dashed line at 5.9 labelled "Signed limit ≤ 5.9 METs · HR < 110 · RPE 11–13". Bars above the line grey "out"; Badminton social, Table tennis and Bowling highlighted "offered". Beside it a small four-row panel "Who may use it": Low – recommendations after clinician confirms; Moderate – supervised first; High – blocked + referral; Unknown – blocked. A small strip: "12 research contradictions sent to a rehab physician · ESC 2020 hypertension lines retrieved, never used to set limits". Badge: "Synthetic patient · first-pass research". No logos, no other numbers. ChatGPT chooses the design.
