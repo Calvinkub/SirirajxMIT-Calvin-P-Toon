@@ -28,6 +28,13 @@ def install_fhir():
 
 
 TABLES = {
+    "Account": "Username VARCHAR(32) PRIMARY KEY, PatientId VARCHAR(64) UNIQUE NOT NULL",
+    "UserSession": "TokenHash VARCHAR(64) PRIMARY KEY, PatientId VARCHAR(64), ExpiresAt BIGINT",
+    "PatientRecord": "PatientId VARCHAR(64) PRIMARY KEY, RecordJson VARCHAR(4000), MedicationStatus VARCHAR(20), CreatedAt VARCHAR(64)",
+    "Diagnosis": "RecordId VARCHAR(64) PRIMARY KEY, PatientId VARCHAR(64), DataJson VARCHAR(4000)",
+    "Medication": "RecordId VARCHAR(64) PRIMARY KEY, PatientId VARCHAR(64), DataJson VARCHAR(4000)",
+    "Measurement": "RecordId VARCHAR(64) PRIMARY KEY, PatientId VARCHAR(64), DataJson VARCHAR(4000)",
+    "CPET": "PatientId VARCHAR(64) PRIMARY KEY, DataJson VARCHAR(4000)",
     "Patient": "PatientId VARCHAR(64) PRIMARY KEY, ProfileJson VARCHAR(4000), Stopped INTEGER DEFAULT 0",
     "ClinicalLimit": "PatientId VARCHAR(64) PRIMARY KEY, LimitJson VARCHAR(4000)",
     "Completion": "PatientId VARCHAR(64), MissionDate VARCHAR(10), Kind VARCHAR(20), PRIMARY KEY (PatientId, MissionDate, Kind)",
@@ -41,6 +48,9 @@ def seed_sql():
             cur.execute("SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?", ["Heartstep", name])
             if not cur.fetchone()[0]:
                 cur.execute(f"CREATE TABLE Heartstep.{name} ({columns})")
+        cur.execute("SELECT COUNT(*) FROM Heartstep.Account WHERE Username = ?", ["somchai"])
+        if not cur.fetchone()[0]:
+            cur.execute("INSERT INTO Heartstep.Account (Username, PatientId) VALUES (?, ?)", ["somchai", PATIENT])
         cur.execute("SELECT COUNT(*) FROM Heartstep.Patient WHERE PatientId = ?", [PATIENT])
         if cur.fetchone()[0]:
             return  # Preserve saved completions and symptom stops across restarts.
@@ -54,6 +64,27 @@ def seed_sql():
         for day in range(12, 16):
             cur.execute("INSERT INTO Heartstep.Completion (PatientId, MissionDate, Kind) VALUES (?, ?, ?)", [PATIENT, f"2026-10-{day}", "walk"])
         cur.execute("INSERT INTO Heartstep.ActivitySummary (PatientId, ReadingDate, Steps, RestingHR) VALUES (?, ?, ?, ?)", [PATIENT, "2026-10-17", 2480, 68])
+
+
+def seed_demo_context():
+    """Migrate the existing fictional patient into the structured context tables."""
+    with transaction() as cur:
+        cur.execute("SELECT COUNT(*) FROM Heartstep.PatientRecord WHERE PatientId = ?", [PATIENT])
+        if cur.fetchone()[0]:
+            return
+        cur.execute("SELECT ProfileJson FROM Heartstep.Patient WHERE PatientId = ?", [PATIENT])
+        profile = json.loads(cur.fetchone()[0])
+        record = {"name": profile["name"], "age": profile["age"], "goal": profile["goal"],
+                  "sex": "prefer_not_to_say", "medicalRecordNumber": PATIENT,
+                  "hospital": "Fictional rehab clinic", "history": "Fictional demo patient recovering after MI.", "allergies": ""}
+        cur.execute("INSERT INTO Heartstep.PatientRecord (PatientId, RecordJson, MedicationStatus, CreatedAt) VALUES (?, ?, ?, ?)",
+                    [PATIENT, json.dumps(record), "unknown", "2026-10-17T08:00:00+07:00"])
+        diagnosis = {"name": "Recovering after MI", "code": "", "diagnosedOn": None, "notes": "Fictional demo diagnosis", "source": "fictional_seed"}
+        cur.execute("INSERT INTO Heartstep.Diagnosis (RecordId, PatientId, DataJson) VALUES (?, ?, ?)",
+                    ["demo-diagnosis", PATIENT, json.dumps(diagnosis)])
+        measurement = {"kind": "heart_rate", "value": 68, "unit": "bpm", "measuredAt": "2026-10-17T08:00:00+07:00", "notes": "Simulated watch reading", "source": "fictional_seed"}
+        cur.execute("INSERT INTO Heartstep.Measurement (RecordId, PatientId, DataJson) VALUES (?, ?, ?)",
+                    ["demo-measurement", PATIENT, json.dumps(measurement)])
 
 
 def seed_fhir():
@@ -91,6 +122,7 @@ def main():
             time.sleep(2)
     install_fhir()
     seed_sql()
+    seed_demo_context()
     seed_fhir()
     print("IRIS ready: FHIR R4 and fictional Heartstep records initialized.")
 

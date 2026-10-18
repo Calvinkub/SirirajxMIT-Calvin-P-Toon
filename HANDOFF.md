@@ -10,7 +10,7 @@ See [research/README.md](research/README.md) (guidelines and Thai market, from N
 
 - The idea is defined at the problem level and a first design draft is written. An initial browser UI is now implemented on `feature/initial-ui` (17 October 2026).
 - Run `npm run dev` and open http://127.0.0.1:5173. No dependency installation is needed. See [UI review and assumptions](docs/initial-ui-review.md).
-- The browser-only prototype uses fictional local data and scripted conversation. On branch `intersystems`, `docker compose up -d --build` runs a Python API and IRIS for Health demo at http://127.0.0.1:8000 with SQL persistence and a seeded FHIR R4 server. See [IRIS setup](docs/intersystems-setup.md). Real AI/MCP, watch connection, notifications, authentication, and a clinician approval workflow are not implemented.
+- The browser-only prototype uses fictional local data and scripted conversation. On branch `intersystems`, `docker compose up -d --build` runs a Python API and IRIS for Health demo at http://127.0.0.1:8000 with SQL persistence and a seeded FHIR R4 server. See [IRIS setup](docs/intersystems-setup.md). Username-only login and full patient-record onboarding are implemented; `somchai` opens the existing sample. New records are available through `/api/me/context` for future agent tools. Real AI/MCP, watch connection, notifications, verified authentication, and a clinician approval workflow are not implemented.
 - Design draft: [docs/superpowers/specs/2026-10-17-cvd-mission-coach-design.md](docs/superpowers/specs/2026-10-17-cvd-mission-coach-design.md)
 
 ## The idea in one paragraph

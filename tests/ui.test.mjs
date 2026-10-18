@@ -53,7 +53,7 @@ test('IRIS mode loads database profile and waits for a successful completion wri
   assert.doesNotMatch(app.html(),/✓ Completed/);
   finish();await settled();
   assert.match(app.html(),/✓ Completed/);
-  assert.equal(calls[1].path,'/api/demo/completions/walk');
+  assert.equal(calls[1].path,'/api/me/completions/walk');
   assert.equal(JSON.parse(calls[1].options.body).completed,true);
 });
 test('IRIS connection failure locks exercise and reports unavailable storage',async()=>{

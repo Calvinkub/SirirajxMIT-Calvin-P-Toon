@@ -9,7 +9,9 @@ An app for patients who were just diagnosed with cardiovascular disease. An AI a
 
 ## IRIS database demo
 
-Run `docker compose up -d --build`, then open http://127.0.0.1:8000. This mode stores fictional patient details, clinician limits, simulated watch summaries, mission completions, and symptom pauses in IRIS for Health. It also initializes a FHIR R4 server. See [setup, verification, and limitations](docs/intersystems-setup.md).
+Run `docker compose up -d --build`, then open http://127.0.0.1:8000. This mode stores patient profiles, entered health records, optional CPET reports, clinician limits, mission completions, and symptom pauses in IRIS for Health. Somchai’s profile uses fictional data. It also initializes a FHIR R4 server. See [setup, verification, and limitations](docs/intersystems-setup.md).
+
+Open the app and enter a username. Existing users go home (`somchai` opens the sample patient); new users complete a five-step profile: patient details/history, diagnoses and medications, measurements, optional doctor-provided CPET, and review. Records are saved to IRIS and available to future agent tools through `/api/me/context`. Username-only identification is a prototype feature; use sample data.
 
 Run `npm run test:iris` to verify the running database integration. The browser-only prototype remains available below.
 
@@ -24,6 +26,7 @@ npm run dev
 Open http://127.0.0.1:5173. The responsive prototype includes Today, My plan, My coach, Community, and My profile. Try completing a walk, setting a goal, checking in, or starting new-patient onboarding from My profile. Use “Reset demo data” in My profile to restore the sample patient.
 
 ```sh
+npm ci
 npm test
 ```
 

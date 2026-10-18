@@ -7,3 +7,5 @@ backend/__pycache__/
 !safety.js
 !styles.css
 !runtime.js
+
+!access.js
