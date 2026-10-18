@@ -52,7 +52,7 @@ h1{font-family:var(--display);font-weight:600;color:var(--ink);font-size:clamp(2
 .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
 .legend{display:flex;flex-wrap:wrap;gap:8px;font-size:12px}
 .tag{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
-.t-rules{color:var(--warm)} .t-llm{color:var(--accent)} .t-fhir{color:#1E40AF} .t-vec{color:#4F46E5} .t-knn{color:#0E7490} .t-you{color:var(--ink)}
+.t-rules{color:var(--warm)} .t-llm{color:var(--accent)} .t-fhir{color:#1E40AF} .t-vec{color:#4F46E5} .t-knn{color:#0E7490} .t-geo{color:#0369A1} .t-you{color:var(--ink)}
 ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .step{border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;opacity:.45;transition:opacity .3s,border-color .3s}
 .step.run{opacity:1;border-color:var(--accent)}
@@ -191,7 +191,7 @@ body.gif .gifstep span{font-family:var(--mono);font-size:16px;font-weight:500;co
       </div>
       <div class="legend">
         <span class="tag t-rules">rules</span><span class="tag t-llm">small LLM</span><span class="tag t-fhir">FHIR</span>
-        <span class="tag t-vec">vector search</span><span class="tag t-knn">KNN</span><span class="tag t-you">patient</span>
+        <span class="tag t-vec">vector search</span><span class="tag t-geo">community map</span><span class="tag t-knn">KNN</span><span class="tag t-you">patient</span>
       </div>
       <div class="gifstep" id="gifstep"></div>
       <div class="field" aria-label="What the agent is working on">
@@ -324,17 +324,17 @@ const GUIDE = [ // ESC 2020 sports cardiology guideline, section 4.2.3 Hypertens
   "Resistance training 2–3 days a week is also advised.",
   "Avoid heavy weightlifting with static (isometric) effort and breath-holding (Valsalva).",
   "If blood pressure is uncontrolled (SBP > 160), no high-intensity exercise until it is controlled."];
-// Each group is a FHIR HealthcareService at a FHIR Location in synthetic/fhir/00_shared_reference_data.json; distances from Somchai's home district (Bang Na).
+// Community directory (not FHIR: FHIR holds patient and medical data only). Synthetic groups; distances from Somchai's home district (Bang Na).
 const COMMUNITY = {
-  golf: [["Seniors' driving-range club (svc-bn-range)", "2.1 km", "Sat 07:00"]],
-  "walking football": [["Walking-football group (svc-bn-walkfootball)", "3.4 km", "Tue & Thu 17:30"]],
-  petanque: [["Petanque club, district park (svc-bn-petanque)", "0.8 km", "daily 16:30"]],
-  walk: [["Morning walking group, riverside (svc-bn-walk)", "1.2 km", "weekdays 06:30"]],
-  badminton: [["Social badminton club, sports hall (svc-bn-badminton)", "1.9 km", "Tue & Fri 18:30"]],
-  bowling: [["Seniors' bowling league, mall alley (svc-bn-bowling)", "3.2 km", "Wed 10:00"]],
-  tabletennis: [["Community table-tennis room (svc-bn-tabletennis)", "0.9 km", "daily 16:00–20:00"]],
-  pickleball: [["Pickleball beginners' group, park courts (svc-bn-pickleball)", "4.6 km", "Sat & Sun 07:30"]],
-  default: [["Community park exercise class (svc-bn-class)", "0.8 km", "Mon/Wed/Fri 17:00"]] };
+  golf: [["Seniors' driving-range club", "2.1 km", "Sat 07:00"]],
+  "walking football": [["Walking-football group", "3.4 km", "Tue & Thu 17:30"]],
+  petanque: [["Petanque club, district park", "0.8 km", "daily 16:30"]],
+  walk: [["Morning walking group, riverside", "1.2 km", "weekdays 06:30"]],
+  badminton: [["Social badminton club, sports hall", "1.9 km", "Tue & Fri 18:30"]],
+  bowling: [["Seniors' bowling league, mall alley", "3.2 km", "Wed 10:00"]],
+  tabletennis: [["Community table-tennis room", "0.9 km", "daily 16:00–20:00"]],
+  pickleball: [["Pickleball beginners' group, park courts", "4.6 km", "Sat & Sun 07:30"]],
+  default: [["Community park exercise class", "0.8 km", "Mon/Wed/Fri 17:00"]] };
 const COHORT = { "Badminton, social": 57, "Bowling": 49, "Table tennis, social": 52, "Darts": 26, "Billiards": 33, "Walking football": 64, "Golf, walking with a pull cart": 58, "Golf, walking and carrying clubs": 55, "Petanque": 47,
   "Miniature golf": 31, "Pickleball": 44, "Volleyball, recreational": 39, "Croquet": 22, "Bocce": 35, "Driving range": 50 };
 const LIKES = [
@@ -475,7 +475,7 @@ const SCENES = {
           <circle cx="${x}" cy="${y}" r="7" fill="var(--warm)"></circle><text x="${x + (x < 0 ? -10 : 10)}" y="${y + 3}" text-anchor="${x < 0 ? "end" : "start"}">${esc(name(o.a).slice(0, 22))} · ${esc(o.comm[1])}</text></g>`; }).join("")}
     </svg><div class="sun rise" style="animation-delay:${reduce ? 0 : 1500}ms">${esc(T("Afternoon is hot → sessions planned for morning or evening", "ช่วงบ่ายร้อน → วางแผนช่วงเช้าหรือเย็น"))}</div>`;
     count(picks.length, T("groups found near home", "กลุ่มที่พบใกล้บ้าน"));
-    cap(T("FHIR Location and HealthcareService near the home district, plus today’s heat.", "ค้นจาก FHIR Location และ HealthcareService ใกล้บ้าน พร้อมดูความร้อนวันนี้"));
+    cap(T("Community directory: groups near the home district, plus today’s heat.", "ค้นจากฐานข้อมูลชุมชนใกล้บ้าน พร้อมดูความร้อนวันนี้"));
   },
   cohort(sc, { picks }) {
     sc.innerHTML = `<div class="cohort"></div>`;
@@ -528,8 +528,8 @@ function plan(text) {
     { pitch: true, tag: "knn", title: T("Match to what you enjoy", "จับคู่กับสิ่งที่คุณชอบ"),
       body: T("Nearest neighbours to your favourite sports, among allowed activities only.", "หากิจกรรมที่ใกล้เคียงกีฬาที่ชอบ จากรายการที่อนุญาตเท่านั้น"),
       call: `knn(query = mean(${liked.map(a => `"${a.en}"`).join(", ")}), k = 5, metric = cosine)`, phase: "knn", extra: () => view === "full" ? bars(top.map(({ a, s }) => [`${name(a)} · ≈${a.met} METs`, s, s.toFixed(2)])) : null },
-    { pitch: true, phase: "map", tag: "fhir", title: T("Search nearby community", "ค้นหาชุมชนใกล้บ้าน"), body: T("Groups and places near the home district, open at a cool time of day.", "กลุ่มและสถานที่ใกล้บ้าน เปิดในช่วงเวลาที่อากาศไม่ร้อน"),
-      call: `GET /fhir/r4/Location?near=13.668|100.604|5|km → HealthcareService?location=…\nget_heat_index(district) → afternoon hot, prefer morning/evening`, extra: () => list(options.map(o => `${name(o.a)} → ${o.comm[0]} · ${o.comm[1]} · ${o.comm[2]}`)) },
+    { pitch: true, phase: "map", tag: "geo", title: T("Search nearby community", "ค้นหาชุมชนใกล้บ้าน"), body: T("Groups and places near the home district, open at a cool time of day.", "กลุ่มและสถานที่ใกล้บ้าน เปิดในช่วงเวลาที่อากาศไม่ร้อน"),
+      call: `search_community(near = home district, radius = 5 km, intensity <= limit) → IRIS SQL community table\nget_heat_index(district) → afternoon hot, prefer morning/evening`, extra: () => list(options.map(o => `${name(o.a)} → ${o.comm[0]} · ${o.comm[1]} · ${o.comm[2]}`)) },
     { pitch: true, phase: "cohort", tag: "knn", title: T("What similar users kept doing", "ผู้ใช้ที่คล้ายกันทำอะไรต่อเนื่อง"), body: T("Share still active after 4 weeks, users with a similar profile (synthetic cohort, n = 52).", "สัดส่วนที่ยังทำต่อหลัง 4 สัปดาห์ (กลุ่มตัวอย่างสมมุติ n = 52)"),
       call: `cohort_stats(similar_to = patient, outcome = "active_week_4")`, extra: () => bars(options.map(o => [name(o.a), (o.cohort ?? 30) / 100, `${o.cohort ?? 30}%`])) },
     { pitch: true, tag: "you", title: T("Ask you, then save the plan", "ถามคุณ แล้วบันทึกแผน"), body: T("You choose; the plan is written as FHIR Tasks inside your limits.", "คุณเลือกเอง แผนถูกบันทึกเป็น FHIR Task ภายใต้ขีดจำกัด"),
@@ -549,7 +549,7 @@ function render(steps) {
     const li = document.createElement("li"); li.className = "step"; s.el = li;
     li.innerHTML = `<span class="dot" aria-hidden="true"></span><div><h3></h3><p></p></div>`;
     const h = li.querySelector("h3"); h.textContent = s.title + " "; const tag = document.createElement("span"); tag.className = `tag t-${s.tag}`;
-    tag.textContent = { rules: "rules", llm: "small LLM", fhir: "FHIR", knn: "KNN", you: "patient" }[s.tag]; h.append(tag);
+    tag.textContent = { rules: "rules", llm: "small LLM", fhir: "FHIR", geo: "community map", knn: "KNN", you: "patient" }[s.tag]; h.append(tag);
     li.querySelector("p").textContent = s.body;
     if (view === "full") { const c = document.createElement("div"); c.className = "call"; c.textContent = s.call; li.querySelector("div").append(c); }
     const ex = s.extra && s.extra(); if (ex) li.querySelector("div").append(ex);
