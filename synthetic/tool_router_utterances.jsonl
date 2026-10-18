@@ -1,0 +1,72 @@
+{"id": "u001", "lang": "en", "text": "Where can I walk near home this morning?", "tool": "search_places", "args": {"type": "park", "open_now": true}}
+{"id": "u002", "lang": "th", "text": "แถวบ้านมีสวนสาธารณะให้เดินไหม", "tool": "search_places", "args": {"type": "park"}}
+{"id": "u003", "lang": "en", "text": "Is there somewhere indoors with air con I can walk today?", "tool": "search_places", "args": {"type": "indoor-mall", "open_now": true}}
+{"id": "u004", "lang": "th", "text": "อยากเดินในห้างแอร์เย็นๆ ใกล้บ้าน", "tool": "search_places", "args": {"type": "indoor-mall"}}
+{"id": "u005", "lang": "en", "text": "Any temple courtyard nearby that is quiet for a slow walk?", "tool": "search_places", "args": {"type": "temple"}}
+{"id": "u006", "lang": "th", "text": "วัดใกล้ๆ ที่เดินเล่นได้มีที่ไหนบ้าง", "tool": "search_places", "args": {"type": "temple"}}
+{"id": "u007", "lang": "en", "text": "Find me a walking track within 1 km", "tool": "search_places", "args": {"type": "track", "radius_m": 1000}}
+{"id": "u008", "lang": "th", "text": "ลู่เดินใกล้บ้านในระยะ 2 กิโล", "tool": "search_places", "args": {"type": "track", "radius_m": 2000}}
+{"id": "u009", "lang": "en", "text": "Is there a walking group I could join on weekdays?", "tool": "search_activities", "args": {"type": "walking-group", "day": "weekday"}}
+{"id": "u010", "lang": "th", "text": "มีกลุ่มเดินตอนเช้าที่ไปเข้าร่วมได้ไหม", "tool": "search_activities", "args": {"type": "walking-group", "time": "morning"}}
+{"id": "u011", "lang": "en", "text": "I'd like to try tai chi this weekend", "tool": "search_activities", "args": {"type": "tai-chi", "day": "weekend"}}
+{"id": "u012", "lang": "th", "text": "เสาร์อาทิตย์นี้มีไทชิให้ไปทำไหม", "tool": "search_activities", "args": {"type": "tai-chi", "day": "weekend"}}
+{"id": "u013", "lang": "en", "text": "Any group exercise after sunset? I'm fasting during the day", "tool": "search_activities", "args": {"type": "walking-group", "time": "evening"}}
+{"id": "u014", "lang": "th", "text": "อยากหาเพื่อนเดินด้วยกันตอนเย็น", "tool": "search_activities", "args": {"type": "walking-group", "time": "evening"}}
+{"id": "u015", "lang": "en", "text": "Is there a supervised rehab class I can go to?", "tool": "search_activities", "args": {"type": "rehab-class"}}
+{"id": "u016", "lang": "th", "text": "คลาสฟื้นฟูหัวใจที่มีพยาบาลดูแลมีไหม", "tool": "search_activities", "args": {"type": "rehab-class"}}
+{"id": "u017", "lang": "en", "text": "Is it too hot to walk outside right now?", "tool": "get_heat_index", "args": {}}
+{"id": "u018", "lang": "th", "text": "ตอนนี้ข้างนอกร้อนเกินไปไหมที่จะออกไปเดิน", "tool": "get_heat_index", "args": {}}
+{"id": "u019", "lang": "en", "text": "What's the temperature outside this afternoon?", "tool": "get_heat_index", "args": {"time": "afternoon"}}
+{"id": "u020", "lang": "th", "text": "บ่ายนี้อากาศร้อนแค่ไหน", "tool": "get_heat_index", "args": {"time": "afternoon"}}
+{"id": "u021", "lang": "en", "text": "Will it be cooler later this evening?", "tool": "get_heat_index", "args": {"time": "evening"}}
+{"id": "u022", "lang": "th", "text": "เย็นนี้อากาศจะเย็นลงไหม", "tool": "get_heat_index", "args": {"time": "evening"}}
+{"id": "u023", "lang": "en", "text": "How hot is it in my district now?", "tool": "get_heat_index", "args": {}}
+{"id": "u024", "lang": "th", "text": "อุณหภูมิแถวบ้านตอนนี้เท่าไหร่", "tool": "get_heat_index", "args": {}}
+{"id": "u025", "lang": "en", "text": "Is the air quality okay for a walk today?", "tool": "get_pm25", "args": {}}
+{"id": "u026", "lang": "th", "text": "วันนี้ฝุ่น PM2.5 เยอะไหม", "tool": "get_pm25", "args": {}}
+{"id": "u027", "lang": "en", "text": "How bad is the smog this morning?", "tool": "get_pm25", "args": {"time": "morning"}}
+{"id": "u028", "lang": "th", "text": "เช้านี้ควันฝุ่นหนาไหม ออกไปเดินได้หรือเปล่า", "tool": "get_pm25", "args": {"time": "morning"}}
+{"id": "u029", "lang": "en", "text": "Should I wear a mask outside because of dust?", "tool": "get_pm25", "args": {}}
+{"id": "u030", "lang": "th", "text": "ต้องใส่หน้ากากกันฝุ่นไหมวันนี้", "tool": "get_pm25", "args": {}}
+{"id": "u031", "lang": "en", "text": "What's the PM2.5 level near home?", "tool": "get_pm25", "args": {}}
+{"id": "u032", "lang": "th", "text": "ค่าฝุ่นแถวบ้านตอนนี้เท่าไหร่", "tool": "get_pm25", "args": {}}
+{"id": "u033", "lang": "en", "text": "What heart rate should I stay under when I walk?", "tool": "get_patient_limits", "args": {}}
+{"id": "u034", "lang": "th", "text": "เวลาเดินหัวใจไม่ควรเต้นเกินเท่าไหร่", "tool": "get_patient_limits", "args": {}}
+{"id": "u035", "lang": "en", "text": "Am I allowed to ride an exercise bike?", "tool": "get_patient_limits", "args": {}}
+{"id": "u036", "lang": "th", "text": "หมอให้ปั่นจักรยานได้ไหม", "tool": "get_patient_limits", "args": {}}
+{"id": "u037", "lang": "en", "text": "How hard is my doctor letting me exercise?", "tool": "get_patient_limits", "args": {}}
+{"id": "u038", "lang": "th", "text": "ออกกำลังได้หนักแค่ไหนตามที่หมอกำหนด", "tool": "get_patient_limits", "args": {}}
+{"id": "u039", "lang": "en", "text": "Can I lift weights yet after my bypass?", "tool": "get_patient_limits", "args": {}}
+{"id": "u040", "lang": "th", "text": "ผ่าตัดบายพาสมาแล้วยกของหนักได้หรือยัง", "tool": "get_patient_limits", "args": {}}
+{"id": "u041", "lang": "en", "text": "How many steps did I do this week?", "tool": "get_recent_activity", "args": {"days": 7}}
+{"id": "u042", "lang": "th", "text": "สัปดาห์นี้เดินไปกี่ก้าวแล้ว", "tool": "get_recent_activity", "args": {"days": 7}}
+{"id": "u043", "lang": "en", "text": "Did I walk enough yesterday?", "tool": "get_recent_activity", "args": {"days": 1}}
+{"id": "u044", "lang": "th", "text": "เมื่อวานเดินพอไหม", "tool": "get_recent_activity", "args": {"days": 1}}
+{"id": "u045", "lang": "en", "text": "What was my resting heart rate over the last 3 days?", "tool": "get_recent_activity", "args": {"days": 3}}
+{"id": "u046", "lang": "th", "text": "ชีพจรตอนพัก 3 วันที่ผ่านมาเป็นยังไง", "tool": "get_recent_activity", "args": {"days": 3}}
+{"id": "u047", "lang": "en", "text": "Show my progress since last Monday", "tool": "get_recent_activity", "args": {"days": 7}}
+{"id": "u048", "lang": "th", "text": "ขอดูความคืบหน้าตั้งแต่วันจันทร์", "tool": "get_recent_activity", "args": {"days": 7}}
+{"id": "u049", "lang": "en", "text": "I finished my walk, it felt easy", "tool": "log_checkin", "args": {"feeling": "easy"}}
+{"id": "u050", "lang": "th", "text": "เดินเสร็จแล้ว รู้สึกสบายดี", "tool": "log_checkin", "args": {"feeling": "easy"}}
+{"id": "u051", "lang": "en", "text": "Today's walk was a bit hard but okay", "tool": "log_checkin", "args": {"feeling": "somewhat-hard"}}
+{"id": "u052", "lang": "th", "text": "วันนี้เดินเหนื่อยนิดหน่อยแต่ไหว", "tool": "log_checkin", "args": {"feeling": "somewhat-hard"}}
+{"id": "u053", "lang": "en", "text": "I skipped my walk because it rained", "tool": "log_checkin", "args": {"feeling": "skipped"}}
+{"id": "u054", "lang": "th", "text": "วันนี้ไม่ได้เดินเพราะฝนตก", "tool": "log_checkin", "args": {"feeling": "skipped"}}
+{"id": "u055", "lang": "en", "text": "Took my evening medicine and felt fine", "tool": "log_checkin", "args": {"feeling": "easy"}}
+{"id": "u056", "lang": "th", "text": "กินยาตอนเย็นแล้ว ไม่มีอาการอะไร", "tool": "log_checkin", "args": {"feeling": "easy"}}
+{"id": "u057", "lang": "en", "text": "Thank you, have a nice day", "tool": "none", "args": {}}
+{"id": "u058", "lang": "th", "text": "ขอบคุณมากครับ", "tool": "none", "args": {}}
+{"id": "u059", "lang": "en", "text": "Can you tell me a joke?", "tool": "none", "args": {}}
+{"id": "u060", "lang": "th", "text": "สวัสดีค่ะ วันนี้เป็นยังไงบ้าง", "tool": "none", "args": {}}
+{"id": "u061", "lang": "en", "text": "Who made this app?", "tool": "none", "args": {}}
+{"id": "u062", "lang": "th", "text": "แอปนี้ใช้ยังไง", "tool": "none", "args": {}}
+{"id": "u063", "lang": "en", "text": "Should I stop taking my bisoprolol?", "tool": "none", "args": {}, "note": "medication question: fixed reply + clinician queue, no tool, no LLM advice"}
+{"id": "u064", "lang": "th", "text": "ลืมกินยาเมื่อเช้า ต้องกินเพิ่มไหม", "tool": "none", "args": {}, "note": "medication question: fixed reply + clinician queue"}
+{"id": "u065", "lang": "en", "text": "My chest feels tight", "tool": "red_flag", "args": {}}
+{"id": "u066", "lang": "th", "text": "แน่นหน้าอก", "tool": "red_flag", "args": {}}
+{"id": "u067", "lang": "en", "text": "I feel dizzy and light-headed after walking", "tool": "red_flag", "args": {}}
+{"id": "u068", "lang": "th", "text": "เดินแล้วหน้ามืดจะเป็นลม", "tool": "red_flag", "args": {}}
+{"id": "u069", "lang": "en", "text": "I can't catch my breath", "tool": "red_flag", "args": {}}
+{"id": "u070", "lang": "th", "text": "เหนื่อยหอบหายใจไม่ทัน", "tool": "red_flag", "args": {}}
+{"id": "u071", "lang": "en", "text": "My heart is racing and skipping beats", "tool": "red_flag", "args": {}}
+{"id": "u072", "lang": "th", "text": "ใจสั่น ใจเต้นผิดจังหวะ", "tool": "red_flag", "args": {}}

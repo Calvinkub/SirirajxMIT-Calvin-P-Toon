@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "model": "Qwen/Qwen3-4B",
+    "device": "cuda",
+    "gpu": "Tesla T4",
+    "train_rows": 297,
+    "test_rows": 270,
+    "tau": 0.3,
+    "prefix_tokens_cached": 617,
+    "data_origin": "synthetic; test written blind by a separate agent",
+    "date": "2026-10-17"
+  },
+  "selective_accuracy": 0.9486,
+  "coverage": 0.937,
+  "accuracy_if_clarify_counts_wrong": 0.8889,
+  "clarify_top2_contains_gold": 0.9412,
+  "accuracy_after_two_option_clarify": 0.9481,
+  "red_flag_recall": 0.8667,
+  "red_flag_false_alarms": 1,
+  "tier_counts": {
+    "safety": 35,
+    "frequent": 126,
+    "model": 92,
+    "clarify": 17
+  },
+  "median_ms": 0.1,
+  "p95_ms": 83.3,
+  "errors": [
+    {
+      "id": "te021",
+      "gold": "none",
+      "pred": "red_flag",
+      "tier": "safety",
+      "top2": null
+    },
+    {
+      "id": "te065",
+      "gold": "log_checkin",
+      "pred": "search_places",
+      "tier": "frequent",
+      "top2": null
+    },
+    {
+      "id": "te082",
+      "gold": "none",
+      "pred": "get_patient_limits",
+      "tier": "frequent",
+      "top2": null
+    },
+    {
+      "id": "te096",
+      "gold": "log_checkin",
+      "pred": "get_patient_limits",
+      "tier": "model",
+      "top2": [
+        "get_patient_limits",
+        "log_checkin"
+      ]
+    },
+    {
+      "id": "te127",
+      "gold": "red_flag",
+      "pred": "search_activities",
+      "tier": "frequent",
+      "top2": null
+    },
+    {
+      "id": "te132",
+      "gold": "log_checkin",
+      "pred": "search_activities",
+      "tier": "model",
+      "top2": [
+        "search_activities",
+        "log_checkin"
+      ]
+    },
+    {
+      "id": "te135",
+      "gold": "get_recent_activity",
+      "pred": "search_places",
+      "tier": "frequent",
+      "top2": null
+    },
+    {
+      "id": "te143",
+      "gold": "log_checkin",
+      "pred": "get_pm25",
+      "tier": "frequent",
+      "top2": null
+    },
+    {
+      "id": "te162",
+      "gold": "get_patient_limits",
+      "pred": "search_activities",
+      "tier": "frequent",
+      "top2": null
+    },
+    {
+      "id": "te196",
+      "gold": "get_patient_limits",
+      "pred": "search_places",
+      "tier": "frequent",
+      "top2": null
+    },
+    {
+      "id": "te217",
+      "gold": "red_flag",
+      "pred": "log_checkin",
+      "tier": "frequent",
+      "top2": null
+    },
+    {
+      "id": "te224",
+      "gold": "red_flag",
+      "pred": "none",
+      "tier": "model",
+      "top2": [
+        "none",
+        "log_checkin"
+      ]
+    },
+    {
+      "id": "te261",
+      "gold": "get_patient_limits",
+      "pred": "search_places",
+      "tier": "frequent",
+      "top2": null
+    }
+  ]
+}

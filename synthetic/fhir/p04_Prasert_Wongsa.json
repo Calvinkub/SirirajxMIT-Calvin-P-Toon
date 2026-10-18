@@ -1,0 +1,1649 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Patient/cmc-p04",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "cmc-p04",
+        "active": true,
+        "gender": "male",
+        "birthDate": "1959-01-19",
+        "name": [
+          {
+            "use": "official",
+            "family": "Wongsa",
+            "given": [
+              "Prasert"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "district": "Thon Buri",
+            "city": "Bangkok",
+            "country": "TH"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "th",
+                  "display": "Thai"
+                }
+              ],
+              "text": "Thai"
+            },
+            "preferred": true
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/home-district-position",
+            "extension": [
+              {
+                "url": "latitude",
+                "valueDecimal": 13.725
+              },
+              {
+                "url": "longitude",
+                "valueDecimal": 100.485
+              }
+            ]
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/cmc-p04"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Condition/cmc-p04-cond-1",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cmc-p04-cond-1",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ],
+          "text": "Active"
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ],
+          "text": "Confirmed"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "22298006",
+              "display": "Myocardial infarction"
+            }
+          ],
+          "text": "Myocardial infarction"
+        },
+        "onsetDateTime": "2026-09-04T09:00:00+07:00",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/cmc-p04-cond-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Condition/cmc-p04-cond-2",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cmc-p04-cond-2",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ],
+          "text": "Active"
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ],
+          "text": "Confirmed"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "84114007",
+              "display": "Heart failure"
+            }
+          ],
+          "text": "Heart failure"
+        },
+        "onsetDateTime": "2026-08-28T09:00:00+07:00",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/cmc-p04-cond-2"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/MedicationStatement/cmc-p04-med-1",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "cmc-p04-med-1",
+        "status": "active",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "C07AB02",
+              "display": "Metoprolol"
+            }
+          ],
+          "text": "Metoprolol"
+        },
+        "dosage": [
+          {
+            "text": "Metoprolol succinate 47.5 mg once daily"
+          }
+        ],
+        "effectivePeriod": {
+          "start": "2026-09-13T08:00:00+07:00"
+        },
+        "extension": [
+          {
+            "url": "https://cvd-mission-coach.example/fhir/StructureDefinition/beta-blocker",
+            "valueBoolean": true
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/cmc-p04-med-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/MedicationStatement/cmc-p04-med-2",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "cmc-p04-med-2",
+        "status": "active",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "B01AC06",
+              "display": "Aspirin"
+            }
+          ],
+          "text": "Aspirin"
+        },
+        "dosage": [
+          {
+            "text": "Aspirin 81 mg once daily"
+          }
+        ],
+        "effectivePeriod": {
+          "start": "2026-09-13T08:00:00+07:00"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/cmc-p04-med-2"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/MedicationStatement/cmc-p04-med-3",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "cmc-p04-med-3",
+        "status": "active",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "C10AA05",
+              "display": "Atorvastatin"
+            }
+          ],
+          "text": "Atorvastatin"
+        },
+        "dosage": [
+          {
+            "text": "Atorvastatin 40 mg at night"
+          }
+        ],
+        "effectivePeriod": {
+          "start": "2026-09-13T08:00:00+07:00"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/cmc-p04-med-3"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/MedicationStatement/cmc-p04-med-4",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "cmc-p04-med-4",
+        "status": "active",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "C09AA05",
+              "display": "Ramipril"
+            }
+          ],
+          "text": "Ramipril"
+        },
+        "dosage": [
+          {
+            "text": "Ramipril 5 mg once daily"
+          }
+        ],
+        "effectivePeriod": {
+          "start": "2026-09-13T08:00:00+07:00"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/cmc-p04-med-4"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/DocumentReference/cmc-p04-discharge",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "cmc-p04-discharge",
+        "status": "current",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "18842-5",
+              "display": "Discharge summary"
+            }
+          ],
+          "text": "Discharge summary"
+        },
+        "date": "2026-09-20T15:00:00+07:00",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain; charset=utf-8",
+              "data": "U1lOVEhFVElDIERJU0NIQVJHRSBTVU1NQVJZIChkZW1vIG9ubHksIG5vdCBhIHJlYWwgcGF0aWVudCkKUGF0aWVudDogUHJhc2VydCBXb25nc2EKRGlhZ25vc2VzOiBNeW9jYXJkaWFsIGluZmFyY3Rpb24sIEhlYXJ0IGZhaWx1cmUKTFZFRiAzMCUuIFJpc2sgY2xhc3M6IGhpZ2guCk1lZGljYXRpb25zOiBNZXRvcHJvbG9sIHN1Y2NpbmF0ZSA0Ny41IG1nIG9uY2UgZGFpbHk7IEFzcGlyaW4gODEgbWcgb25jZSBkYWlseTsgQXRvcnZhc3RhdGluIDQwIG1nIGF0IG5pZ2h0OyBSYW1pcHJpbCA1IG1nIG9uY2UgZGFpbHkKSUNEIGltcGxhbnRlZCBiZWZvcmUgZGlzY2hhcmdlLgpQbGFuOiBjYXJkaWFjIHJlaGFiaWxpdGF0aW9uIHJlZmVycmFsOyBmb2xsb3ctdXAgaW4gY2FyZGlvbG9neSBjbGluaWMgaW4gNCB3ZWVrcy4="
+            }
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DocumentReference/cmc-p04-discharge"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Device/cmc-p04-watch",
+      "resource": {
+        "resourceType": "Device",
+        "id": "cmc-p04-watch",
+        "status": "active",
+        "patient": {
+          "reference": "Patient/cmc-p04"
+        },
+        "type": {
+          "text": "Smartwatch"
+        },
+        "deviceName": [
+          {
+            "name": "Garmin Venu",
+            "type": "user-friendly-name"
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Device/cmc-p04-watch"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-lvef",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-lvef",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "imaging",
+                "display": "Imaging"
+              }
+            ],
+            "text": "Imaging"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "10230-1",
+              "display": "Left ventricular Ejection fraction"
+            }
+          ],
+          "text": "Left ventricular Ejection fraction"
+        },
+        "effectiveDateTime": "2026-09-17T10:00:00+07:00",
+        "valueQuantity": {
+          "value": 30,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-lvef"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-risk",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-risk",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+              "code": "aacvpr-risk-class",
+              "display": "Exercise risk class (AACVPR-style)"
+            }
+          ],
+          "text": "Exercise risk class (AACVPR-style)"
+        },
+        "effectiveDateTime": "2026-09-21T11:00:00+07:00",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+              "code": "high",
+              "display": "high"
+            }
+          ],
+          "text": "high"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-risk"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-rhr-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-rhr-1",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "effectiveDateTime": "2026-10-11T06:30:00+07:00",
+        "valueQuantity": {
+          "value": 76,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-rhr-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-steps-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-steps-1",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "activity",
+                "display": "Activity"
+              }
+            ],
+            "text": "Activity"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "41950-7",
+              "display": "Number of steps in 24 hour Measured"
+            }
+          ],
+          "text": "Number of steps in 24 hour Measured"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-11T00:00:00+07:00",
+          "end": "2026-10-11T23:59:00+07:00"
+        },
+        "valueQuantity": {
+          "value": 0,
+          "unit": "steps",
+          "system": "http://unitsofmeasure.org",
+          "code": "{steps}"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-steps-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-rhr-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-rhr-2",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "effectiveDateTime": "2026-10-12T06:30:00+07:00",
+        "valueQuantity": {
+          "value": 75,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-rhr-2"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-steps-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-steps-2",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "activity",
+                "display": "Activity"
+              }
+            ],
+            "text": "Activity"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "41950-7",
+              "display": "Number of steps in 24 hour Measured"
+            }
+          ],
+          "text": "Number of steps in 24 hour Measured"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-12T00:00:00+07:00",
+          "end": "2026-10-12T23:59:00+07:00"
+        },
+        "valueQuantity": {
+          "value": 1118,
+          "unit": "steps",
+          "system": "http://unitsofmeasure.org",
+          "code": "{steps}"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-steps-2"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-rhr-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-rhr-3",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "effectiveDateTime": "2026-10-13T06:30:00+07:00",
+        "valueQuantity": {
+          "value": 73,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-rhr-3"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-steps-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-steps-3",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "activity",
+                "display": "Activity"
+              }
+            ],
+            "text": "Activity"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "41950-7",
+              "display": "Number of steps in 24 hour Measured"
+            }
+          ],
+          "text": "Number of steps in 24 hour Measured"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-13T00:00:00+07:00",
+          "end": "2026-10-13T23:59:00+07:00"
+        },
+        "valueQuantity": {
+          "value": 0,
+          "unit": "steps",
+          "system": "http://unitsofmeasure.org",
+          "code": "{steps}"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-steps-3"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-rhr-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-rhr-4",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "effectiveDateTime": "2026-10-14T06:30:00+07:00",
+        "valueQuantity": {
+          "value": 79,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-rhr-4"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-steps-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-steps-4",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "activity",
+                "display": "Activity"
+              }
+            ],
+            "text": "Activity"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "41950-7",
+              "display": "Number of steps in 24 hour Measured"
+            }
+          ],
+          "text": "Number of steps in 24 hour Measured"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-14T00:00:00+07:00",
+          "end": "2026-10-14T23:59:00+07:00"
+        },
+        "valueQuantity": {
+          "value": 1866,
+          "unit": "steps",
+          "system": "http://unitsofmeasure.org",
+          "code": "{steps}"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-steps-4"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-rhr-5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-rhr-5",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "effectiveDateTime": "2026-10-15T06:30:00+07:00",
+        "valueQuantity": {
+          "value": 74,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-rhr-5"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-steps-5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-steps-5",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "activity",
+                "display": "Activity"
+              }
+            ],
+            "text": "Activity"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "41950-7",
+              "display": "Number of steps in 24 hour Measured"
+            }
+          ],
+          "text": "Number of steps in 24 hour Measured"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-15T00:00:00+07:00",
+          "end": "2026-10-15T23:59:00+07:00"
+        },
+        "valueQuantity": {
+          "value": 0,
+          "unit": "steps",
+          "system": "http://unitsofmeasure.org",
+          "code": "{steps}"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-steps-5"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-rhr-6",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-rhr-6",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "effectiveDateTime": "2026-10-16T06:30:00+07:00",
+        "valueQuantity": {
+          "value": 79,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-rhr-6"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-steps-6",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-steps-6",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "activity",
+                "display": "Activity"
+              }
+            ],
+            "text": "Activity"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "41950-7",
+              "display": "Number of steps in 24 hour Measured"
+            }
+          ],
+          "text": "Number of steps in 24 hour Measured"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-16T00:00:00+07:00",
+          "end": "2026-10-16T23:59:00+07:00"
+        },
+        "valueQuantity": {
+          "value": 1448,
+          "unit": "steps",
+          "system": "http://unitsofmeasure.org",
+          "code": "{steps}"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-steps-6"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-rhr-7",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-rhr-7",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "effectiveDateTime": "2026-10-17T06:30:00+07:00",
+        "valueQuantity": {
+          "value": 74,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-rhr-7"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-steps-7",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-steps-7",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "device": {
+          "reference": "Device/cmc-p04-watch"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "activity",
+                "display": "Activity"
+              }
+            ],
+            "text": "Activity"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "41950-7",
+              "display": "Number of steps in 24 hour Measured"
+            }
+          ],
+          "text": "Number of steps in 24 hour Measured"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-17T00:00:00+07:00",
+          "end": "2026-10-17T23:59:00+07:00"
+        },
+        "valueQuantity": {
+          "value": 0,
+          "unit": "steps",
+          "system": "http://unitsofmeasure.org",
+          "code": "{steps}"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-steps-7"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-bp-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-bp-1",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85354-9",
+              "display": "Blood pressure panel with all children optional"
+            }
+          ],
+          "text": "Blood pressure panel with all children optional"
+        },
+        "effectiveDateTime": "2026-10-13T07:00:00+07:00",
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8480-6",
+                  "display": "Systolic blood pressure"
+                }
+              ],
+              "text": "Systolic blood pressure"
+            },
+            "valueQuantity": {
+              "value": 137,
+              "unit": "mmHg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8462-4",
+                  "display": "Diastolic blood pressure"
+                }
+              ],
+              "text": "Diastolic blood pressure"
+            },
+            "valueQuantity": {
+              "value": 78,
+              "unit": "mmHg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-bp-1"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Observation/cmc-p04-bp-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cmc-p04-bp-2",
+        "status": "final",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85354-9",
+              "display": "Blood pressure panel with all children optional"
+            }
+          ],
+          "text": "Blood pressure panel with all children optional"
+        },
+        "effectiveDateTime": "2026-10-16T07:00:00+07:00",
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8480-6",
+                  "display": "Systolic blood pressure"
+                }
+              ],
+              "text": "Systolic blood pressure"
+            },
+            "valueQuantity": {
+              "value": 124,
+              "unit": "mmHg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8462-4",
+                  "display": "Diastolic blood pressure"
+                }
+              ],
+              "text": "Diastolic blood pressure"
+            },
+            "valueQuantity": {
+              "value": 86,
+              "unit": "mmHg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          }
+        ],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cmc-p04-bp-2"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Consent/cmc-p04-consent",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "cmc-p04-consent",
+        "status": "active",
+        "patient": {
+          "reference": "Patient/cmc-p04"
+        },
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy",
+              "display": "Privacy Consent"
+            }
+          ],
+          "text": "Privacy Consent"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0",
+                "display": "Consent Document"
+              }
+            ],
+            "text": "Consent Document"
+          }
+        ],
+        "dateTime": "2026-09-27T10:00:00+07:00",
+        "policyRule": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "OPTIN",
+              "display": "opt-in"
+            }
+          ],
+          "text": "opt-in"
+        },
+        "provision": {
+          "type": "permit",
+          "purpose": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "TREAT"
+            }
+          ],
+          "provision": [
+            {
+              "type": "deny",
+              "actor": [
+                {
+                  "role": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
+                        "code": "PAYOR",
+                        "display": "invoice payor"
+                      }
+                    ],
+                    "text": "invoice payor"
+                  },
+                  "reference": {
+                    "display": "Any insurer (payer)"
+                  }
+                },
+                {
+                  "role": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
+                        "code": "UNDWRT",
+                        "display": "underwriter"
+                      }
+                    ],
+                    "text": "underwriter"
+                  },
+                  "reference": {
+                    "display": "Any insurer (underwriting)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Consent/cmc-p04-consent"
+      }
+    },
+    {
+      "fullUrl": "https://cvd-mission-coach.example/fhir/Flag/cmc-p04-ineligible",
+      "resource": {
+        "resourceType": "Flag",
+        "id": "cmc-p04-ineligible",
+        "status": "active",
+        "subject": {
+          "reference": "Patient/cmc-p04"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/cmc",
+              "code": "app-ineligible",
+              "display": "Not eligible for app-only exercise missions: refer to supervised rehab"
+            }
+          ],
+          "text": "Not eligible for app-only exercise missions: refer to supervised rehab"
+        },
+        "period": {
+          "start": "2026-10-04T09:00:00+07:00"
+        },
+        "author": {
+          "reference": "Practitioner/pr-cardio-1"
+        },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://cvd-mission-coach.example/fhir/CodeSystem/data-origin",
+              "code": "synthetic",
+              "display": "Synthetic demo data"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Flag/cmc-p04-ineligible"
+      }
+    }
+  ]
+}

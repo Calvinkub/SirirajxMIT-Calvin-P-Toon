@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Heartstep: like Netflix for a healthy heart. Scripted demo with synthetic data.">
+<style>html,body{margin:0}body{font-size:14px}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+<title>Heartstep Agent Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600&family=Sarabun:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: patient app (left) beside a live agent trace (right); stacks on phones. */
+:root{ /* white and blue, single light theme */
+  --bg:#F5F8FF; --panel:#FFFFFF; --ink:#0B2545; --body:#3B4A63; --muted:#6B7A90; --line:#DCE5F3;
+  --accent:#1D4ED8; --accent-soft:#E3ECFF; --warm:#0369A1; --warm-soft:#E0F2FE; --stop:#B42335; --stop-soft:#FDE8EB;
+  --bubble-me:#1D4ED8; --bubble-me-ink:#FFFFFF; --code-bg:#F1F5FD;
+  --c-walk:#7FB2F7; --c-ball:#4C8DF0; --c-water:#5FD3E6; --c-mind:#A9B4FA; --c-dance:#C7DCFC; --c-other:#CBD5E1;
+  --display:'Prompt','Sarabun',Tahoma,sans-serif; --text:'Sarabun','Prompt',Tahoma,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--body);font-family:var(--text);font-size:16px;line-height:1.5}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:16px;padding-block:20px 40px;display:flex;flex-direction:column;gap:16px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between}
+h1{font-family:var(--display);font-weight:600;color:var(--ink);font-size:clamp(22px,3vw,30px);margin:0;text-wrap:balance}
+.note{font-size:13px;color:var(--warm);background:var(--warm-soft);padding:4px 10px;border-radius:999px}
+.grid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+/* phone */
+.phone{background:var(--panel);border:1px solid var(--line);border-radius:28px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:640px;max-height:820px}
+.appbar{display:flex;align-items:center;justify-content:space-between;padding:4px 6px 10px;border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-weight:600;color:var(--ink);font-size:18px}
+.who{font-size:13px;color:var(--muted)}
+.chat{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:6px 2px;min-height:0}
+.msg{max-width:88%;padding:10px 13px;border-radius:16px;font-size:15px;white-space:pre-line}
+.msg.me{align-self:flex-end;background:var(--bubble-me);color:var(--bubble-me-ink);border-bottom-right-radius:4px}
+.msg.ai{align-self:flex-start;background:var(--accent-soft);color:var(--ink);border-bottom-left-radius:4px}
+.msg.stop{background:var(--stop-soft);color:var(--stop);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-self:flex-start;max-width:100%}
+.chip{font:inherit;font-size:14px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);border-radius:999px;padding:7px 12px;cursor:pointer;text-align:left}
+.chip:hover,.chip:focus-visible{background:var(--accent);color:var(--panel);outline:none}
+.chip small{display:block;font-size:12px;color:inherit;opacity:.8}
+.plan{align-self:stretch;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}
+.plan div{display:grid;grid-template-columns:44px 1fr;gap:8px;padding:8px 10px;border-top:1px solid var(--line)}
+.plan div:first-child{border-top:none;background:var(--code-bg);font-weight:600;color:var(--ink);grid-template-columns:1fr}
+.plan b{color:var(--accent);font-family:var(--display);font-weight:500}
+.composer{display:flex;gap:8px}
+.composer input{flex:1;min-width:0;font:inherit;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:10px 14px}
+.composer button,.btn{font:inherit;font-weight:600;border:none;background:var(--accent);color:var(--panel);border-radius:999px;padding:10px 16px;cursor:pointer}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.preset{font:inherit;font-size:13px;border:1px dashed var(--line);background:transparent;color:var(--muted);border-radius:10px;padding:6px 10px;cursor:pointer;text-align:left}
+.preset:hover{color:var(--ink);border-color:var(--accent)}
+/* trace */
+.trace{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.trace-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.trace-head h2{font-family:var(--display);font-weight:600;color:var(--ink);font-size:20px;margin:0}
+.stepctl{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.stepctl button{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.stepctl button:hover:not(:disabled),.stepctl button:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+.stepctl button:disabled{opacity:.4;cursor:default}
+#play{background:var(--accent);color:#FFFFFF;border-color:var(--accent)}
+#stepnum{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:74px}
+#layer-b.instant .b,#layer-b.instant .b circle,#layer-b.instant .b text{transition:none!important}
+body.gif .stepctl{display:none}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.toggle button{font:inherit;font-size:13px;border:none;background:transparent;color:var(--muted);padding:6px 12px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
+.legend{display:flex;flex-wrap:wrap;gap:8px;font-size:12px}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.t-rules{color:var(--warm)} .t-llm{color:var(--accent)} .t-fhir{color:#1E40AF} .t-vec{color:#4F46E5} .t-knn{color:#0E7490} .t-geo{color:#0369A1} .t-you{color:var(--ink)}
+ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.step{border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;opacity:.45;transition:opacity .3s,border-color .3s}
+.step.run{opacity:1;border-color:var(--accent)}
+.step.done{opacity:1}
+.dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);margin-top:2px;display:grid;place-items:center;font-size:12px;color:var(--panel)}
+.step.run .dot{border-color:var(--accent);animation:pulse 1s infinite}
+.step.done .dot{background:var(--accent);border-color:var(--accent)}
+.step.stopped .dot{background:var(--stop);border-color:var(--stop)}
+@keyframes pulse{50%{box-shadow:0 0 0 6px var(--accent-soft)}}
+@media (prefers-reduced-motion: reduce){.step.run .dot{animation:none}.step{transition:none}}
+.step h3{margin:0;font-family:var(--display);font-weight:500;font-size:16px;color:var(--ink);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.step p{margin:4px 0 0;font-size:14px}
+.call{margin-top:8px;font-family:var(--mono);font-size:12px;background:var(--code-bg);color:var(--ink);border-radius:8px;padding:8px 10px;overflow-x:auto;white-space:pre}
+.bars{display:flex;flex-direction:column;gap:4px;margin-top:8px;font-size:13px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) 120px 44px;gap:8px;align-items:center}
+.bar span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar i{display:block;height:8px;border-radius:4px;background:var(--accent)}
+.bar em{font-style:normal;font-variant-numeric:tabular-nums;text-align:right;color:var(--muted)}
+.funnel{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font-family:var(--display);font-size:15px;color:var(--ink)}
+.funnel b{font-size:22px;font-weight:600;color:var(--accent)}
+.excluded{font-size:13px;color:var(--muted);margin-top:6px}
+footer{font-size:13px;color:var(--muted)}
+.field{position:relative;border:1px solid var(--line);border-radius:18px;background:var(--bg);padding:10px;display:grid;grid-template-columns:minmax(0,1fr);gap:6px}
+.field svg{width:100%;max-width:440px;height:auto;justify-self:center;display:block;overflow:visible}
+.field .ring{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:4 5}
+.b{transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .7s ease}
+.b circle{stroke:var(--panel);stroke-width:1;transition:fill .5s,r .9s cubic-bezier(.2,.8,.2,1),stroke .4s,stroke-width .4s}
+.b text{font-family:var(--text);fill:var(--ink);text-anchor:middle;dominant-baseline:central;pointer-events:none;transition:font-size .6s,opacity .6s}
+.b.out circle{fill:var(--stop)!important}
+.b.pick circle{stroke:var(--warm);stroke-width:3}
+.b.pick{animation:pickpulse 1.4s ease-in-out infinite}
+@keyframes pickpulse{50%{opacity:.75}}
+.stage-head{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.count{display:flex;flex-direction:column;line-height:1.1;min-width:120px}
+.count b{font-family:var(--display);font-size:34px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
+.count span{font-size:13px;color:var(--muted)}
+.fcap{font-size:14px;color:var(--ink);flex:1;min-width:0;min-height:2.6em}
+.flegend{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;font-size:12px;color:var(--muted)}
+.flegend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+/* scenes */
+#scene{min-height:360px;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.rise{opacity:0;animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards}
+.pop{opacity:0;animation:pop .5s cubic-bezier(.3,1.4,.5,1) forwards}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+.said{position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:16px;color:var(--ink);line-height:1.7}
+.said .w{transition:background .3s,color .3s;border-radius:4px;padding:0 1px}
+.said .w.hl{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.said .w.red{background:var(--stop-soft);color:var(--stop);font-weight:600}
+.scanbar{position:absolute;top:0;bottom:0;width:60px;left:-60px;background:linear-gradient(90deg,transparent,var(--accent-soft),transparent);animation:scan 1.3s ease-in-out forwards}
+@keyframes scan{to{left:100%}}
+.verdict{align-self:center;font-family:var(--display);font-size:18px;padding:8px 16px;border-radius:999px}
+.verdict.ok{background:var(--accent-soft);color:var(--accent)} .verdict.bad{background:var(--stop-soft);color:var(--stop)}
+.slots{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.slot{border:1.5px solid var(--accent);border-radius:12px;padding:8px 12px;background:var(--panel);min-width:120px}
+.slot small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.slot b{font-family:var(--display);font-weight:500;color:var(--ink);font-size:16px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:12px}
+@media (max-width:560px){.cols{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card h4{margin:0 0 4px;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted)}
+.kv{display:flex;justify-content:space-between;gap:8px;font-size:14px;border-top:1px dashed var(--line);padding-top:5px}
+.kv b{color:var(--ink)}
+.snip{font-size:13px;border-left:3px solid var(--c-mind);padding:4px 8px;background:var(--bg);border-radius:0 8px 8px 0}
+.map{width:100%;max-width:420px;justify-self:center;align-self:center;overflow:visible}
+.map .rg{fill:none;stroke:var(--line);stroke-dasharray:3 4}
+.map text{font-family:var(--text);fill:var(--muted);font-size:9px}
+.map .pin text{fill:var(--ink);font-size:9.5px}
+.map .pin{opacity:0;animation:drop .6s cubic-bezier(.3,1.4,.5,1) forwards}
+@keyframes drop{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:none}}
+.sun{font-size:13px;color:var(--warm);text-align:center}
+.cohort{display:flex;flex-direction:column;gap:10px}
+.crow{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,2fr) 44px;gap:10px;align-items:center;font-size:14px;color:var(--ink)}
+.dots{display:grid;grid-template-columns:repeat(20,1fr);gap:3px}
+.dots i{aspect-ratio:1;border-radius:50%;background:var(--line);transition:background .3s}
+.dots i.on{background:var(--accent)}
+.crow em{font-style:normal;font-variant-numeric:tabular-nums;text-align:right;font-family:var(--display)}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day2{border:1px solid var(--line);border-radius:10px;padding:8px 6px;min-height:110px;display:flex;flex-direction:column;gap:6px;font-size:12px;background:var(--panel)}
+.day2 b{font-family:var(--display);font-weight:500;color:var(--ink);font-size:13px}
+.day2 span{border-radius:8px;padding:5px;color:var(--ink)}
+.m-main{background:var(--warm-soft)} .m-walk{background:var(--accent-soft)} .m-rest{background:var(--bg)}
+/* #gif: white, minimal, stage only — for recording slide GIFs */
+body.gif{--bg:#FFFFFF;--panel:#FFFFFF;--ink:#0B2545;--body:#3B4A63;--muted:#6B7A90;--line:#E3EAF5;--accent:#1D4ED8;--accent-soft:#E3ECFF;--warm:#0369A1;--warm-soft:#E0F2FE;--stop:#B42335;--stop-soft:#FBE7EA;--code-bg:#F6F8F8;color-scheme:light;background:#FFFFFF}
+body.gif header,body.gif .phone,body.gif .legend,body.gif .trace-head,body.gif ol.steps,body.gif footer,body.gif #replay,body.gif .flegend{display:none!important}
+body.gif .wrap{max-width:1180px;padding-block:28px}
+body.gif .grid{grid-template-columns:minmax(0,1fr)}
+body.gif .trace{border:none;padding:0 32px;background:#FFFFFF;gap:8px}
+body.gif .field{border:none;background:#FFFFFF;padding:0}
+body.gif .field svg{max-width:500px}
+body.gif .b circle{stroke:#FFFFFF}
+body.gif #scene{min-height:500px}
+.gifstep{display:none}
+body.gif .gifstep{display:flex;align-items:baseline;gap:14px;font-family:var(--display);color:var(--ink);font-size:30px;font-weight:600;border-bottom:1px solid var(--line);padding-bottom:12px}
+body.gif .stage-head{justify-content:center;text-align:left}
+body.gif .count b{font-size:56px}
+body.gif .count span{font-size:17px}
+body.gif .fcap{font-size:22px;max-width:620px;flex:0 1 620px}
+body.gif .field svg{max-width:470px}
+body.gif #scene{min-height:470px}
+body.gif .said{font-size:26px}
+body.gif .slot b{font-size:22px} body.gif .slot small{font-size:14px}
+body.gif .kv{font-size:19px} body.gif .snip{font-size:17px} body.gif .card h4{font-size:14px}
+body.gif .verdict{font-size:24px}
+body.gif .map text{font-size:12px} body.gif .map .pin text{font-size:13px} body.gif .sun{font-size:19px}
+body.gif .crow{font-size:20px} body.gif .crow em{font-size:22px}
+body.gif .day2{font-size:15px;min-height:150px} body.gif .day2 b{font-size:18px}
+body.gif .gifstep span{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--accent);letter-spacing:.08em}
+@media (prefers-reduced-motion: reduce){.b,.b circle,.b text{transition:none}.b.pick{animation:none}.rise,.pop,.map .pin{animation:none;opacity:1}.scanbar{display:none}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Heartstep agent flow</h1>
+    <span class="note">Scripted demo · synthetic patient, places and statistics · not medical advice</span>
+  </header>
+  <div class="grid">
+    <section class="phone" aria-label="Patient app">
+      <div class="appbar"><span class="brand">heartstep</span><span class="who">Somchai, 58 · high blood pressure, heart attack this year (synthetic record cmc-p01)</span></div>
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <div class="presets" id="presets"></div>
+      <form class="composer" id="composer">
+        <label class="sr" for="msg">Message</label>
+        <input id="msg" autocomplete="off" placeholder="Tell the coach your goal…">
+        <button type="submit">Send</button>
+      </form>
+    </section>
+    <section class="trace" aria-label="What the AI is doing">
+      <div class="trace-head">
+        <h2>What the AI is doing</h2>
+        <div class="stepctl" role="group" aria-label="Step controls">
+          <button type="button" id="prev" aria-label="Previous step">◀ Back</button>
+          <button type="button" id="play">Pause</button>
+          <button type="button" id="next" aria-label="Next step">Next ▶</button>
+          <span id="stepnum" aria-live="polite"></span>
+        </div>
+        <div class="toggle" role="group" aria-label="Detail level">
+          <button type="button" id="v-pitch" aria-pressed="true">Simple</button>
+          <button type="button" id="v-full" aria-pressed="false">With tool calls</button>
+        </div>
+      </div>
+      <div class="legend">
+        <span class="tag t-rules">rules</span><span class="tag t-llm">small LLM</span><span class="tag t-fhir">FHIR</span>
+        <span class="tag t-vec">vector search</span><span class="tag t-geo">community map</span><span class="tag t-knn">KNN</span><span class="tag t-you">patient</span>
+      </div>
+      <div class="gifstep" id="gifstep"></div>
+      <div class="field" aria-label="What the agent is working on">
+        <div class="stage-head"><div class="count"><b id="cnt">100</b><span id="cntlab">activities in the guideline catalogue</span></div><div class="fcap" id="fcap">Every activity the catalogue knows, coloured by type.</div></div>
+        <div id="layer-b">
+          <svg id="bubbles" viewBox="-190 -190 380 380" role="img" aria-label="Activity bubbles"><circle class="ring" r="182"></circle></svg>
+          <div class="flegend"><span><i style="background:var(--c-walk)"></i>walking</span><span><i style="background:var(--c-ball)"></i>ball &amp; aim</span><span><i style="background:var(--c-water)"></i>water</span><span><i style="background:var(--c-mind)"></i>mind-body</span><span><i style="background:var(--c-dance)"></i>dance</span><span><i style="background:var(--c-other)"></i>other</span></div>
+        </div>
+        <div id="layer-s" hidden><div id="scene"></div></div>
+      </div>
+      <ol class="steps" id="steps"></ol>
+      <button class="btn" type="button" id="replay" hidden>Replay</button>
+    </section>
+  </div>
+  <footer>44 activity intensities are taken from the 2024 Adult Compendium of Physical Activities (hover a bubble for its code); the rest are estimates. A clinician must check them before real use. Guideline lines paraphrase the ESC 2020 sports cardiology guideline, section 4.2.3 (hypertension). Guideline lines are paraphrased examples, not quotations. Community groups and “similar user” numbers are invented for the demo.</footer>
+</div>
+
+<script>
+// ---------- synthetic data ----------
+// name | thai | METs | tags | flags | 2024 Adult Compendium code (blank = estimate; * = closest listed activity). tags: o outdoor, i indoor, t team, b ball, a aim/skill, s social, c competitive,
+// w water, r rhythm, m mind-body, k walking-based. flags: x contact, h heavy straining/breath-holding, v vigorous bursts.
+const RAW = `Walking slow|เดินช้า|3.0|ok||17170
+Walking, moderate pace|เดินปกติ|3.8|ok||17190
+Brisk walking|เดินเร็ว|4.8|ok||17200
+Very brisk walking|เดินเร็วมาก|5.5|ok||17220
+Walking uphill|เดินขึ้นเนิน|6.0|ok||
+Nordic walking|เดินไม้โพล|4.8|ok||
+Mall walking|เดินในห้าง|3.5|ik||
+Treadmill walking|เดินลู่วิ่ง|3.5|ik||
+Easy hiking trail|เดินป่าเบาๆ|5.3|ok||
+Jogging|วิ่งเหยาะ|7.0|o|v|
+Running|วิ่ง|9.8|o|v|
+Sprint intervals|วิ่งสปรินต์|12.0|o|v|
+Golf, walking and carrying clubs|กอล์ฟเดินถือถุง|4.3|oabsk||15265
+Golf, walking with a pull cart|กอล์ฟเดินลากถุง|4.5|oabsk||15285
+Golf with a power cart|กอล์ฟนั่งรถ|3.5|oabs||15290
+Driving range|สนามไดรฟ์กอล์ฟ|3.5|oab||15270
+Putting practice|ซ้อมพัตต์|2.3|oab||
+Miniature golf|มินิกอล์ฟ|3.5|oabs||15270
+Football, competitive|ฟุตบอลแข่ง|9.5|otbcs|xv|15605
+Football, casual game|ฟุตบอลเล่นทั่วไป|7.0|otbcs|xv|15610
+Walking football|ฟุตบอลเดิน|3.5|otbsk||15615
+Futsal|ฟุตซอล|7.8|itbc|xv|15195
+Light ball-skill drills|ซ้อมเลี้ยงบอลเบาๆ|4.0|oba||
+Petanque|เปตอง|3.3|oabs||15465*
+Bocce|โบชี่|3.3|oabs||15465
+Bowling|โบว์ลิ่ง|3.8|iabs||15092
+Croquet|โครเกต์|3.3|oabs||15160
+Archery|ยิงธนู|4.3|oa||15010
+Darts|ปาเป้า|2.5|ias||15180
+Table tennis, social|ปิงปองสันทนาการ|4.0|ibas||15660
+Badminton, social|แบดมินตันสันทนาการ|5.5|ibas||15030
+Badminton, competitive|แบดมินตันแข่ง|7.0|ibac|v|15020
+Tennis, doubles|เทนนิสคู่|6.0|obas||15680
+Tennis, singles|เทนนิสเดี่ยว|8.0|obac|v|15690
+Pickleball|พิกเคิลบอล|4.5|obas||
+Sepak takraw|ตะกร้อ|7.0|otbc|v|
+Volleyball, recreational|วอลเลย์บอลสันทนาการ|3.0|otbs||15720
+Beach volleyball|วอลเลย์บอลชายหาด|8.0|otbc|v|15725
+Shooting baskets|ชู้ตบาส|5.0|oba||15070
+Basketball game|บาสเกตบอลแข่ง|8.0|otbc|xv|15040
+Casual frisbee|จานร่อน|3.0|os||15240
+Ultimate frisbee|อัลติเมทฟริสบี|8.0|otc|v|15250
+Leisure cycling|ปั่นจักรยานสบายๆ|4.0|o||01010
+Cycling, moderate effort|ปั่นจักรยานปานกลาง|8.0|o|v|
+Stationary bike, light|จักรยานอยู่กับที่เบา|3.5|i||
+Stationary bike, moderate|จักรยานอยู่กับที่ปานกลาง|6.8|i|v|
+Elliptical, light|เครื่องเดินวงรีเบา|5.0|i||
+Rowing machine, light|เครื่องพายเรือเบา|4.8|i||
+Rowing machine, vigorous|เครื่องพายเรือหนัก|8.5|i|v|
+Swimming, leisurely|ว่ายน้ำสบายๆ|6.0|w||18310
+Swimming, slow freestyle|ว่ายน้ำฟรีสไตล์ช้า|5.8|w||18240
+Water walking|เดินในน้ำ|4.8|wk||18368
+Aqua aerobics|แอโรบิกในน้ำ|5.3|wrs||02120
+Leisure kayaking|พายเรือคายัค|5.0|ow||18370
+Stand-up paddle|ยืนพายบอร์ด|5.0|ow||18227
+Tai chi|ไทชิ|3.3|oms||15670
+Qigong|ชี่กง|2.5|om||
+Hatha yoga|โยคะหฐะ|2.5|im||
+Power yoga|พาวเวอร์โยคะ|4.0|im|h|
+Pilates|พิลาทิส|3.0|im||
+Stretching|ยืดเหยียด|2.3|im||
+Ruesi dat ton (Thai self-stretching)|ฤๅษีดัดตน|2.5|m||
+Ballroom dance, slow|ลีลาศจังหวะช้า|3.0|irs||
+Line dancing, moderate|ไลน์แดนซ์|5.0|irs||03033
+Low-impact aerobic dance|แอโรบิกแรงกระแทกต่ำ|5.0|irs||
+High-impact aerobic dance|แอโรบิกแรงกระแทกสูง|7.3|ir|v|
+Zumba|ซุมบ้า|6.5|irs|v|
+Ramwong folk dance|รำวง|3.0|ors||
+Stick dance (ram mai phlong)|รำไม้พลอง|3.0|orsm||
+Gardening, light|ทำสวนเบาๆ|3.8|o||
+Digging the garden|ขุดดิน|5.0|o|h|
+Pushing a lawn mower|เข็นรถตัดหญ้า|5.5|o||
+General housework|งานบ้าน|3.0|i||
+Climbing stairs slowly|ขึ้นบันไดช้าๆ|4.0|i||
+Resistance bands, light|ยางยืดเบา|3.5|i||
+Light dumbbells, many reps|ดัมเบลเบาหลายครั้ง|3.5|i||
+Heavy weight lifting|ยกน้ำหนักหนัก|6.0|i|h|
+Plank holds|แพลงก์ค้าง|3.8|i|h|
+Push-ups to failure|วิดพื้นจนหมดแรง|8.0|i|hv|
+Light circuit training|เซอร์กิตเบา|4.3|is||
+HIIT class|คลาส HIIT|8.0|is|v|
+CrossFit-style workout|ครอสฟิต|8.0|i|hv|
+Muay Thai bag work|ชกกระสอบมวยไทย|5.8|i|xv|15110
+Boxing sparring|ชกมวยคู่ซ้อม|7.8|ic|xv|15120
+Martial-arts forms|รำมวย/กะตะ|5.0|im||
+Rock climbing|ปีนผา|7.5|o|hv|
+Fishing from the bank|ตกปลา|2.0|o||
+Bird-watching walk|เดินดูนก|2.5|ok||
+Photo walk|เดินถ่ายรูป|2.5|oks||
+Walking meditation at a temple|เดินจงกรม|2.0|omk||
+Community park exercise class|คลาสออกกำลังกายในสวน|4.0|ors||
+Senior walking group|กลุ่มเดินผู้สูงวัย|3.5|osk||
+Relay running games|วิ่งผลัด|8.0|otc|v|
+Skipping rope|กระโดดเชือก|11.8|o|v|
+Recreational trampoline|แทรมโพลีน|6.3|i||15700
+Billiards|บิลเลียด|2.5|ias||15080
+Target shooting at a range|ยิงปืนสนาม|2.5|oa||
+Horse riding at a walk|ขี่ม้าเดิน|3.8|o||
+Leisure canoeing|พายเรือแคนู|5.0|ow||18370
+Seated chair exercise|ออกกำลังกายบนเก้าอี้|2.0|is||`;
+const DIMS = "oitbacswrmk".split("");
+const ACTS = RAW.trim().split("\n").map((l, i) => { const [en, th, met, tags, flags, code] = l.split("|");
+  return { id: i, en, th, met: +met, tags, flags: flags || "", code: code || "", vec: DIMS.map(d => tags.includes(d) ? 1 : 0) }; });
+
+const LIMIT = { source: "CarePlan/cmc-p01-limits (synthetic)", signedBy: "Dr. Narin Rattanakul (synthetic)", maxMet: 5.9, hr: 110,
+  rpe: "11–13 (fairly light to somewhat hard)", avoid: "heavy straining and breath-holding" };
+const GUIDE = [ // ESC 2020 sports cardiology guideline, section 4.2.3 Hypertension (paraphrased)
+  "At least 30 min of moderate dynamic aerobic exercise (walking, cycling, swimming) 5–7 days a week.",
+  "Resistance training 2–3 days a week is also advised.",
+  "Avoid heavy weightlifting with static (isometric) effort and breath-holding (Valsalva).",
+  "If blood pressure is uncontrolled (SBP > 160), no high-intensity exercise until it is controlled."];
+// Community directory (not FHIR: FHIR holds patient and medical data only). Synthetic groups; distances from Somchai's home district (Bang Na).
+const COMMUNITY = {
+  golf: [["Seniors' driving-range club", "2.1 km", "Sat 07:00"]],
+  "walking football": [["Walking-football group", "3.4 km", "Tue & Thu 17:30"]],
+  petanque: [["Petanque club, district park", "0.8 km", "daily 16:30"]],
+  walk: [["Morning walking group, riverside", "1.2 km", "weekdays 06:30"]],
+  badminton: [["Social badminton club, sports hall", "1.9 km", "Tue & Fri 18:30"]],
+  bowling: [["Seniors' bowling league, mall alley", "3.2 km", "Wed 10:00"]],
+  tabletennis: [["Community table-tennis room", "0.9 km", "daily 16:00–20:00"]],
+  pickleball: [["Pickleball beginners' group, park courts", "4.6 km", "Sat & Sun 07:30"]],
+  default: [["Community park exercise class", "0.8 km", "Mon/Wed/Fri 17:00"]] };
+const COHORT = { "Badminton, social": 57, "Bowling": 49, "Table tennis, social": 52, "Darts": 26, "Billiards": 33, "Walking football": 64, "Golf, walking with a pull cart": 58, "Golf, walking and carrying clubs": 55, "Petanque": 47,
+  "Miniature golf": 31, "Pickleball": 44, "Volleyball, recreational": 39, "Croquet": 22, "Bocce": 35, "Driving range": 50 };
+const LIKES = [
+  [/golf|กอล์ฟ/i, "Golf, walking and carrying clubs"], [/football|soccer|ฟุตบอล|บอล/i, "Football, casual game"],
+  [/badminton|แบด/i, "Badminton, social"], [/(?<!table )tennis|(?<!ปิง)เทนนิส/i, "Tennis, singles"], [/bowling|โบว์ลิ่ง|โบลิ่ง/i, "Bowling"], [/swim|ว่าย/i, "Swimming, leisurely"],
+  [/run|jog|วิ่ง/i, "Jogging"], [/cycl|bike|ปั่น/i, "Leisure cycling"], [/danc|เต้น|รำ/i, "Line dancing, moderate"],
+  [/yoga|โยคะ/i, "Hatha yoga"], [/boxing|muay|มวย/i, "Muay Thai bag work"], [/basket|บาส/i, "Basketball game"], [/takraw|ตะกร้อ/i, "Sepak takraw"]];
+const RED = /chest.{0,12}(pain|tight|pressure)|dizz|faint|short(ness)? of breath|palpitat|เจ็บ.{0,8}อก|แน่น.{0,6}อก|หน้ามืด|เวียนหัว|ใจสั่น|หายใจไม่(ออก|ทัน)|หอบ|เป็นลม/i;
+
+// ---------- helpers ----------
+const $ = s => document.querySelector(s);
+const chat = $("#chat"), stepsEl = $("#steps");
+let lang = "en", view = "pitch", timers = [];
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const T = (en, th) => lang === "th" ? th : en;
+const name = a => lang === "th" ? `${a.th}` : a.en;
+const cos = (u, v) => { let d = 0, a = 0, b = 0; u.forEach((x, i) => { d += x * v[i]; a += x * x; b += v[i] * v[i]; }); return a && b ? d / Math.sqrt(a * b) : 0; };
+function say(text, who = "ai", cls = "") { const d = document.createElement("div"); d.className = `msg ${who} ${cls}`; d.textContent = text; chat.append(d); chat.scrollTop = chat.scrollHeight; return d; }
+let instant = false; // true while replaying earlier steps after a jump
+function later(fn, ms) { if (instant) return fn(); timers.push(setTimeout(fn, reduce ? 0 : ms)); }
+function clearRun() { timers.forEach(clearTimeout); timers = []; clearTimeout(cur.timer); stepsEl.innerHTML = ""; $("#replay").hidden = true; }
+
+
+// ---------- activity bubble field ----------
+const SVGNS = "http://www.w3.org/2000/svg", GA = Math.PI * (3 - Math.sqrt(5)), R = 172;
+const cat = a => a.tags.includes("w") ? "water" : a.tags.includes("r") ? "dance" : a.tags.includes("m") ? "mind" : (a.tags.includes("b") || a.tags.includes("a")) ? "ball" : a.tags.includes("k") ? "walk" : "other";
+const short = a => { const n = lang === "th" ? a.th : a.en.replace(/,.*$/, ""); return n.length > 9 ? n.slice(0, 8) + "…" : n; };
+const sun = (n, rad) => Array.from({ length: n }, (_, i) => { const r = rad * Math.sqrt((i + 0.5) / n); return [r * Math.cos(i * GA), r * Math.sin(i * GA)]; });
+const field = { nodes: [] };
+function buildField() {
+  const svg = $("#bubbles"); svg.querySelectorAll(".b").forEach(n => n.remove());
+  const pos = sun(ACTS.length, R - 12);
+  field.nodes = ACTS.map((a, i) => { const g = document.createElementNS(SVGNS, "g"); g.setAttribute("class", "b");
+    const c = document.createElementNS(SVGNS, "circle"); c.setAttribute("r", 11); c.style.fill = `var(--c-${cat(a)})`;
+    const t = document.createElementNS(SVGNS, "text"); t.textContent = short(a); t.style.fontSize = "4.2px";
+    const tt = document.createElementNS(SVGNS, "title"); tt.textContent = `${a.en} · ${a.th} · ${a.met} METs · ${a.code ? "Compendium 2024 code " + a.code.replace("*", " (closest listed)") : "estimate, to verify"}`;
+    g.append(tt, c, t); svg.append(g); const node = { a, g, c, t, x: pos[i][0], y: pos[i][1], r: 11 }; place(node, pos[i][0], pos[i][1], 11, 1); return node; });
+}
+function place(n, x, y, r, op, label, fs) { n.g.style.transform = `translate(${x}px,${y}px)`; n.c.setAttribute("r", r); n.g.style.opacity = op;
+  if (label !== undefined) n.t.textContent = label; n.t.style.fontSize = (fs || Math.max(3.6, r * 0.38)) + "px"; }
+function count(to, label) { const el = $("#cnt"), from = +el.textContent || 0; $("#cntlab").textContent = label;
+  if (reduce || instant) { el.textContent = to; return; } const t0 = performance.now(), d = 900;
+  const tick = now => { const k = Math.min(1, (now - t0) / d); el.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
+function cap(t) { $("#fcap").textContent = t; }
+function setPhase(ph, data) {
+  const { allowed, ranked, picks, liked } = data;
+  if (ph === "all") { buildField(); count(ACTS.length, T("activities in the guideline catalogue", "กิจกรรมในคลังตามแนวทาง")); cap(T("Every activity the catalogue knows, coloured by type.", "กิจกรรมทั้งหมดในคลัง แยกสีตามประเภท")); return; }
+  if (ph === "filter") { later(() => doFilter(data), reduce ? 0 : 700); count(ACTS.length, T("activities in the guideline catalogue", "กิจกรรมในคลังตามแนวทาง")); cap(T("All 100 activities. Now checking each against your limits…", "กิจกรรมทั้ง 100 อย่าง กำลังตรวจกับขีดจำกัดของคุณ…")); return; }
+  if (ph === "knn") return doKnn(data);
+  if (ph === "choose") return doChoose(data);
+}
+function doFilter({ allowed, liked }) {
+  {
+    const keep = new Set(allowed.map(a => a.id));
+    field.nodes.forEach(n => { if (!keep.has(n.a.id)) { n.g.classList.add("out"); later(() => place(n, n.x * 1.25, n.y * 1.25, 4, 0), 650); } });
+    const pos = sun(allowed.length, R - 14);
+    later(() => field.nodes.filter(n => keep.has(n.a.id)).forEach((n, i) => { n.x = pos[i][0]; n.y = pos[i][1]; place(n, n.x, n.y, 13, 1); }), 900);
+    count(allowed.length, T("fit your limits (no contact, no breath-holding, ≤ 5.9 METs)", "อยู่ในขีดจำกัด (ไม่ปะทะ ไม่กลั้นหายใจ ≤ 5.9 METs)"));
+    cap(T(`Red ones break the limits and drop out — ${liked.filter(a => !keep.has(a.id)).map(a => a.en).join(", ") || "none of your favourites"} included.`, `วงแดงเกินขีดจำกัดจึงถูกตัดออก รวมถึง ${liked.filter(a => !keep.has(a.id)).map(a => a.th).join(", ") || "-"}`));
+  }
+}
+function doKnn({ ranked, liked }) {
+  {
+    const byId = new Map(field.nodes.map(n => [n.a.id, n]));
+    const rest = ranked.length - 5;
+    ranked.forEach(({ a, s }, i) => { const n = byId.get(a.id);
+      if (i < 5) { // winner in the centre, the next four around it
+        const ang = (-90 + (i - 1) * 90) * Math.PI / 180, rad = i === 0 ? 0 : 108;
+        n.x = rad * Math.cos(ang); n.y = rad * Math.sin(ang);
+        place(n, n.x, n.y, i === 0 ? 50 : 40 - (i - 1) * 2, 1, (lang === "th" ? a.th : a.en.replace(/,.*$/, "")).slice(0, 14), i === 0 ? 12 : 10);
+      } else { // everything else pushed to the outer ring, sized by similarity
+        const j = i - 5, r = 150 + 22 * Math.sqrt((j + 0.5) / rest), th = j * GA;
+        n.x = r * Math.cos(th); n.y = r * Math.sin(th);
+        place(n, n.x, n.y, 3 + 6 * s * s, 0.3 + 0.4 * s, short(a)); } });
+    count(5, T("closest to what you enjoy", "ใกล้กับสิ่งที่คุณชอบที่สุด"));
+    cap(T(`Interest match (KNN): bigger and closer = more like ${liked.map(a => a.en.replace(/,.*$/, "")).join(" + ")}.`, `จับคู่ความชอบ (KNN): วงใหญ่และอยู่กลาง = ใกล้กับ ${liked.map(a => a.th).join(" + ")}`));
+  }
+}
+function doChoose({ picks }) {
+  {
+    const ids = new Set(picks.map(o => o.a.id));
+    field.nodes.forEach(n => { if (ids.has(n.a.id)) n.g.classList.add("pick"); else if (n.g.style.opacity !== "0") n.g.style.opacity = 0.18; });
+    count(3, T("options sent to you to choose", "ตัวเลือกที่ส่งให้คุณเลือก"));
+    cap(T("Three options, each with a group nearby. You pick.", "3 ตัวเลือก พร้อมกลุ่มใกล้บ้าน คุณเป็นคนเลือก"));
+  }
+}
+
+
+// ---------- scenes for the other steps ----------
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const KEY = /bowling|โบว์ลิ่ง|golf|กอล์ฟ|football|soccer|ฟุตบอล|บอล|badminton|แบด|danc|เต้น|hypertension|blood pressure|ความดัน|swim|ว่าย|tennis|เทนนิส|yoga|โยคะ|run|วิ่ง|cycl|ปั่น/i;
+const words = text => (/[฀-๿]/.test(text) ? text.split(/(\s+)/) : text.split(/(\s+)/)).map(w => /^\s+$/.test(w) ? w : `<span class="w">${esc(w)}</span>`).join("");
+function stage(ph, data) {
+  const bub = ["all", "filter", "knn", "choose"].includes(ph);
+  $("#layer-b").hidden = !bub; $("#layer-s").hidden = bub;
+  if (bub) return setPhase(ph, data);
+  const sc = $("#scene"); sc.innerHTML = ""; SCENES[ph](sc, data);
+}
+const SCENES = {
+  scan(sc, { text, red }) {
+    sc.innerHTML = `<div class="said">${words(text)}<div class="scanbar"></div></div>`;
+    count(red ? 1 : 0, T("warning symptoms found", "อาการเตือนที่พบ"));
+    cap(T("Rules read every word first. No AI model sees the message until it is cleared.", "กฎอ่านทุกคำก่อน ข้อความจะไปถึง AI ได้ก็ต่อเมื่อปลอดภัย"));
+    later(() => { if (red) sc.querySelectorAll(".w").forEach(w => { if (RED.test(w.textContent)) w.classList.add("red"); });
+      const v = document.createElement("div"); v.className = `verdict pop ${red ? "bad" : "ok"}`;
+      v.textContent = red ? T("Stop path · no AI · call 1669", "หยุดทันที · ไม่ผ่าน AI · โทร 1669") : T("Clear · 0.1 ms · rules only", "ปลอดภัย · 0.1 ms · ใช้กฎ"); sc.append(v); }, 1300);
+  },
+  extract(sc, { text, liked }) {
+    sc.innerHTML = `<div class="said">${words(text)}</div><div class="slots"></div>`;
+    count(3, T("facts pulled from your message", "ข้อมูลที่ดึงจากข้อความ"));
+    cap(T("A small LLM picks the intent and fills typed slots. No free text goes further.", "LLM ขนาดเล็กเลือกเจตนาและเติมช่องข้อมูลแบบมีโครงสร้าง"));
+    const ws = [...sc.querySelectorAll(".w")].filter(w => KEY.test(w.textContent));
+    ws.forEach((w, i) => later(() => w.classList.add("hl"), 250 + i * 250));
+    const okIds = new Set((field.data.allowed || []).map(a => a.id));
+    const past = liked.filter(a => !okIds.has(a.id)), wants = liked.filter(a => okIds.has(a.id));
+    const slots = [[T("Used to play", "เคยเล่น"), past.map(a => name(a)).join(", ") || "—"], [T("Interested in", "อยากลอง"), wants.map(a => name(a)).join(", ") || T("something lighter", "อะไรที่เบาลง")],
+      [T("Condition", "ภาวะ"), /hypertension|blood pressure|ความดัน/i.test(text) ? T("High blood pressure", "ความดันสูง") : T("From your record", "จากประวัติ")]];
+    slots.forEach(([k, v], i) => { const d = document.createElement("div"); d.className = "slot rise"; d.style.animationDelay = `${(reduce ? 0 : 900 + i * 220)}ms`;
+      d.innerHTML = `<small>${esc(k)}</small><b>${esc(v)}</b>`; sc.querySelector(".slots").append(d); });
+  },
+  limits(sc) {
+    sc.innerHTML = `<div class="cols"><div class="card"><h4>FHIR · CarePlan (signed)</h4></div><div class="card"><h4>IRIS Vector Search · approved guideline</h4></div></div>`;
+    const [a, b] = sc.querySelectorAll(".card");
+    [[T("Signed by", "ลงนามโดย"), LIMIT.signedBy], [T("Heart rate under", "ชีพจรไม่เกิน"), `${LIMIT.hr} bpm`], [T("Intensity up to", "ความหนักไม่เกิน"), `${LIMIT.maxMet} METs`],
+     [T("Effort", "ความเหนื่อย"), "RPE 11–13"], [T("Avoid", "หลีกเลี่ยง"), T("breath-holding", "กลั้นหายใจ")]].forEach(([k, v], i) => {
+      const d = document.createElement("div"); d.className = "kv rise"; d.style.animationDelay = `${reduce ? 0 : 150 + i * 160}ms`; d.innerHTML = `<span>${esc(k)}</span><b>${esc(v)}</b>`; a.append(d); });
+    GUIDE.forEach((g, i) => { const d = document.createElement("div"); d.className = "snip rise"; d.style.animationDelay = `${reduce ? 0 : 900 + i * 260}ms`; d.textContent = g; b.append(d); });
+    count(GUIDE.length, T("guideline passages retrieved (ESC 2020)", "ข้อความแนวทางที่ค้นได้ (ESC 2020)"));
+    cap(T("Limits come from your doctor’s signed record. The guideline comes from a clinician-approved library, never from the model’s memory.", "ขีดจำกัดมาจากบันทึกที่แพทย์ลงนาม แนวทางมาจากคลังที่แพทย์อนุมัติ ไม่ใช่ความจำของโมเดล"));
+  },
+  map(sc, { picks }) {
+    const pins = picks.map((o, i) => ({ o, d: parseFloat(o.comm[1]) || 2, ang: -90 + i * 120 + 25 }));
+    const R = 150, maxKm = 10, rr = km => Math.min(R, 18 + (km / maxKm) * (R - 18));
+    sc.innerHTML = `<svg class="map" viewBox="-200 -175 400 350" role="img" aria-label="Nearby groups">
+      ${[2, 5, 10].map(k => `<circle class="rg" r="${rr(k)}"></circle><text x="4" y="${-rr(k) - 3}">${k} km</text>`).join("")}
+      <circle r="9" fill="var(--ink)"></circle><text x="12" y="4" style="fill:var(--ink);font-size:10px">${esc(T("Home district", "บ้าน"))}</text>
+      ${pins.map(({ o, d, ang }, i) => { const x = rr(d) * Math.cos(ang * Math.PI / 180), y = rr(d) * Math.sin(ang * Math.PI / 180);
+        return `<g class="pin" style="animation-delay:${reduce ? 0 : 300 + i * 380}ms"><line x1="0" y1="0" x2="${x}" y2="${y}" stroke="var(--line)"></line>
+          <circle cx="${x}" cy="${y}" r="7" fill="var(--warm)"></circle><text x="${x + (x < 0 ? -10 : 10)}" y="${y + 3}" text-anchor="${x < 0 ? "end" : "start"}">${esc(name(o.a).slice(0, 22))} · ${esc(o.comm[1])}</text></g>`; }).join("")}
+    </svg><div class="sun rise" style="animation-delay:${reduce ? 0 : 1500}ms">${esc(T("Afternoon is hot → sessions planned for morning or evening", "ช่วงบ่ายร้อน → วางแผนช่วงเช้าหรือเย็น"))}</div>`;
+    count(picks.length, T("groups found near home", "กลุ่มที่พบใกล้บ้าน"));
+    cap(T("Community directory: groups near the home district, plus today’s heat.", "ค้นจากฐานข้อมูลชุมชนใกล้บ้าน พร้อมดูความร้อนวันนี้"));
+  },
+  cohort(sc, { picks }) {
+    sc.innerHTML = `<div class="cohort"></div>`;
+    const box = sc.querySelector(".cohort");
+    picks.forEach((o, r) => { const pct = o.cohort ?? 30, row = document.createElement("div"); row.className = "crow rise"; row.style.animationDelay = `${reduce ? 0 : r * 200}ms`;
+      row.innerHTML = `<span>${esc(name(o.a))}</span><div class="dots">${"<i></i>".repeat(20)}</div><em>0%</em>`; box.append(row);
+      const dots = row.querySelectorAll("i"), em = row.querySelector("em"), on = Math.round(pct / 5);
+      for (let k = 0; k < on; k++) later(() => { dots[k].classList.add("on"); em.textContent = `${Math.round((k + 1) * 5 * pct / (on * 5))}%`; }, 400 + r * 250 + k * 60); });
+    count(52, T("similar users (synthetic cohort)", "ผู้ใช้ที่คล้ายกัน (กลุ่มสมมุติ)"));
+    cap(T("Each dot is 5% of similar users still doing it after 4 weeks.", "จุดละ 5% ของผู้ใช้ที่คล้ายกันที่ยังทำต่อหลัง 4 สัปดาห์"));
+  },
+  plan(sc, { rows, choice }) {
+    sc.innerHTML = `<div class="week"></div>`;
+    const wk = sc.querySelector(".week");
+    rows.forEach(([d, t], i) => { const kind = t.startsWith(choice) ? "m-main" : /rest|พัก/i.test(t) ? "m-rest" : "m-walk";
+      const c = document.createElement("div"); c.className = "day2 rise"; c.style.animationDelay = `${reduce ? 0 : i * 180}ms`;
+      c.innerHTML = `<b>${esc(d)}</b><span class="${kind}">${esc(t)}</span>`; wk.append(c); });
+    count(7, T("days written as FHIR Tasks", "วันที่บันทึกเป็น FHIR Task"));
+    cap(T("Every session stays inside the signed limits. Each Task carries a Provenance record.", "ทุกครั้งอยู่ในขีดจำกัดที่ลงนาม และมีบันทึก Provenance"));
+  }
+};
+
+// ---------- the agent ----------
+function plan(text) {
+  lang = /[฀-๿]/.test(text) ? "th" : "en";
+  if (RED.test(text) && !/ไม่(ได้)?(เจ็บ|มี)|no chest pain/i.test(text)) { field.data = { text, red: true }; return [
+    { pitch: true, phase: "scan", tag: "rules", title: T("Safety screen: warning symptom found", "คัดกรองความปลอดภัย: พบอาการเตือน"), stop: true,
+      body: T("Rules only, before any AI model. Coaching stops.", "ใช้กฎตายตัวก่อนถึง AI ทุกครั้ง หยุดการโค้ชทันที"),
+      call: `red_flag_screen(text) → MATCH\nFlag + Communication → clinician (FHIR)` }]; }
+  const liked = LIKES.filter(([rx]) => rx.test(text)).map(([, n]) => ACTS.find(a => a.en === n));
+  if (!liked.length) liked.push(ACTS.find(a => a.en === "Brisk walking"));
+  const allowed = ACTS.filter(a => a.met <= LIMIT.maxMet && !/[hxv]/.test(a.flags));
+  const excludedLiked = liked.filter(a => !allowed.includes(a));
+  const q = DIMS.map((_, i) => liked.reduce((s, a) => s + a.vec[i], 0) / liked.length);
+  const ranked = allowed.map(a => ({ a, s: cos(q, a.vec) })).sort((x, y) => y.s - x.s || x.a.met - y.a.met);
+  const top = ranked.slice(0, 5);
+  const commKey = a => /badminton/i.test(a.en) ? "badminton" : /bowling/i.test(a.en) ? "bowling" : /table tennis/i.test(a.en) ? "tabletennis" : /pickleball/i.test(a.en) ? "pickleball" : /golf|range/i.test(a.en) ? "golf" : /walking football/i.test(a.en) ? "walking football" : /petanque|bocce/i.test(a.en) ? "petanque" : /walk/i.test(a.en) ? "walk" : "default";
+  const options = top.slice(0, 3).map(({ a }) => ({ a, comm: COMMUNITY[commKey(a)][0], cohort: COHORT[a.en] }));
+  field.data = { allowed, ranked, picks: options, liked, text };
+  return [
+    { pitch: true, phase: "scan", tag: "rules", title: T("Safety screen", "คัดกรองความปลอดภัย"), body: T("No warning symptom. Continue.", "ไม่พบอาการเตือน ทำต่อได้"), call: "red_flag_screen(text) → clear  (≈0.1 ms, no model)" },
+    { pitch: true, phase: "extract", tag: "llm", title: T("Understand the goal", "เข้าใจเป้าหมาย"), body: T(`Likes: ${liked.map(a => a.en).join(", ")}. Wants a plan that fits high blood pressure.`, `ชอบ: ${liked.map(a => a.th).join(", ")} อยากได้แผนที่เหมาะกับความดันสูง`),
+      call: `router(text) → intent = build_activity_plan\nslots = { likes: [${liked.map(a => `"${a.en}"`).join(", ")}], condition: "hypertension" }` },
+    { pitch: true, phase: "limits", tag: "fhir", title: T("Read my limits and guideline", "อ่านขีดจำกัดของฉันและแนวทาง"),
+      body: T(`Signed by ${LIMIT.signedBy}: up to ~${LIMIT.maxMet} METs, heart rate under ${LIMIT.hr}, effort ${LIMIT.rpe}, avoid ${LIMIT.avoid}.`, `แพทย์ลงนาม: ไม่เกิน ~${LIMIT.maxMet} METs ชีพจรไม่เกิน ${LIMIT.hr} ความเหนื่อยระดับ 11–13 เลี่ยงการเบ่งกลั้นหายใจ`),
+      call: `GET /fhir/r4/CarePlan?patient=cmc-p01&status=active\nvector_search("hypertension exercise", collection="approved_guidelines", k=4) → ESC 2020 §4.2.3`, extra: () => list(GUIDE) },
+    { pitch: true, tag: "rules", title: T(`Filter ${ACTS.length} activities by the guideline`, `คัดกิจกรรม ${ACTS.length} อย่างตามแนวทาง`),
+      body: excludedLiked.length ? T(`Not allowed for now: ${excludedLiked.map(a => a.en).join(", ")} (too intense or contact).`, `ยังไม่เหมาะตอนนี้: ${excludedLiked.map(a => a.th).join(", ")} (หนักเกินหรือปะทะ)`) : T("Everything you like fits your limits.", "กิจกรรมที่ชอบอยู่ในขีดจำกัด"),
+      call: `filter(catalog, met <= ${LIMIT.maxMet}, no contact, no breath-holding, no bursts)`, phase: "filter" },
+    { pitch: true, tag: "knn", title: T("Match to what you enjoy", "จับคู่กับสิ่งที่คุณชอบ"),
+      body: T("Nearest neighbours to your favourite sports, among allowed activities only.", "หากิจกรรมที่ใกล้เคียงกีฬาที่ชอบ จากรายการที่อนุญาตเท่านั้น"),
+      call: `knn(query = mean(${liked.map(a => `"${a.en}"`).join(", ")}), k = 5, metric = cosine)`, phase: "knn", extra: () => view === "full" ? bars(top.map(({ a, s }) => [`${name(a)} · ≈${a.met} METs`, s, s.toFixed(2)])) : null },
+    { pitch: true, phase: "map", tag: "geo", title: T("Search nearby community", "ค้นหาชุมชนใกล้บ้าน"), body: T("Groups and places near the home district, open at a cool time of day.", "กลุ่มและสถานที่ใกล้บ้าน เปิดในช่วงเวลาที่อากาศไม่ร้อน"),
+      call: `search_community(near = home district, radius = 5 km, intensity <= limit) → IRIS SQL community table\nget_heat_index(district) → afternoon hot, prefer morning/evening`, extra: () => list(options.map(o => `${name(o.a)} → ${o.comm[0]} · ${o.comm[1]} · ${o.comm[2]}`)) },
+    { pitch: true, phase: "cohort", tag: "knn", title: T("What similar users kept doing", "ผู้ใช้ที่คล้ายกันทำอะไรต่อเนื่อง"), body: T("Share still active after 4 weeks, users with a similar profile (synthetic cohort, n = 52).", "สัดส่วนที่ยังทำต่อหลัง 4 สัปดาห์ (กลุ่มตัวอย่างสมมุติ n = 52)"),
+      call: `cohort_stats(similar_to = patient, outcome = "active_week_4")`, extra: () => bars(options.map(o => [name(o.a), (o.cohort ?? 30) / 100, `${o.cohort ?? 30}%`])) },
+    { pitch: true, tag: "you", title: T("Ask you, then save the plan", "ถามคุณ แล้วบันทึกแผน"), body: T("You choose; the plan is written as FHIR Tasks inside your limits.", "คุณเลือกเอง แผนถูกบันทึกเป็น FHIR Task ภายใต้ขีดจำกัด"),
+      call: `ask(options = 3) → create Tasks + Provenance (assembled from allowed set)`, ask: options, phase: "choose" }];
+}
+
+function list(items) { const ul = document.createElement("div"); ul.className = "bars"; items.forEach(t => { const d = document.createElement("div"); d.textContent = "• " + t; ul.append(d); }); return ul; }
+function funnel(n, k) { const d = document.createElement("div"); d.className = "funnel"; d.innerHTML = `<b>${n}</b> ${T("activities", "กิจกรรม")} → <b>${k}</b> ${T("allowed", "ทำได้")}`; return d; }
+function bars(rows) { const d = document.createElement("div"); d.className = "bars"; rows.forEach(([label, v, txt]) => {
+  const r = document.createElement("div"); r.className = "bar"; const l = document.createElement("span"); l.textContent = label;
+  const track = document.createElement("span"); const fill = document.createElement("i"); fill.style.width = `${Math.max(4, v * 100)}%`; track.append(fill);
+  const e = document.createElement("em"); e.textContent = txt; r.append(l, track, e); d.append(r); }); return d; }
+
+function render(steps) {
+  stepsEl.innerHTML = "";
+  steps.forEach(s => { if (view === "pitch" && !s.pitch) return;
+    const li = document.createElement("li"); li.className = "step"; s.el = li;
+    li.innerHTML = `<span class="dot" aria-hidden="true"></span><div><h3></h3><p></p></div>`;
+    const h = li.querySelector("h3"); h.textContent = s.title + " "; const tag = document.createElement("span"); tag.className = `tag t-${s.tag}`;
+    tag.textContent = { rules: "rules", llm: "small LLM", fhir: "FHIR", geo: "community map", knn: "KNN", you: "patient" }[s.tag]; h.append(tag);
+    li.querySelector("p").textContent = s.body;
+    if (view === "full") { const c = document.createElement("div"); c.className = "call"; c.textContent = s.call; li.querySelector("div").append(c); }
+    const ex = s.extra && s.extra(); if (ex) li.querySelector("div").append(ex);
+    stepsEl.append(li); });
+}
+
+let cur = { steps: [], shown: [], i: -1, playing: false, timer: null, finished: false }, navTok = 0;
+const BUB = ["filter", "knn", "choose"];
+const dur = st => st && (st.phase === "filter" || st.phase === "knn") ? 2600 : 2300;
+function run(text) {
+  clearRun(); say(text, "me");
+  const steps = plan(text); render(steps);
+  cur = { steps, shown: steps.filter(st => st.el), i: -1, playing: true, timer: null, finished: false };
+  stage("all", field.data || {});
+  ctl(); cur.timer = setTimeout(advance, reduce ? 0 : 300);
+}
+function show(i) {
+  const sh = cur.shown; if (!sh.length) return;
+  i = Math.max(0, Math.min(sh.length - 1, i));
+  cur.i = i; const tok = ++navTok;
+  timers.forEach(clearTimeout); timers = [];
+  sh.forEach((st, j) => { st.el.classList.remove("run", "done", "stopped");
+    if (j < i) st.el.classList.add(st.stop ? "stopped" : "done"); else if (j === i) st.el.classList.add("run"); });
+  $("#gifstep").innerHTML = `<span>STEP ${i + 1}/${sh.length}</span>${esc(sh[i].title)}`;
+  const st = sh[i], d = field.data || {};
+  if (!BUB.includes(st.phase)) { if (st.phase) stage(st.phase, d); }
+  else { // bubble steps: rebuild the field instantly up to the step before, then animate this one (works forward and backward)
+    const lb = $("#layer-b"); lb.classList.add("instant"); instant = true;
+    stage("all", d); sh.slice(0, i).filter(x => BUB.includes(x.phase)).forEach(x => setPhase(x.phase, d));
+    instant = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => { if (tok !== navTok) return; lb.classList.remove("instant"); stage(st.phase, d); }));
+  }
+  if (i === sh.length - 1 && !cur.finished) { cur.finished = true; timers.push(setTimeout(() => { st.el.classList.remove("run"); st.el.classList.add(st.stop ? "stopped" : "done"); finish(cur.steps); }, reduce ? 0 : dur(st))); }
+  ctl();
+}
+function advance() { if (cur.i >= cur.shown.length - 1) { cur.playing = false; return ctl(); }
+  show(cur.i + 1); if (cur.playing) cur.timer = setTimeout(advance, reduce ? 0 : dur(cur.shown[cur.i])); }
+function pause() { cur.playing = false; clearTimeout(cur.timer); ctl(); }
+function ctl() { const n = cur.shown.length; $("#stepnum").textContent = n ? `Step ${Math.max(1, cur.i + 1)} / ${n}` : "";
+  $("#prev").disabled = cur.i <= 0; $("#next").disabled = cur.i >= n - 1;
+  $("#play").textContent = cur.playing ? "Pause" : "Play"; $("#play").setAttribute("aria-label", cur.playing ? "Pause autoplay" : "Play from here"); }
+
+function finish(steps) {
+  $("#replay").hidden = false;
+  if (document.body.classList.contains("gif")) { // auto-play the patient's choices for the recording
+    later(() => { const c = chat.querySelector(".chip"); if (c) { $("#gifstep").innerHTML = `<span>PATIENT</span>${esc(T("Picks an option and how often", "เลือกกิจกรรมและความถี่"))}`; c.click(); } }, 1800);
+    later(() => { const c = chat.querySelector(".chip"); if (c) { c.click(); $("#gifstep").innerHTML = `<span>SAVED</span>${esc(T("A week of FHIR Tasks inside the limits", "แผนหนึ่งสัปดาห์เป็น FHIR Task ในขีดจำกัด"))}`; } }, 3000);
+  }
+  const last = steps[steps.length - 1];
+  if (last.stop) { say(T("Please stop now and rest. If the chest pain or breathlessness doesn’t pass, call 1669. Coaching is paused until your care team reviews.", "หยุดพักทันทีนะครับ ถ้าเจ็บหน้าอกหรือหายใจไม่ทันไม่ดีขึ้น โทร 1669 การโค้ชจะหยุดไว้จนทีมแพทย์ตรวจสอบ"), "ai", "stop"); return; }
+  const d = field.data, okIds = new Set(d.allowed.map(a => a.id)), out = d.liked.filter(a => !okIds.has(a.id));
+  say(out.length ? T(`${out.map(a => a.en.replace(/,.*$/, "")).join(" and ")} is too intense with your blood pressure for now. Here are three options close to what you enjoy, all inside your limits. Which one do you like most?`, `ตอนนี้${out.map(a => a.th).join(" และ ")}หนักเกินไปสำหรับความดัน นี่คือ 3 ตัวเลือกที่ใกล้กับสิ่งที่ชอบ และอยู่ในขีดจำกัด ชอบอันไหนที่สุดครับ?`)
+    : T("Here are three options close to what you enjoy, all inside your limits. Which one do you like most?", "นี่คือ 3 ตัวเลือกที่ใกล้กับสิ่งที่ชอบ และอยู่ในขีดจำกัด ชอบอันไหนที่สุดครับ?"));
+  chips(last.ask.map(o => [name(o.a), `${o.comm[0].replace(" (synthetic)", "")} · ${o.comm[1]}`]), pick => {
+    say(pick, "me");
+    say(T("Good choice. Which would you like to try this week?", "เยี่ยมครับ สัปดาห์นี้อยากลองแบบไหน?"));
+    chips([[T("Start gently: 2 sessions", "เริ่มเบาๆ 2 ครั้ง"), T("plus easy walks", "พร้อมเดินเบาๆ")], [T("Try 3 sessions", "ลอง 3 ครั้ง"), T("if it feels easy", "ถ้ารู้สึกสบาย")]], amount => {
+      say(amount, "me"); weekPlan(pick, /3/.test(amount) ? 3 : 2); });
+  });
+}
+
+function chips(items, onPick) {
+  const box = document.createElement("div"); box.className = "chips";
+  items.forEach(([label, sub]) => { const b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = label;
+    if (sub) { const s = document.createElement("small"); s.textContent = sub; b.append(s); }
+    b.addEventListener("click", () => { box.remove(); onPick(label); }); box.append(b); });
+  chat.append(box); chat.scrollTop = chat.scrollHeight;
+}
+
+function weekPlan(choice, n) {
+  const days = lang === "th" ? ["จ", "อ", "พ", "พฤ", "ศ", "ส", "อา"] : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const main = n === 3 ? [1, 3, 5] : [2, 5];
+  const rows = days.map((d, i) => main.includes(i) ? [d, `${choice} · ${T("30 min, you can still talk", "30 นาที ยังพูดคุยได้")}`]
+    : i === 6 ? [d, T("Rest, 5 min stretching", "พัก ยืดเหยียด 5 นาที")] : [d, T("Brisk walk 20 min, morning or evening", "เดินเร็ว 20 นาที ช่วงเช้าหรือเย็น")]);
+  const box = document.createElement("div"); box.className = "plan";
+  const head = document.createElement("div"); head.textContent = T(`This week · heart rate under ${LIMIT.hr} · no breath-holding`, `สัปดาห์นี้ · ชีพจรไม่เกิน ${LIMIT.hr} · ไม่กลั้นหายใจ`); box.append(head);
+  rows.forEach(([d, t]) => { const r = document.createElement("div"); const b = document.createElement("b"); b.textContent = d; const s = document.createElement("span"); s.textContent = t; r.append(b, s); box.append(r); });
+  chat.append(box);
+  stage("plan", { rows, choice });
+  say(T("Saved. You’ll get one reminder per session, with a symptom check before and after. Want to change anything?", "บันทึกแล้ว จะมีแจ้งเตือนทุกครั้ง พร้อมเช็กอาการก่อนและหลัง อยากปรับอะไรไหมครับ?"));
+}
+
+// ---------- wiring ----------
+const PRESETS = [
+  "I used to play tennis every weekend, but now I have hypertension and my doctor says I must lower the intensity. Maybe badminton or bowling? Can you recommend a plan?",
+  "เมื่อก่อนผมเล่นเทนนิสทุกเสาร์อาทิตย์ ตอนนี้เป็นความดันสูง หมอบอกให้ลดความหนัก อยากลองแบดมินตันหรือโบว์ลิ่ง ช่วยวางแผนให้หน่อยครับ",
+  "I usually played football, but now I have hypertension. My lifestyle goal is to play golf. Can you recommend a plan?",
+  "แน่นหน้าอกตอนเดิน"];
+PRESETS.forEach(p => { const b = document.createElement("button"); b.type = "button"; b.className = "preset"; b.textContent = p; b.addEventListener("click", () => { chat.innerHTML = ""; run(p); }); $("#presets").append(b); });
+$("#composer").addEventListener("submit", e => { e.preventDefault(); const v = $("#msg").value.trim(); if (!v) return; $("#msg").value = ""; chat.innerHTML = ""; run(v); });
+$("#replay").addEventListener("click", () => { const first = chat.querySelector(".msg.me"); if (first) { const t = first.textContent; chat.innerHTML = ""; run(t); } });
+function setView(v) { view = v; $("#v-pitch").setAttribute("aria-pressed", v === "pitch"); $("#v-full").setAttribute("aria-pressed", v === "full");
+  const first = chat.querySelector(".msg.me"); if (first) { const t = first.textContent; chat.innerHTML = ""; run(t); } }
+$("#prev").addEventListener("click", () => { pause(); show(cur.i - 1); });
+$("#next").addEventListener("click", () => { pause(); show(cur.i + 1); });
+$("#play").addEventListener("click", () => { if (cur.playing) return pause(); cur.playing = true; ctl(); cur.timer = setTimeout(advance, 150); });
+document.addEventListener("keydown", e => { if (/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  if (e.key === "ArrowRight") { pause(); show(cur.i + 1); } else if (e.key === "ArrowLeft") { pause(); show(cur.i - 1); }
+  else if (e.key === " ") { e.preventDefault(); $("#play").click(); } });
+$("#v-pitch").addEventListener("click", () => setView("pitch"));
+$("#v-full").addEventListener("click", () => setView("full"));
+if (location.hash === "#gif") document.body.classList.add("gif");
+say("Hi Somchai. Tell me a lifestyle goal and I’ll build a plan inside your doctor’s limits.\nสวัสดีครับ บอกเป้าหมายที่อยากทำได้เลย");
+run(PRESETS[0]);
+</script>
+
+</body>
+</html>

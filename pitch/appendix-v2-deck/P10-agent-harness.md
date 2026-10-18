@@ -1,0 +1,206 @@
+# P10 · Each open model does one narrow, typed job; rules own every safety decision.
+
+## Key message
+
+The agent harness gives each open model one narrow job with a typed input and output: Qwen3-ASR hears, a small Qwen3 model routes, MedGemma 27B picks one mission id from a list the rules allowed, MedGemma 1.5 4B drafts fields from a discharge note for a clinician to confirm, and a TTS model speaks. Red flags, limits, eligibility, the allowed set, the output filter and the safe default have no model in them. We chose this split because the model cards themselves say MedGemma is "not intended to directly inform clinical diagnosis, patient management decisions, treatment recommendations", and because our router test showed a small model writing tool calls missed every red flag.
+
+## Why this matters to the judges
+
+- **Technical coherence.** The judges' question "what runs where?" has a precise answer: a table of jobs, models, contracts and guards, with the limits of each model taken from its own model card.
+- **Use of InterSystems technology.** Every model reaches data only through typed MCP tools over IRIS for Health (FHIR REST, FHIR SQL Builder, Vector Search). The model never queries the database directly and no tool writes limits.
+- **Innovation.** "Generate less, decide more": the harness turns open-ended generation into closed choices (score a tool list, pick an id from an allowed set), which is faster and easier to verify.
+- **Real-world impact.** All models are open-weight, so the stack can run inside a hospital network (PDPA, data residency; see P20).
+
+## Full detail
+
+### 1. Design principle: models choose, rules decide
+
+The harness has two kinds of components. **Rules components** are deterministic code with unit and property tests: the red-flag screen, the medication rule, the eligibility gate, the limit-record gate, the mission engine that builds the allowed set, the validator, the output filter and the safe default. **Model components** handle language: speech to text, intent routing, choosing among allowed options, extracting fields from documents, Thai phrasing, speech output.
+
+A model component may only (a) classify into a closed list, (b) choose an id from a set the rules produced, or (c) draft text that a rule or a person then checks. It never sets a number that bounds exertion. This is spec rule 1 ("exercise limits come from the clinician, not from the AI") and rule 4 ("no new limit without a clinician") turned into an architecture: there is simply no write tool for limits.
+
+### 2. The models, one job each
+
+| Job | Model | Why this one (from its card or our test) | Limit we design around |
+|---|---|---|---|
+| Hear (speech → text) | Qwen3-ASR 1.7B | Thai is in the supported list; 52 languages and dialects (30 languages + 22 Chinese dialects); Apache-2.0 | Accuracy for older Thai speakers and colloquial speech not tested |
+| Route (which tool?) | Qwen3-1.7B or Qwen3-4B | Qwen3 lists 119 languages and dialects incl. Thai; MCP and tool calling supported; dense models Apache 2.0 | Writing the tool call was slow and missed 4 of 4 red flags in our v1 test, so we score a closed list instead (P13, P14) |
+| Choose the mission | MedGemma 27B (text) | Card reports MedQA 85.3 (MedGemma 1 27B) | Card: not for direct clinical decisions; "not been evaluated or optimized for multi-turn"; red-teaming "primarily English language prompts". So: one turn, English JSON, closed choice, validated |
+| Read discharge notes | MedGemma 1.5 4B (multimodal) | Card: MedQA 69.1; "at least 128K tokens" context | Extraction only; a clinician confirms every field before it counts |
+| Thai phrasing | Qwen3-8B or Typhoon 2 | Thai text generation | Not chosen; output is fact-checked against the chosen mission and limits |
+| Speak | Qwen3-TTS (English); Thai candidate Typhoon2-Audio 8B | Qwen3-TTS covers 10 languages, Thai not among them; Typhoon2-Audio repo shows Thai/English speech output | Thai voice not tested; safety audio (stop, 1669) is pre-recorded, never synthesised live |
+| Red flags, limits, eligibility, allowed set, output filter, safe default | **No model** | Must be deterministic and testable | Thai phrase list must be written and signed by a Thai-speaking clinician |
+
+### 3. Why MedGemma gets a closed choice and not a conversation
+
+MedGemma is the strongest medical model in the stack on the card's MedQA benchmark (85.3 for the 27B text model), but MedQA is a multiple-choice exam benchmark, not evidence of safe coaching. The card gives three limits we take literally:
+
+1. **Not for direct clinical decisions.** So MedGemma does not decide intensity, eligibility or whether a symptom is serious. It ranks among missions a rules engine already marked safe, with reason codes.
+2. **Not optimised for multi-turn.** So each call is one turn with all context in a structured request.
+3. **Red-teamed mainly in English.** So the request is in English, and Thai text is generated by a separate phrasing step whose output is checked against the chosen mission.
+
+The proposed contract (from A04; field names not implemented):
+
+```jsonc
+// request
+{"patient_context": "post-MI, low risk, beta-blocker, 4/7 walks done last week, afternoon heat high",
+ "allowed_set": ["walk-10-easy", "walk-12-easy", "rest-day"],
+ "reason_codes": ["keep-level", "easier-after-missed-days", "heat", "progress-duration"]}
+// response
+{"mission_id": "walk-10-easy", "reason_codes": ["keep-level", "heat"]}
+```
+
+If `mission_id` is not in `allowed_set`, the JSON is invalid, or the call times out, the validator discards it and the safe default (last approved mission or rest) runs. The worst case of a MedGemma failure is therefore "an easier or unchanged mission", not "a harder one".
+
+### 4. Why the router scores instead of writing tool calls
+
+In v1 (P13), the same Qwen3-1.7B model writing a native tool call was right 42% of the time at 1,272 ms median; scoring the option letters after rules was right 78% at 71 ms, and the rules caught all 4 red flags that plain tool calling missed. On a blind 270-message set (P14), the v2 cascade answered 95.3% correctly when it answered and decided 161 of 270 messages with rules alone. A tool call is mostly *decided*, not *written*, so the harness asks the model to pick, not to type.
+
+### 5. Typed contracts: the MCP tool surface
+
+Agents touch data only through these tools (proposed in A04, pattern from the hackathon kit's FastMCP over IRIS):
+
+| Tool | Kind | Returns | Guard |
+|---|---|---|---|
+| `get_patient_limits()` | read | HR ceiling, RPE range, allowed activities, review-by (signed `CarePlan`) | missing or expired → "no record" → no exercise |
+| `get_recent_activity(days)` | read | steps, HR summary, missions done | `days` capped |
+| `get_hr_summary(days)` | read | resting and in-mission HR | implausible readings dropped upstream |
+| `get_heat_index(district)` | read | current band | district only, never exact address |
+| `get_pm25(district)` | read | current band | district only |
+| `search_places(type, radius, open_at)` | read | ≤ 3 FHIR `Location`s | results only from FHIR, never generated |
+| `search_activities(intensity_max, near, text)` | read | ≤ 3 FHIR `HealthcareService`s | `intensity_max` set by rules, not by the model |
+| `propose_week_plan(mission_ids[])` | write | accepted / rejected | server re-validates every id against the allowed set |
+| `schedule_notification(mission_id, time)` | write | scheduled | time-window rules (no midday heat default) |
+| `log_checkin(text)` | write | logged | append-only; text passes the red-flag screen first |
+
+7 read tools, 3 write tools, 0 tools that write limits. The tool-scope audit in our evaluation plan treats any additional write tool as a finding.
+
+### 6. Workflows and where models appear
+
+| Workflow | Trigger | Model used | Rules used | FHIR written |
+|---|---|---|---|---|
+| W1 Onboarding | sign-up | MedGemma 1.5 4B drafts fields; clinician confirms | eligibility gate, limit-record gate | Patient, Condition, MedicationStatement, DocumentReference, Consent, draft CarePlan |
+| W2 Daily loop | patient-chosen time | MedGemma 27B picks id; Thai phrasing | allowed set from limits + 7-day data + heat/PM2.5 | Task, Provenance, QuestionnaireResponse |
+| W3 Check-in / coach | message or voice | Qwen3-ASR; router | red-flag screen first; medication → clinician queue | AuditEvent, Task updates |
+| W4 Weekly review | weekly | MedGemma drafts a summary and bounded proposal **for the clinician** | progression caps | Communication |
+| W5 Red flag | any match | **none** | stop, pre-recorded audio, 1669, pause | Flag, Communication |
+
+### 7. Worked example: Somchai asks by voice
+
+Somchai says in Thai that he used to play tennis and wants something gentler. Qwen3-ASR transcribes; the red-flag screen runs on the transcript (clear); the router decides "build activity plan"; `get_patient_limits()` returns the signed ceiling (synthetic: 5.9 METs, HR 110, RPE 11–13); the rules filter the catalogue to 67; the recommender (P09) ranks; three options go back in Thai. If he had said "แน่นหน้าอก" (chest tightness), the screen would stop the flow before the router, play the pre-recorded stop message and create a FHIR `Flag` + `Communication`. In the browser demo all of this is scripted; no model is called.
+
+### 8. Alternatives we rejected
+
+- **One large general model doing everything** (chat, routing, safety): one failure mode for all jobs, slower, and the safety path would go through an LLM (an S0 example in the panel rubric).
+- **A closed API model as the coach**: possible for prototyping, but patient data would leave the hospital network; open weights keep deployment options inside IRIS-adjacent infrastructure. Cost comparison is in P16.
+- **MedGemma as router**: larger and slower than needed for an 8-way classification; the card's multi-turn caveat also argues against using it for chat.
+
+## Visualizations
+
+### Chart 1 · Bar: language coverage of the speech and language models (model cards)
+
+- Type: horizontal bar, number of languages (or languages + dialects); a Thai yes/no marker on each bar. Title: "Thai is covered for listening and thinking, not yet for speaking".
+
+| Model | Languages listed | Thai listed? | Source |
+|---|---|---|---|
+| Qwen3 (LLM family) | 119 languages and dialects | yes | Qwen3 blog |
+| Qwen3-ASR | 52 languages and dialects (30 languages + 22 Chinese dialects) | yes | Qwen3-ASR repo |
+| Qwen3-TTS | 10 languages | **no** | Qwen3-TTS repo |
+| Typhoon2-Audio 8B | Thai and English | yes | Typhoon2-Audio repo |
+
+- What to notice: the speech-output gap is real and shown on purpose; safety audio is pre-recorded.
+
+### Chart 2 · Bar: MedQA on the model cards
+
+| Model | MedQA (card) | Context |
+|---|---|---|
+| MedGemma 1 27B (text) | 85.3 | — |
+| MedGemma 1.5 4B | 69.1 | ≥ 128K tokens |
+
+- Annotation: "Model-card scores, not our measurements. Exam benchmark, not coaching safety."
+
+### Chart 3 · Stacked bar: components in the harness graph, rules vs models
+
+Counted from the A04 flowchart.
+
+| Kind | Components | Count |
+|---|---|---|
+| Rules only | red-flag screen, mission engine (limit gate, eligibility, allowed set), validator, output filter, stop path, safe default, non-exertional fallback | 7 |
+| Model | ASR, router (after rules), MedGemma chooser, Thai phrasing, TTS | 5 |
+
+- What to notice: every arrow that can lead to exertion passes through at least two rules components (mission engine and validator) after the model.
+
+### Chart 4 · Bar: MCP tools by kind
+
+| Kind | Count | Tools |
+|---|---|---|
+| Read | 7 | limits, recent activity, HR summary, heat, PM2.5, places, activities |
+| Write | 3 | propose_week_plan, schedule_notification, log_checkin |
+| Write limits | 0 | — |
+
+### Diagram · Harness graph
+
+`Inbound (voice/text/tap) → [ASR] → RED-FLAG SCREEN (rules) → stop path | medication → clinician queue | clear → [Router: rules → Qwen3 one-pass scoring → agree or 2-option question] → MCP tools over FHIR/SQL/Vector → MISSION ENGINE (rules: limit gate, eligibility, allowed set) → [MedGemma 27B one turn JSON] → VALIDATOR (rules: id ∈ allowed set?) → OUTPUT FILTER (rules) → [Thai phrasing + fact check] → phone/watch + FHIR Task + Provenance + AuditEvent`. Model boxes in grey, rules boxes in teal.
+
+## Numbers and claims ledger
+
+| Claim | Value | Source | Status |
+|---|---|---|---|
+| MedGemma 1 27B MedQA | 85.3 | MedGemma model card (opened) | checked |
+| MedGemma 1.5 4B MedQA | 69.1 | same | checked |
+| MedGemma 1.5 context | at least 128K tokens | same | checked |
+| MedGemma not for direct clinical decisions; not evaluated/optimised for multi-turn; red-teaming primarily English | quotes | same | checked |
+| Qwen3 languages | 119 incl. Thai | Qwen3 blog (opened) | checked |
+| Qwen3 MCP / tool calling | supported | same | checked |
+| Qwen3 dense models licence | Apache 2.0 | same | checked |
+| Qwen3-ASR sizes and Thai | 0.6B, 1.7B; Thai listed; 52 languages and dialects; Apache-2.0 | Qwen3-ASR repo (opened) | checked |
+| Qwen3-TTS languages | 10, Thai not listed | Qwen3-TTS repo (opened) | checked |
+| Typhoon2-Audio | 8B, Thai and English speech in/out | Typhoon2-Audio repo (opened) | checked; weights licence to verify (repo says Apache-2.0) |
+| v1: 42% at 1,272 ms vs 78% at 71 ms (Qwen3-1.7B) | — | `experiments/tool_router_demo_results_Qwen3-1.7B_cuda.json` | synthetic |
+| v2: 161 of 270 decided by rules | 35 + 126 | `experiments/tool_router_v2_results_*_cuda.json` | synthetic |
+| 7 read / 3 write / 0 limit-write tools | — | `pitch/appendix/A04-agentic-harness.md` | proposed design, not built |
+| MedGemma latency, ASR accuracy in Thai elders, Thai TTS quality | — | — | to verify (not measured) |
+| Any model served live in the harness | — | — | not built; router ran only in Colab/Mac experiments |
+
+## Limits and open questions
+
+- **Nothing is served yet.** The harness is a design; only the router ran, offline, on synthetic data.
+- **MedGemma's role is unmeasured.** No test yet shows it chooses better than a simple rule (e.g. "repeat last week's level"). If it does not, it should be dropped.
+- **Thai speech.** ASR on older Thai speakers and Thai TTS are untested; the Thai phrasing model is not chosen.
+- **Prompt injection and MCP trust** need a threat model (panel R15).
+- **GPU cost and latency** of a 27B model per daily decision are estimated in P16, not measured.
+
+## Likely judge questions
+
+**Q: Why not just let MedGemma coach the patient?**
+Its own card says the outputs are not intended to directly inform patient management and that it was not optimised for multi-turn use. We use it where those limits do not bite: one English request, a closed list of missions the rules already allowed, and a validator that falls back to an easier mission on any error.
+
+**Q: What happens if a model goes down?**
+The safe default runs: last approved mission or rest, never an increase (spec rule 10, scenario SC-12). Red-flag handling has no model, so it keeps working.
+
+**Q: Can the AI change Somchai's limits?**
+No. There is no tool that writes limits. If his data suggests he could do more, the weekly review sends a proposal to the clinician queue.
+
+**Q: Why so many models?**
+Each is small for its job and replaceable. A router at 1.7B parameters answers in tens of milliseconds; we do not pay 27B costs to choose between "weather" and "places".
+
+## Sources
+
+Repo:
+- `pitch/appendix/A04-agentic-harness.md` (models, graph, contracts, W1–W5)
+- `pitch/appendix-deck/P08-agent-harness-models.md`
+- `docs/superpowers/specs/2026-10-17-cvd-mission-coach-design.md` §5–6
+- `docs/ui-vs-agentic-plan.md`
+- `.claude/skills/siriraj-mit-review-panel/references/system-eval.md` (tool-scope audit, SC-12)
+- `experiments/RESULTS_tool_router_demo.md`, `experiments/tool_router_*_results_*.json`
+
+External (opened):
+- MedGemma model card: https://developers.google.com/health-ai-developer-foundations/medgemma/model-card
+- Qwen3 blog: https://qwenlm.github.io/blog/qwen3/
+- Qwen3-ASR: https://github.com/QwenLM/Qwen3-ASR
+- Qwen3-TTS: https://github.com/QwenLM/Qwen3-TTS
+- Typhoon2-Audio: https://github.com/scb-10x/typhoon2-audio/
+
+## Image-generation prompt
+
+A 16:9 information slide on a white background. Key message as title: "Each open model does one narrow job; rules own every safety decision." Main visual: a table of six jobs (hear, route, choose, read notes, Thai phrasing, speak) with the model for each and one limit, plus a seventh highlighted row "Safety: no model, rules only". Beside it a small bar chart of language coverage: Qwen3 119 (Thai yes), Qwen3-ASR 52 (Thai yes), Qwen3-TTS 10 (Thai no), and two small figures "MedQA 85.3 (27B card)" and "69.1 (1.5 4B card)" labelled as model-card scores. Use only these numbers, no logos, no invented figures; ChatGPT chooses the design.

@@ -6,6 +6,10 @@ _Last updated: 2026-10-17 by Calvin (with Claude). Pitch script Draft 1 folded i
 
 See [research/README.md](research/README.md) (guidelines and Thai market, from NotebookLM) and [research/pitch-claims-check.md](research/pitch-claims-check.md). Machine-generated: verify before quoting.
 
+## Agentic AI workflow plan (added 2026-10-18)
+
+For AI-expert judges: [CVD Mission Coach — Agentic AI Workflow Plan](https://claude.ai/artifact/TeeFMYw4faY4HCZ6rM3yyM) (Claude Doc, private until Calvin shares it). Model stack: Qwen3-ASR (speech in), Qwen3-4B (router and tool calls), MedGemma 27B / 1.5 4B (reasoning, discharge-note reading), Qwen3-8B or Typhoon 2 (Thai phrasing), Qwen3-TTS (English only; Thai TTS still to choose). Backend diagram: [docs/diagrams/](docs/diagrams/).
+
 ## Where we are
 
 - The idea is defined at the problem level and a first design draft is written. An initial browser UI is now implemented on `feature/initial-ui` (17 October 2026).
@@ -36,6 +40,30 @@ Please read the design draft and answer **Section 8: Open questions** directly i
 | Missions delivered as phone push, mirrored to watch | Claude's call, change if you disagree | Avoids building a watch app |
 | Rules engine owns safety; LLM only owns conversation | Claude's call, change if you disagree | Red-flag path is hard-coded |
 | Positioned as adherence support, not diagnosis | Claude's call, change if you disagree | Thai FDA SaMD exposure |
+
+## InterSystems challenge angle (added 2026-10-17)
+
+Source: exploration of the [FHIR-AI-Hackathon-Kit](https://github.com/intersystems-community/FHIR-AI-Hackathon-Kit) and the [GrandHack 2026 challenge page](https://developer.intersystems.com/intersystems-challenge-mit-grandhack-2026/). The design doc does not use IRIS yet. Not verified against the Siriraj 2026 rules.
+
+**What the kit offers.** InterSystems IRIS for Health in Docker (FHIR server, SQL, Vector Search), plus tutorials for LangChain agents (5.1) and MCP servers (5.2). The kit's data is synthetic only (about 5 Synthea patients). It has no image or audio handling.
+
+**Judging, as relayed by Calvin.** InterSystems judges on how interesting and innovative the use of their technology is. A chatbot over PDFs with IRIS as a plain vector store is the weak version. The stronger version uses several IRIS models together.
+
+**Ways to fit the CVD Mission Coach to IRIS (proposals, not decisions):**
+- Store watch summaries and missions as FHIR `Observation` and `Task` or `CarePlan` resources. The agent writes them back (kit tutorials 3.3 and 3.4).
+- Keep the clinician safety limits in IRIS as FHIR data. The rules engine reads them from there.
+- Hybrid query: SQL filter on FHIR-projected tables (3.5) plus vector similarity, for example "post-MI patients with similar activity patterns".
+- Expose the coach's data access as an MCP server (5.2).
+- Name each IRIS feature on one architecture slide.
+
+**Open questions for the organizers** (email: sea.query@intersystems.com). The first three change the plan most:
+1. Is the provided data real or synthetic, and can we bring our own?
+2. Are LLM or embedding API credits provided, and may we use a model other than OpenAI?
+3. How deep must IRIS use be (vector only, or FHIR as well)?
+4. Is there a written rubric for "innovation"?
+5. Is there a mentor from InterSystems at the event, and when?
+
+**Caveats.** Any demo data is synthetic and must be labelled so in the pitch. The LLM never makes clinical decisions, which matches the decision table above.
 
 ## Next steps
 
