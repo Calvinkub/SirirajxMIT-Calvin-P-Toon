@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Impact Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700&family=Sarabun:wght@400;600&display=swap">
+<style>
+/* Layout: one 1280x720 stage, six scenes (Somchai after 12 weeks with ReVibe). Illustrative story, not trial results. Recorded to GIF. */
+:root{--bg:#FFFFFF;--ink:#0B2545;--body:#3B4A63;--line:#E3EAF5;--accent:#1D4ED8;--soft:#E3ECFF;--good:#1E8E5A;--amber:#E3A008;--red:#C9362B;
+  --display:'Prompt','Sarabun',Tahoma,sans-serif;--text:'Sarabun','Prompt',Tahoma,sans-serif;color-scheme:light}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg)}
+.stage{position:relative;width:1280px;height:720px;margin:0 auto;overflow:hidden;background:var(--bg);font-family:var(--text);color:var(--ink)}
+.tag{position:absolute;left:56px;top:40px;font-family:var(--display);font-size:20px;letter-spacing:.16em;color:var(--accent);font-weight:600}
+.dots{position:absolute;right:56px;top:44px;display:flex;gap:10px}.dots i{width:12px;height:12px;border-radius:50%;background:var(--line);transition:background .4s}.dots i.on{background:var(--ink)}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .6s ease}.scene.on{opacity:1}
+.when{position:absolute;left:56px;top:84px;font-family:var(--display);font-size:30px;font-weight:700;color:var(--ink)}
+.cap{position:absolute;left:0;right:0;bottom:44px;text-align:center;font-family:var(--display);font-size:38px;font-weight:600;padding:0 80px}
+.cap small{display:block;font-family:var(--text);font-size:23px;font-weight:400;color:var(--body);margin-top:6px}
+.abs{position:absolute}
+.on .pop{animation:pop .55s cubic-bezier(.3,1.5,.5,1) both}.on .rise{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+.on .grow{transform-origin:left;animation:grow 1.6s ease both}.on .draw{stroke-dasharray:600;stroke-dashoffset:600;animation:draw 2.2s ease forwards}
+.on .blink{animation:blink 1s steps(2) infinite}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes draw{to{stroke-dashoffset:0}}@keyframes blink{50%{opacity:.25}}
+.card{background:#fff;border:4px solid var(--ink);border-radius:20px;padding:22px 26px;box-shadow:8px 8px 0 var(--soft)}
+.card h3{margin:0 0 10px;font-family:var(--display);font-size:26px}
+.card p{margin:6px 0;font-size:24px;display:flex;gap:12px;align-items:center}
+.chip{display:inline-block;padding:4px 14px;border-radius:999px;font-family:var(--display);font-weight:600;font-size:22px;color:#fff}
+.chip.g{background:var(--good)}.chip.a{background:var(--amber)}.chip.r{background:var(--red)}.chip.b{background:var(--accent)}
+.av{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:38px;font-weight:700;color:#fff;border:4px solid var(--ink)}
+.big{position:absolute;left:0;right:0;top:130px;text-align:center;font-family:var(--display);font-weight:600}
+.big .l1{font-size:62px;line-height:1.15}.big .l2{font-size:62px;line-height:1.15;color:var(--accent)}.big .l3{font-size:28px;font-weight:500;color:var(--body);margin-top:30px;padding:0 120px}
+.note{position:absolute;left:0;right:0;bottom:18px;text-align:center;font-size:17px;color:#6B7A90}
+@media (prefers-reduced-motion: reduce){.on .pop,.on .rise,.on .grow,.on .draw,.on .blink{animation:none;stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage" role="img" aria-label="Story of the impact: Somchai gets a plan inside his limits, joins a group, logs a two-minute diary, a nurse catches rising weight early, and after 12 weeks he is moving with friends and has a care team watching">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="person" viewBox="0 0 100 110"><circle cx="50" cy="32" r="19" fill="#FFD9B8" stroke="#0B2545" stroke-width="4"/><path d="M12 106c0-34 76-34 76 0Z" fill="currentColor" stroke="#0B2545" stroke-width="4" stroke-linejoin="round"/><circle cx="43" cy="31" r="2.4" fill="#0B2545"/><circle cx="57" cy="31" r="2.4" fill="#0B2545"/><path d="M43 40q7 6 14 0" fill="none" stroke="#0B2545" stroke-width="3" stroke-linecap="round"/></symbol>
+    <symbol id="i-badminton" viewBox="0 0 64 64"><g transform="rotate(-38 24 24)"><ellipse cx="24" cy="22" rx="13" ry="17" fill="#E3ECFF" stroke="#0B2545" stroke-width="3"/><path d="M24 5v34M11 22h26M14 12l20 20M34 12 14 32" stroke="#0B2545" stroke-width="1.3" opacity=".55"/><path d="M24 39v22" stroke="#0B2545" stroke-width="5" stroke-linecap="round"/></g><path d="M47 22 40 33h16Z" fill="#fff" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round"/><circle cx="48" cy="19" r="4.5" fill="#FFD44F" stroke="#0B2545" stroke-width="2.6"/></symbol>
+    <symbol id="i-bowling" viewBox="0 0 64 64"><circle cx="24" cy="42" r="16" fill="#1D4ED8" stroke="#0B2545" stroke-width="3"/><circle cx="19" cy="36" r="2.4" fill="#0B2545"/><circle cx="26" cy="34" r="2.4" fill="#0B2545"/><circle cx="23" cy="42" r="2.4" fill="#0B2545"/><path d="M50 8c-5 0-5 8-3 12 2 3-4 8-4 18 0 7 3 12 7 12s7-5 7-12c0-10-6-15-4-18 2-4 2-12-3-12Z" fill="#fff" stroke="#0B2545" stroke-width="3" stroke-linejoin="round"/><path d="M46 22h8" stroke="#C9362B" stroke-width="3.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-pingpong" viewBox="0 0 64 64"><g transform="rotate(-25 28 28)"><circle cx="28" cy="26" r="18" fill="#D77C50" stroke="#0B2545" stroke-width="3"/><rect x="24" y="43" width="8" height="18" rx="3" fill="#F2D7B6" stroke="#0B2545" stroke-width="3"/></g><circle cx="52" cy="46" r="6" fill="#fff" stroke="#0B2545" stroke-width="3"/></symbol>
+    <symbol id="i-community" viewBox="0 0 64 64"><path d="M32 61C17 44 11 36 11 25a21 21 0 0 1 42 0c0 11-6 19-21 36Z" fill="#1D4ED8" stroke="#0B2545" stroke-width="3" stroke-linejoin="round"/><circle cx="26" cy="23" r="4.6" fill="#fff"/><circle cx="38" cy="23" r="4.6" fill="#fff"/><path d="M17 38c0-6 18-6 18 0M29 38c0-6 18-6 18 0" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" transform="translate(-1 -3)"/></symbol>
+    <symbol id="hair-grey" viewBox="0 0 100 110"><path d="M30 28c0-20 40-20 40 0-8-8-32-8-40 0Z" fill="#B8C2D0" stroke="#0B2545" stroke-width="3.5" stroke-linejoin="round"/></symbol>
+    <symbol id="hair-dark" viewBox="0 0 100 110"><path d="M30 30c-2-26 42-26 40 0-6-9-34-9-40 0Z" fill="#2A2A33" stroke="#0B2545" stroke-width="3.5" stroke-linejoin="round"/></symbol>
+    <symbol id="hair-long" viewBox="0 0 100 110"><path d="M28 36c-6-30 50-30 44 0v18c-4-6-6-14-6-22-10-6-26-6-32 0 0 8-2 16-6 22Z" fill="#4A2F25" stroke="#0B2545" stroke-width="3.5" stroke-linejoin="round"/></symbol>
+  </defs></svg>
+  <div class="tag">THE IMPACT</div>
+  <div class="dots" id="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <!-- 1. day 1: a plan that fits him -->
+  <section class="scene" data-ms="4800">
+    <div class="when">Day 1</div>
+    <div class="abs pop" style="left:110px;top:190px;width:130px;text-align:center;animation-delay:0s;color:#4C8DF0"><svg width="130" height="143" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-grey"/></svg><div style="font-family:var(--display);font-size:24px;font-weight:600;color:var(--ink)">Somchai</div></div><div class="abs card rise" style="left:280px;top:200px;width:400px"><h3>Somchai, 58</h3><p>“I loved tennis. Now my doctor says easy.”</p></div>
+    <div class="abs card rise" style="left:730px;top:170px;width:470px;animation-delay:.7s"><h3>ReVibe suggests</h3><p><svg width="44" height="44" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-badminton"/></svg> Social badminton · 1.9 km</p><p><svg width="44" height="44" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-bowling"/></svg> Bowling league · 3.2 km</p><p><svg width="44" height="44" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-pingpong"/></svg> Table tennis · 0.9 km</p><p style="color:var(--good);font-size:21px">✓ inside his doctor’s signed limit</p></div>
+    <div class="cap">A plan that fits him, not “one sheet for everyone”<small>Tennis out. Close, friendly options in.</small></div>
+  </section>
+
+  <!-- 2. week 2: friends -->
+  <section class="scene" data-ms="4800">
+    <div class="when">Week 2</div>
+    <div class="abs pop" style="left:190px;top:190px;width:130px;text-align:center;animation-delay:0.1s;color:#4C8DF0"><svg width="130" height="143" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-grey"/></svg><div style="font-family:var(--display);font-size:24px;font-weight:600;color:var(--ink)">Somchai</div></div><div class="abs pop" style="left:380px;top:200px;width:120px;text-align:center;animation-delay:0.6s;color:#5FD3E6"><svg width="120" height="132" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-dark"/></svg><div style="font-family:var(--display);font-size:24px;font-weight:600;color:var(--ink)">Nid</div></div><div class="abs pop" style="left:560px;top:190px;width:130px;text-align:center;animation-delay:1.1s;color:#A9B4FA"><svg width="130" height="143" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-long"/></svg><div style="font-family:var(--display);font-size:24px;font-weight:600;color:var(--ink)">Pong</div></div><div class="abs pop" style="left:740px;top:200px;width:120px;text-align:center;animation-delay:1.6s;color:#7FB2F7"><svg width="120" height="132" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-dark"/></svg><div style="font-family:var(--display);font-size:24px;font-weight:600;color:var(--ink)">Arm</div></div><div class="abs pop" style="left:910px;top:195px;width:125px;text-align:center;animation-delay:2.0s;color:#F2B84B"><svg width="125" height="138" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-long"/></svg><div style="font-family:var(--display);font-size:24px;font-weight:600;color:var(--ink)">Lek</div></div>
+    <div class="abs card rise" style="left:310px;top:410px;width:660px;animation-delay:2.4s"><h3 style="display:flex;gap:12px;align-items:center"><svg width="48" height="48" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-community"/></svg><svg width="48" height="48" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-badminton"/></svg> Tue · Thu 18:00 · badminton club</h3><p><span class="chip g">✓</span><span class="chip g">✓</span><span class="chip b">next</span> three sessions with people nearby</p></div>
+    <div class="cap">He is not exercising alone any more<small>A group near home. The reason to show up.</small></div>
+  </section>
+
+  <!-- 3. daily diary -->
+  <section class="scene" data-ms="4800">
+    <div class="when">Every morning · 2 minutes</div>
+    <div class="abs card rise" style="left:130px;top:190px;width:520px"><h3>Today’s diary</h3><p>Blood pressure <b style="margin-left:auto">128 / 80</b></p><p>Heart rate <b style="margin-left:auto">68</b></p><p>Weight <b style="margin-left:auto">78.0 kg</b></p><p>Coffee in the last 30 min? <span class="chip b" style="margin-left:auto">No</span></p></div>
+    <div class="abs rise" style="left:760px;top:230px;text-align:center;animation-delay:.9s"><div style="width:150px;height:150px;border-radius:50%;background:var(--good);margin:0 auto" class="pop"></div><div style="font-family:var(--display);font-size:34px;font-weight:700;color:var(--good);margin-top:18px">Green zone</div><div style="font-size:22px;color:var(--body)">Keep going. Nothing to do.</div></div>
+    <div class="cap">Three numbers and one question<small>The care team watches the trend, not one reading.</small></div>
+  </section>
+
+  <!-- 4. week 6: weight creeping up, caught early -->
+  <section class="scene" data-ms="6000">
+    <div class="when">Week 6</div>
+    <svg class="abs" style="left:110px;top:170px" width="520" height="330" viewBox="0 0 520 330" aria-hidden="true"><rect width="520" height="330" rx="20" fill="#fff" stroke="#0B2545" stroke-width="4"/><text x="28" y="48" font-family="Prompt" font-size="24" font-weight="600" fill="#0B2545">Weight, last 7 days</text><polyline class="draw" points="30,230 100,228 170,232 240,226 310,190 380,140 470,90" fill="none" stroke="#D77C50" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="470" cy="90" r="11" fill="#C9362B" class="pop" style="animation-delay:2.2s"/></svg>
+    <div class="abs rise" style="left:700px;top:180px;animation-delay:1.8s"><span class="chip a">Amber</span> <span style="font-size:26px;font-family:var(--display);font-weight:600">weight up 2 kg</span></div>
+    <div class="abs card rise" style="left:700px;top:260px;width:470px;animation-delay:2.8s"><h3>Nurse calls the same day</h3><p>“Any swelling or breathlessness? Let’s adjust today.”</p></div>
+    <div class="abs rise" style="left:700px;top:440px;font-size:26px;font-family:var(--display);font-weight:600;color:var(--good);animation-delay:4s">Seen at home, early. Not in the emergency room.</div>
+    <div class="cap" style="bottom:36px">Between visits, someone notices<small>Episodic care waits for the next appointment.</small></div>
+  </section>
+
+  <!-- 5. week 12: the better lifestyle -->
+  <section class="scene" data-ms="5400">
+    <div class="when">Week 12 · what we are designing for</div>
+    <div class="abs card rise" style="left:130px;top:180px;width:480px"><h3 style="display:flex;gap:10px;align-items:center"><svg width="40" height="40" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-badminton"/></svg><svg width="40" height="40" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-bowling"/></svg> Moving</h3><p>Badminton with friends, twice a week</p><p>A short walk on the other days</p></div>
+    <div class="abs card rise" style="left:670px;top:180px;width:480px;animation-delay:.5s"><h3>Safe</h3><p>Every activity inside his doctor’s limit</p><p>Warning symptoms reach a nurse</p></div>
+    <div class="abs card rise" style="left:130px;top:410px;width:480px;animation-delay:1s"><h3 style="display:flex;gap:10px;align-items:center"><svg width="40" height="40" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-community"/></svg> Connected</h3><p>A group that expects him on Thursday</p></div>
+    <div class="abs card rise" style="left:670px;top:410px;width:480px;animation-delay:1.5s"><h3>Watched over</h3><p>Doctor, nurse and coach see the same trend</p></div>
+    <div class="cap" style="bottom:46px">A healthier, happier routine that sticks<small>Illustrative story. Results are to be measured in a pilot.</small></div>
+  </section>
+
+  <!-- 6. close -->
+  <section class="scene" data-ms="5400">
+    <div class="big"><div class="l1">From one guideline for everyone</div><div class="l2">to a plan, a group and a nurse who notices.</div><div class="l3">Like Netflix for a healthy heart, inside your doctor’s limits.</div></div>
+    <div class="abs" style="left:0;right:0;top:440px;display:flex;justify-content:center;gap:26px"><div class="pop" style="animation-delay:0.0s;color:#4C8DF0"><svg width="86" height="95" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-grey"/></svg></div><div class="pop" style="animation-delay:0.3s;color:#5FD3E6"><svg width="86" height="95" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-dark"/></svg></div><div class="pop" style="animation-delay:0.6s;color:#A9B4FA"><svg width="86" height="95" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-long"/></svg></div><div class="pop" style="animation-delay:0.8999999999999999s;color:#7FB2F7"><svg width="86" height="95" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-dark"/></svg></div><div class="pop" style="animation-delay:1.2s;color:#F2B84B"><svg width="86" height="95" viewBox="0 0 100 110" aria-hidden="true"><use href="#person"/><use href="#hair-long"/></svg></div></div>
+    <div class="abs" style="left:0;right:0;top:600px;display:flex;justify-content:center;gap:34px"><svg width="56" height="56" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-badminton"/></svg><svg width="56" height="56" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-bowling"/></svg><svg width="56" height="56" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-pingpong"/></svg><svg width="56" height="56" viewBox="0 0 64 64" aria-hidden="true" style="flex:none"><use href="#i-community"/></svg></div>
+    <div class="note">ReVibe · illustrative story with a synthetic patient · not medical advice</div>
+  </section>
+</div>
+<script>
+const scenes = [...document.querySelectorAll(".scene")], dots = [...document.querySelectorAll("#dots i")];
+function show(k) {
+  scenes.forEach((s, j) => s.classList.toggle("on", j === k));
+  dots.forEach((d, j) => d.classList.toggle("on", j <= k));
+  setTimeout(() => show((k + 1) % scenes.length), +scenes[k].dataset.ms);
+}
+show(0);
+</script>
+</body>
+</html>
